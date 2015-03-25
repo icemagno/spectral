@@ -1,6 +1,6 @@
-sagitarii
+Spectral
 =========
-Processador de Workflows Sagitarii
+Spectral Simulation Workflow Portal
 
 
 
