@@ -5,10 +5,9 @@
 
 <html>
 	<head>
-		<title>Sagitarii</title>
+		<title>Spectral Simulation Workflow Portal</title>
 		<link rel="stylesheet" href="css/style.css?id=400" type="text/css"/>
 		<link rel="stylesheet" href="css/jquery.dataTables.css?id=400" type="text/css"/>
-		<link rel="stylesheet" href="css/codemirror.css" type="text/css" />
 		<link rel="stylesheet" href="css/tipTip.css" type="text/css"/>	
 
 
@@ -16,12 +15,7 @@
 		<script src="js/jquery.tipTip.minified.js"></script>	
 		<script src="js/script.js"></script>
 		<script src="js/jquery.dataTables.js"></script>
-		<script src="js/cytoscape.min.js"></script>
 		<script src="js/nodes.js"></script>
-		
-		<script type="text/javascript" src="js/codemirror.js"></script>
-		<script type="text/javascript" src="js/xml.js"></script>
-		<script type="text/javascript" src="js/sql.js"></script>
 		
 	</head>
 	
