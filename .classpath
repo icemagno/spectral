@@ -18,4 +18,7 @@
   <classpathentry kind="var" path="M2_REPO/commons-fileupload/commons-fileupload/1.2.2/commons-fileupload-1.2.2.jar"/>
   <classpathentry kind="var" path="M2_REPO/commons-io/commons-io/2.0.1/commons-io-2.0.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/apache/struts/struts2-convention-plugin/2.3.4/struts2-convention-plugin-2.3.4.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/scilab/forge/jlatexmath/1.0.2/jlatexmath-1.0.2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/scijava/jep/2.4.2/jep-2.4.2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/gov/nist/math/jama/1.0.3/jama-1.0.3.jar"/>
 </classpath>
