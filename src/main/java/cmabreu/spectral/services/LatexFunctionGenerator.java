@@ -1,4 +1,4 @@
-package oldies;
+package cmabreu.spectral.services;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -12,7 +12,7 @@ import org.scilab.forge.jlatexmath.TeXFormula;
 import org.scilab.forge.jlatexmath.TeXIcon;
 
 
-public class SubmitCommand  {
+public class LatexFunctionGenerator  {
 
 	public String execute(HttpServletRequest request, String function) {
 		long timestampTag = System.currentTimeMillis();

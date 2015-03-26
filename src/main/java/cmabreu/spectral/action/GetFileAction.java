@@ -1,5 +1,5 @@
 
-package cmabreu.sagitarii.action;
+package cmabreu.spectral.action;
 
 import java.io.ByteArrayInputStream;
 

@@ -1,17 +1,17 @@
 
-package cmabreu.sagitarii.action;
+package cmabreu.spectral.action;
 
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import oldies.SubmitCommand;
-
 import org.apache.struts2.StrutsStatics;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
+
+import cmabreu.spectral.services.LatexFunctionGenerator;
 
 import com.opensymphony.xwork2.ActionContext;
 
@@ -28,7 +28,7 @@ public class GetPreviewAction extends BasicActionClass {
 		String resp = "";
 		
 		HttpServletRequest request = (HttpServletRequest)ActionContext.getContext().get(StrutsStatics.HTTP_REQUEST);
-		SubmitCommand sc = new SubmitCommand();
+		LatexFunctionGenerator sc = new LatexFunctionGenerator();
 		String imagePath =  sc.execute(request, function) ;
 		
 		if ( imagePath != null ) {

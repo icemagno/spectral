@@ -1,4 +1,4 @@
-package cmabreu.sagitarii.action;
+package cmabreu.spectral.action;
 
 import com.opensymphony.xwork2.ActionContext;
 
