@@ -11,11 +11,11 @@
 						<div class="userBoard" style="margin:0 auto;margin-top:50px;width: 400px;">
 							<div class="userBoardT1" style="text-align:center;width:95%">Workflow Submission</div>
 							<div class="userBoardT2" style="text-align:center;width:95%">
-								<form action="doLogin" method="post" name="formLogin" id="formLogin">
+								<form action="submitForm" method="post" name="formLogin" id="formLogin">
 									<table>
 										<tr>
 											<td style="width:60%">Adjacency (A)</td>
-											<td><input style="width:15px" type="checkbox" name="adjacency" /></td>
+											<td><input style="width:15px" type="checkbox" name="adjacency"  id="adjacency" /></td>
 										</tr>
 										<tr>
 											<td >Laplacian (L)</td>
@@ -70,7 +70,7 @@
 										</tr>
 	
 										<tr>
-											<td style="width:50%">&nbsp;</td><td><div style="margin-right: 7px;margin-top: 0px;" class="basicButton" onclick="doLogin()">Submit Job</div></td>
+											<td style="width:50%">&nbsp;</td><td><div style="margin-right: 7px;margin-top: 0px;" class="basicButton" onclick="doSubmit()">Submit Job</div></td>
 										</tr>
 									</table>
 									
@@ -94,7 +94,7 @@
 				
 <script>
 
-	function doLogin() {
+	function doSubmit() {
 		var password = $("#password").val();
 		var username = $("#username").val();
 		if ( (password == '') || ( username == '' ) ) {
@@ -119,16 +119,9 @@
 	
 	
 	$(document).ready(function() {
-		$("#username").focus();
+		$("#adjacency").focus();
 		
-		$("#password").keypress(function(event) {
-		    if (event.which == 13) {
-		        event.preventDefault();
-		        doLogin();
-		    }
-		});
-
-		
+	
 		$("#optiFunc").keyup(function(event) {
 			showFunctionImage();
 		});
@@ -137,22 +130,4 @@
 	
 </script>				
 				
-				<script>
-					showMessageBox( '${messageText}' );
-				</script>				
-
-				<div class="clear" />
-			</div>
-			
-		</div>
-
-		<div class="clear" />
-		<div id="bottomBar" style="height:35px">
-			<div class="footerDivCenter" style="font-style: italic;padding-bottom:10px">
-				"Powered by Sagitarii"
-			</div> 
-		</div>
-		
-	</body>
-	
-</html>
+<%@ include file="../../footer.jsp" %>
