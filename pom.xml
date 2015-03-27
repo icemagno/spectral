@@ -60,6 +60,12 @@
 			<version>2.4.2</version>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient-cache</artifactId>
+			<version>4.2.3</version>
+		</dependency>		
+
 	</dependencies>
 	
 	<repositories>
