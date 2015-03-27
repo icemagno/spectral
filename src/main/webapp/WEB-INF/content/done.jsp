@@ -11,16 +11,12 @@
 						<div class="userBoard" style="margin:0 auto;margin-top:50px;width: 400px;">
 							<div class="userBoardT1" style="text-align:center;width:95%">DONE !!</div>
 							<div class="userBoardT2" style="text-align:center;width:95%">
-								<form action="submitForm" method="post" name="formLogin" id="formLogin">
-									<table>
-										<tr>
-											<td style="width:60%">Temp screen</td>
-											<td>Don't worry! This will change soon.</td>
-										</tr>
-									</table>
-									
-									
-								</form>
+								<table>
+									<tr>
+										<td style="width:60%">Temp screen</td>
+										<td>Don't worry! This will change soon.</td>
+									</tr>
+								</table>
 							</div>
 						</div>
 					

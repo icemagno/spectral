@@ -24,7 +24,6 @@ public class GetPreviewAction extends BasicActionClass {
 	private String function;
 	
 	public String execute () {
-		
 		String resp = "";
 		
 		HttpServletRequest request = (HttpServletRequest)ActionContext.getContext().get(StrutsStatics.HTTP_REQUEST);

@@ -1,10 +1,6 @@
 var right_height;
 
 
-function doLogin() {
-	showMessageBox("Not implemented yet!");
-}
-
 // REDIMENSIONAMENTO DOS PAINÉIS DIREITO/ESQUERDO DO SITE
 function setPanelSize() {
 	var rightPanelSize = 265;

@@ -13,7 +13,9 @@ import org.apache.struts2.convention.annotation.Result;
 public class IndexRedirAction extends BasicActionClass {
 	
 	public String execute () {
+		
 		return "ok";
 	}
+
 
 }

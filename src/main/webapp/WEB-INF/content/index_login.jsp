@@ -11,7 +11,7 @@
 						<div class="userBoard" style="margin:0 auto;margin-top:50px;width: 400px;">
 							<div class="userBoardT1" style="text-align:center;width:95%">Workflow Submission</div>
 							<div class="userBoardT2" style="text-align:center;width:95%">
-								<form action="submitForm" method="post" name="formLogin" id="formLogin">
+								<form action="doSubmitFunction" method="post" name="formFunction" id="formFunction">
 									<table>
 										<tr>
 											<td style="width:60%">Adjacency (A)</td>
@@ -95,13 +95,8 @@
 <script>
 
 	function doSubmit() {
-		var password = $("#password").val();
-		var username = $("#username").val();
-		if ( (password == '') || ( username == '' ) ) {
-			showMessageBox('Please fill all required fields.');
-			return;
-		} 
-		$("#formLogin").submit();
+		$("#formFunction").submit();
+		return false;
 	}
 
 	

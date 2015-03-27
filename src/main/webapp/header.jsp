@@ -15,7 +15,7 @@
 		<script src="js/jquery.tipTip.minified.js"></script>	
 		<script src="js/script.js"></script>
 		<script src="js/jquery.dataTables.js"></script>
-		<script src="js/nodes.js"></script>
+		
 		
 	</head>
 	

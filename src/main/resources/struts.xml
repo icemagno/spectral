@@ -10,6 +10,7 @@
 	<package name="default" extends="struts-default, json-default">
 	
 	 	<interceptors>
+			<interceptor name="autorizador" class="cmabreu.spectral.interceptor.ClientAccessInterceptor" />
 			
 			<interceptor-stack name="seguranca">  
 				<interceptor-ref name="fileUpload">
@@ -19,6 +20,7 @@
 			        </param>				    
 				</interceptor-ref>			
 			
+				<interceptor-ref name="autorizador" />
 				<interceptor-ref name="defaultStack" />
 			</interceptor-stack>
 		</interceptors>

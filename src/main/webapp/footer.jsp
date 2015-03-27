@@ -19,7 +19,8 @@
 
 
 			<div class="footerDivCenter" >
-				Powered by <a target="_BLANK" href="http://eic.cefet-rj.br/sagitarii/">Sagitarii</a>.
+				Powered by <a target="_BLANK" href="http://eic.cefet-rj.br/sagitarii/">Sagitarii</a>.<br>
+				Brendan McKay's <a target="_BLANK" href="http://pallini.di.uniroma1.it/">Nauty</a>
 			</div> 
 		</div>
 		
