@@ -26,9 +26,11 @@ public class SubmitFormAction extends BasicActionClass {
 	
 	
 	public String execute () {
-		SagitariiInterface si = new SagitariiInterface();
 		
-		si.submit(adjacency, laplacian, slaplacian, optiFunc, caixa1, ordermin, ordermax, minDegree, maxDegree, triangleFree, allowDiscGraphs, biptOnly);
+		if( caixa1 != null ) {
+			SagitariiInterface si = new SagitariiInterface();
+			si.submit(adjacency, laplacian, slaplacian, optiFunc, caixa1, ordermin, ordermax, minDegree, maxDegree, triangleFree, allowDiscGraphs, biptOnly);
+		}
 		
 		return "ok";
 	}
