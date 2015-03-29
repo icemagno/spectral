@@ -12,10 +12,11 @@
 							<div class="userBoardT1" style="text-align:center;width:95%">DONE !!</div>
 							<div class="userBoardT2" style="text-align:center;width:95%">
 								<table>
-									<tr>
-										<td style="width:60%">Temp screen</td>
-										<td>Don't worry! This will change soon.</td>
-									</tr>
+									<c:forEach var="entry" items="${log}">
+										<tr>
+											<td>${entry}</td>
+										</tr>
+									</c:forEach>
 								</table>
 							</div>
 						</div>

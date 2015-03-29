@@ -16,12 +16,60 @@ import org.apache.http.message.BasicNameValuePair;
 
 
 public class SagitariiInterface {
-	String sagitariiHostURL = "http://localhost:8080/sagitarii/";
+	private String sagitariiHostURL;
+	private HttpClient client;
+	private String securityToken;
+	private List<String> operationLog;
+	
+	public SagitariiInterface( String sagitariiHostURL, String user, String password ) {
+		this.sagitariiHostURL = sagitariiHostURL;
+		client = new DefaultHttpClient();
+		// We must login first!
+		securityToken = getSecurityToken( user, password );
+		operationLog = new ArrayList<String>();
+	}
+	
+	private String getSecurityToken( String user, String password ) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("{");
+		sb.append( generateJsonPair("user", user) + "," ); 
+		sb.append( generateJsonPair("password", password) ); 
+		sb.append("}");
+		
+		Parameter param = new Parameter("externalForm", sb.toString() );
+		List<Parameter> params = new ArrayList<Parameter>();
+		params.add( param );
+		return doPostStrings( params, "apiGetToken");
+	}
 
 	
-	private String generateJsonPair(String paramName, String paramValue) {
-		return "\"" + paramName + "\":\"" + paramValue + "\""; 
+	private String createNewExperiment( String securityToken ) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("{");
+		sb.append( generateJsonPair("workflowTag", "SPECTRAL_PORTAL") + "," );
+		sb.append( generateJsonPair("securityToken", securityToken) ); 
+		sb.append("}");
+		
+		Parameter param = new Parameter("externalForm", sb.toString() );
+		List<Parameter> params = new ArrayList<Parameter>();
+		params.add( param );
+		return doPostStrings( params, "apiCreateExperiment");
 	}
+
+
+	private String startExperiment( String securityToken, String experimentSerial ) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("{");
+		sb.append( generateJsonPair("experimentSerial", experimentSerial) + "," );
+		sb.append( generateJsonPair("securityToken", securityToken) ); 
+		sb.append("}");
+		
+		Parameter param = new Parameter("externalForm", sb.toString() );
+		List<Parameter> params = new ArrayList<Parameter>();
+		params.add( param );
+		return doPostStrings( params, "apiStartExperiment");
+	}
+	
 	
 	public void submit( String adjacency, String laplacian,	 String slaplacian,	 String optiFunc, String caixa1, String ordermin,
 			String ordermax, String minDegree, String maxDegree, String triangleFree, String allowDiscGraphs, String biptOnly ) {
@@ -29,8 +77,13 @@ public class SagitariiInterface {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{");
 		
+		String experimentSerial = createNewExperiment( securityToken );
+		log("New experiment " + experimentSerial );
+		
+		
 		sb.append( generateJsonPair("tableName", "spectral_parameters") + "," ); // Must have
-		sb.append( generateJsonPair("experimentSerial", "08F65998-AE2C-491") + "," ); // Must have
+		sb.append( generateJsonPair("experimentSerial", experimentSerial ) + "," ); // Must have
+		sb.append( generateJsonPair("securityToken", securityToken) + "," ); // Must have
 		
 		sb.append( generateJsonPair("adjacency", adjacency) + "," );
 		sb.append( generateJsonPair("laplacian", laplacian) + "," );
@@ -49,34 +102,40 @@ public class SagitariiInterface {
 		Parameter param = new Parameter("externalForm", sb.toString() );
 		List<Parameter> params = new ArrayList<Parameter>();
 		params.add( param );
+
+		String insert = doPostStrings( params, "apiReceiveData");
+		log( "Response to Insert Data : " + insert );
 		
-		System.out.println( doPostStrings( params, "apiReceiveData") );
-		
+		String start = startExperiment( securityToken, experimentSerial );
+		log( "Response to Start Experiment call : " + start );
 		
 	}
 	
 	
+	/** =======================================================================================
+	 * 
+	 * 
+	 * 		AUXILIARY METHODS
+	 * 
+	 * 
+	 * ======================================================================================= 
+	 */
 	
+	public List<String> getLog() {
+		return operationLog;
+	}
 	
 	private String doPostStrings( List<Parameter> parameters, String action ) {
-		HttpClient client = new DefaultHttpClient();
 		String resposta = "SEM_RESPOSTA";
 		try {
-			
 			String url = sagitariiHostURL + action;
-			 
 			HttpPost post = new HttpPost(url);
-
 			List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
-			
 			for ( Parameter param : parameters ) {
 				urlParameters.add(new BasicNameValuePair( param.name, param.value ) );
 			}
-			
 			post.setEntity(new UrlEncodedFormEntity(urlParameters, "UTF-8"));
-			
 			HttpResponse response = client.execute(post);
-			
 			int stCode = response.getStatusLine().getStatusCode();
 			if ( stCode != 200) {
 				resposta = "ERRO_" + stCode;
@@ -87,16 +146,16 @@ public class SagitariiInterface {
 				Charset.forName("UTF-8").encode(resposta);
 				isr.close();
 			}
-			
 		} catch (Exception ex) {
-		    //ex.printStackTrace();
-		} finally {
-			client.getConnectionManager().shutdown();
-		}
-		
+		    ex.printStackTrace();
+		} 
 		return resposta;
 	}
 	
+
+	private void log( String log ) {
+		operationLog.add( log );
+	}
 	
 	private String convertStreamToString(java.io.InputStreamReader is) {
 	    java.util.Scanner s = new java.util.Scanner(is);
@@ -106,6 +165,9 @@ public class SagitariiInterface {
 	    return retorno;
 	}	
 
-	
+	private String generateJsonPair(String paramName, String paramValue) {
+		return "\"" + paramName + "\":\"" + paramValue + "\""; 
+	}
+
 	
 }
