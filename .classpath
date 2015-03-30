@@ -21,4 +21,9 @@
   <classpathentry kind="var" path="M2_REPO/org/scilab/forge/jlatexmath/1.0.2/jlatexmath-1.0.2.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/scijava/jep/2.4.2/jep-2.4.2.jar"/>
   <classpathentry kind="var" path="M2_REPO/gov/nist/math/jama/1.0.3/jama-1.0.3.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/httpcomponents/httpclient-cache/4.2.3/httpclient-cache-4.2.3.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/httpcomponents/httpclient/4.2.3/httpclient-4.2.3.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/httpcomponents/httpcore/4.2.2/httpcore-4.2.2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/commons-codec/commons-codec/1.6/commons-codec-1.6.jar"/>
 </classpath>

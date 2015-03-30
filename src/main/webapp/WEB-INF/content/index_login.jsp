@@ -99,7 +99,9 @@
 					
 					<div style="float:left">
 					
-						<div style="margin:0 auto; margin-top: 45px;" id="functionImage"></div>
+						<div style="margin-left:10px; margin-top: 45px;" >
+							<img id="functionImage" src="getPreview?function=Empty Function">
+						</div>
 						
 					</div>
 					
@@ -117,14 +119,7 @@
 	
 	function showFunctionImage() {
 		var theFunction = $("#optiFunc").val();
-		
-		$.ajax({
-			type: "GET",
-			url: "getPreview",
-			data: { "function": theFunction }
-		}).done(function( htmlData ) {
-			$("#functionImage").html( htmlData );
-		});
+		$("#functionImage").attr( "src", "getPreview?function=" + theFunction );
 	}
 	
 	
