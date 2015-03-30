@@ -32,59 +32,51 @@ public class SagitariiInterface {
 	private String getSecurityToken( String user, String password ) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{");
+		sb.append( generateJsonPair("SagitariiApiFunction", "apiGetToken") + "," ); 
 		sb.append( generateJsonPair("user", user) + "," ); 
 		sb.append( generateJsonPair("password", password) ); 
 		sb.append("}");
-		
-		Parameter param = new Parameter("externalForm", sb.toString() );
-		List<Parameter> params = new ArrayList<Parameter>();
-		params.add( param );
-		return doPostStrings( params, "apiGetToken");
+		return execute( sb.toString() );
 	}
 
 	
 	private String createNewExperiment( String securityToken ) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{");
+		sb.append( generateJsonPair("SagitariiApiFunction", "apiCreateExperiment") + "," ); 
 		sb.append( generateJsonPair("workflowTag", "SPECTRAL_PORTAL") + "," );
 		sb.append( generateJsonPair("securityToken", securityToken) ); 
 		sb.append("}");
-		
-		Parameter param = new Parameter("externalForm", sb.toString() );
-		List<Parameter> params = new ArrayList<Parameter>();
-		params.add( param );
-		return doPostStrings( params, "apiCreateExperiment");
+		return execute( sb.toString() );
 	}
 
 
 	private String startExperiment( String securityToken, String experimentSerial ) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{");
+		sb.append( generateJsonPair("SagitariiApiFunction", "apiStartExperiment") + "," ); 
 		sb.append( generateJsonPair("experimentSerial", experimentSerial) + "," );
 		sb.append( generateJsonPair("securityToken", securityToken) ); 
 		sb.append("}");
-		
-		Parameter param = new Parameter("externalForm", sb.toString() );
-		List<Parameter> params = new ArrayList<Parameter>();
-		params.add( param );
-		return doPostStrings( params, "apiStartExperiment");
+		return execute( sb.toString() );
 	}
 	
 	
 	public void submit( String adjacency, String laplacian,	 String slaplacian,	 String optiFunc, String caixa1, String ordermin,
 			String ordermax, String minDegree, String maxDegree, String triangleFree, String allowDiscGraphs, String biptOnly ) {
 
-		StringBuilder sb = new StringBuilder();
-		sb.append("{");
 		
 		String experimentSerial = createNewExperiment( securityToken );
 		log("New experiment " + experimentSerial );
 		
 		
+		StringBuilder sb = new StringBuilder();
+		sb.append("{");
+		sb.append( generateJsonPair("SagitariiApiFunction", "apiReceiveData") + "," ); // Must have 
 		sb.append( generateJsonPair("tableName", "spectral_parameters") + "," ); // Must have
 		sb.append( generateJsonPair("experimentSerial", experimentSerial ) + "," ); // Must have
 		sb.append( generateJsonPair("securityToken", securityToken) + "," ); // Must have
-		
+
 		sb.append( generateJsonPair("adjacency", adjacency) + "," );
 		sb.append( generateJsonPair("laplacian", laplacian) + "," );
 		sb.append( generateJsonPair("slaplacian", slaplacian) + "," );
@@ -99,11 +91,7 @@ public class SagitariiInterface {
 		sb.append( generateJsonPair("biptOnly", biptOnly) );
 		sb.append("}");
 
-		Parameter param = new Parameter("externalForm", sb.toString() );
-		List<Parameter> params = new ArrayList<Parameter>();
-		params.add( param );
-
-		String insert = doPostStrings( params, "apiReceiveData");
+		String insert = execute( sb.toString() );
 		log( "Response to Insert Data : " + insert );
 		
 		String start = startExperiment( securityToken, experimentSerial );
@@ -120,6 +108,13 @@ public class SagitariiInterface {
 	 * 
 	 * ======================================================================================= 
 	 */
+	
+	private String execute( String json ) {
+		Parameter param = new Parameter("externalForm", json );
+		List<Parameter> params = new ArrayList<Parameter>();
+		params.add( param );
+		return doPostStrings( params, "externalApi");
+	}
 	
 	public List<String> getLog() {
 		return operationLog;
