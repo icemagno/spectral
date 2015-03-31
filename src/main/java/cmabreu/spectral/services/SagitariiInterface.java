@@ -117,8 +117,8 @@ public class SagitariiInterface {
 		String start = startExperiment( securityToken, experimentSerial );
 		log( "Response to Start Experiment call : " + start );
 		
-		String test = createTable( securityToken );
-		log( "Response to Create Table : " + test );
+		//String test = createTable( securityToken );
+		//log( "Response to Create Table : " + test );
 		
 	}
 	

@@ -5,10 +5,14 @@
 				<div id="leftBoxAlter" style="width:100%; border-right:0px" > 
 
 
-					<div style="width:415px;float:left">
+					<div >
+					
+						<div style="text-align: center; margin-top: 5px;" >
+							<img id="functionImage" src="getPreview?function=Empty Function">
+						</div>
 
 				
-						<div class="userBoard" style="margin:0 auto;margin-top:50px;width: 400px;">
+						<div class="userBoard" style="margin:0 auto;margin-top:10px;width: 400px;">
 							<div class="userBoardT1" style="text-align:center;width:95%">Workflow Submission</div>
 							<div class="userBoardT2" style="text-align:center;width:95%">
 								<form action="doSubmitFunction" method="post" name="formFunction" id="formFunction">
@@ -96,15 +100,7 @@
 					
 					
 					</div>
-					
-					<div style="float:left">
-					
-						<div style="margin-left:10px; margin-top: 45px;" >
-							<img id="functionImage" src="getPreview?function=Empty Function">
-						</div>
-						
-					</div>
-					
+										
 					
 				</div>
 								
