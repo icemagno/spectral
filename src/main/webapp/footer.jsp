@@ -14,13 +14,13 @@
 			</div> 
 
 			<div class="footerDivRight" style="text-align:right;">
-				&nbsp;
+				
 			</div> 
 
 
-			<div class="footerDivCenter" >
-				Powered by <a target="_BLANK" href="http://eic.cefet-rj.br/sagitarii/">Sagitarii</a>.<br>
-				Brendan McKay's <a target="_BLANK" href="http://pallini.di.uniroma1.it/">Nauty</a>
+			<div class="footerDivCenter" style="padding-bottom:5px;" >
+				<div style="margin:0 auto"><img style="width:70px;" src="img/logos/powered_by.png"></div>
+				Powered by <a target="_BLANK" href="http://eic.cefet-rj.br/sagitarii/">Sagitarii</a><br>
 			</div> 
 		</div>
 		

@@ -20,6 +20,26 @@ public class SagitariiInterface {
 	private HttpClient client;
 	private String securityToken;
 	private List<String> operationLog;
+
+	
+	//=========================== API TEST =====================================
+	
+	private String createTable( String securityToken ) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("{");
+		sb.append( generateJsonPair("SagitariiApiFunction", "apiCreateTable") + "," ); 
+		sb.append( generateJsonPair("tableName", "test00010") + "," );
+		sb.append( generateJsonPair("tableDescription", "This is a test") + "," );
+		sb.append( generateJsonPair("my_field1", "STRING") + "," );
+		sb.append( generateJsonPair("my_field2", "FILE") + "," );
+		sb.append( generateJsonPair("my_field3", "INTEGER") + "," );
+		sb.append( generateJsonPair("securityToken", securityToken) ); 
+		sb.append("}");
+		return execute( sb.toString() );
+	}
+	
+	
+	//==========================================================================
 	
 	public SagitariiInterface( String sagitariiHostURL, String user, String password ) {
 		this.sagitariiHostURL = sagitariiHostURL;
@@ -96,6 +116,9 @@ public class SagitariiInterface {
 		
 		String start = startExperiment( securityToken, experimentSerial );
 		log( "Response to Start Experiment call : " + start );
+		
+		String test = createTable( securityToken );
+		log( "Response to Create Table : " + test );
 		
 	}
 	
