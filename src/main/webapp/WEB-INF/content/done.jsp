@@ -4,12 +4,8 @@
 
 				<div id="leftBoxAlter" style="width:100%; border-right:0px" > 
 
-
-					<div style="width:415px;float:left">
-
-				
 						<div class="userBoard" style="margin:0 auto;margin-top:50px;width: 400px;">
-							<div class="userBoardT1" style="text-align:center;width:95%">DONE !!</div>
+							<div class="userBoardT1" style="text-align:center;width:95%">Requisition Submited</div>
 							<div class="userBoardT2" style="text-align:center;width:95%">
 								<table>
 									<c:forEach var="entry" items="${log}">
@@ -20,11 +16,7 @@
 								</table>
 							</div>
 						</div>
-					
-					
-					</div>
-					
-					
+						
 				</div>
 								
 				

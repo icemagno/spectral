@@ -28,7 +28,7 @@ public class SagitariiInterface {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{");
 		sb.append( generateJsonPair("SagitariiApiFunction", "apiCreateTable") + "," ); 
-		sb.append( generateJsonPair("tableName", "test00010") + "," );
+		sb.append( generateJsonPair("tableName", "test0011") + "," );
 		sb.append( generateJsonPair("tableDescription", "This is a test") + "," );
 		sb.append( generateJsonPair("my_field1", "STRING") + "," );
 		sb.append( generateJsonPair("my_field2", "FILE") + "," );
