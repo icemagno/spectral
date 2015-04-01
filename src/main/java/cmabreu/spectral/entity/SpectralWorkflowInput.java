@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * Classe que contém todos os dados de especificação do workflow.
+ * Classe que contÃ©m todos os dados de especificaÃ§Ã£o do workflow.
  * 
  */
 public class SpectralWorkflowInput {
