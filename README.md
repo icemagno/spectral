@@ -2,9 +2,12 @@ Spectral
 =========
 Spectral Simulation Workflow Portal
 
-Javadoc:
+Documentation:
 =========
 http://icemagno.github.io/spectral/
 
+Site:
+=========
+http://icemagno.github.io/spectral/site/
 
 
