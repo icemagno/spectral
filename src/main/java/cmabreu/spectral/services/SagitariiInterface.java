@@ -14,7 +14,12 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
-
+/**
+ * Interface to Sagitarii API
+ * 
+ * @author Carlos Magno Oliveira de Abreu
+ *
+ */
 public class SagitariiInterface {
 	private String sagitariiHostURL;
 	private HttpClient client;
@@ -23,7 +28,7 @@ public class SagitariiInterface {
 
 	
 	//=========================== API TEST =====================================
-	
+	/*
 	private String createTable( String securityToken ) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{");
@@ -37,14 +42,12 @@ public class SagitariiInterface {
 		sb.append("}");
 		return execute( sb.toString() );
 	}
-	
-	
+	*/
 	//==========================================================================
 	
 	public SagitariiInterface( String sagitariiHostURL, String user, String password ) {
 		this.sagitariiHostURL = sagitariiHostURL;
 		client = new DefaultHttpClient();
-		// We must login first!
 		securityToken = getSecurityToken( user, password );
 		operationLog = new ArrayList<String>();
 	}
@@ -117,8 +120,9 @@ public class SagitariiInterface {
 		String start = startExperiment( securityToken, experimentSerial );
 		log( "Response to Start Experiment call : " + start );
 		
-		//String test = createTable( securityToken );
-		//log( "Response to Create Table : " + test );
+
+		
+		generateParameter(adjacency, laplacian, slaplacian, optiFunc, caixa1, ordermin, ordermax, minDegree, maxDegree, triangleFree, allowDiscGraphs, biptOnly);
 		
 	}
 	
@@ -185,6 +189,40 @@ public class SagitariiInterface {
 
 	private String generateJsonPair(String paramName, String paramValue) {
 		return "\"" + paramName + "\":\"" + paramValue + "\""; 
+	}
+
+	public void generateParameter(String adjacency, String laplacian, String slaplacian, String optiFunc, String caixa1, String ordermin,
+			String ordermax, String minDegree, String maxDegree, String triangleFree, String allowDiscGraphs, String biptOnly) {
+
+			String SEPARATOR_SYMBOL = ";";
+		
+			int minimumOrder = Integer.valueOf(ordermin);
+			int maximumOrder = Integer.valueOf(ordermax);
+			
+			for (int order = minimumOrder; order < maximumOrder; order++) {
+
+				String graphOptions = "";
+				if ( biptOnly.equals("on") ) {
+					graphOptions += "-b ";
+				}
+				if ( triangleFree.equals("on") ) {
+					graphOptions += "-t ";
+				}
+				if ( !allowDiscGraphs.equals("on") ) {
+					graphOptions += "-c ";
+				}
+
+				String degreeOptions = "";
+				degreeOptions += " -d" + minDegree;
+				degreeOptions += " -D" + maxDegree;
+
+				String optimizationType = ( caixa1.equals("max") ? "maximization" : "minimization");				
+				
+				System.out.println( order + SEPARATOR_SYMBOL + optiFunc + SEPARATOR_SYMBOL
+						+ optimizationType + SEPARATOR_SYMBOL + graphOptions
+						+ SEPARATOR_SYMBOL + degreeOptions);
+			}
+
 	}
 
 	
