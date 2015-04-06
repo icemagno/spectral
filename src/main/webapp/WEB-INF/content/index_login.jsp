@@ -7,8 +7,8 @@
 
 					<div >
 					
-						<div style="text-align: center; margin-top: 5px;" >
-							<img id="functionImage" src="getPreview?function=Empty Function">
+						<div style="text-align: center; margin-top: 5px;;height:54px" >
+							<img id="functionImage" style="margin: 0 auto;display:none" src="">
 						</div>
 
 				
@@ -115,7 +115,12 @@
 	
 	function showFunctionImage() {
 		var theFunction = $("#optiFunc").val();
-		$("#functionImage").attr( "src", "getPreview?function=" + theFunction );
+		if ( theFunction.length > 0 ) {
+			$("#functionImage").attr( "src", "getPreview?function=" + theFunction );
+			$("#functionImage").css("display","block");
+		} else {
+			$("#functionImage").css("display","none");
+		}
 	}
 	
 	
