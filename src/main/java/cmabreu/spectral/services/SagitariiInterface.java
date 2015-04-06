@@ -120,10 +120,6 @@ public class SagitariiInterface {
 		String start = startExperiment( securityToken, experimentSerial );
 		log( "Response to Start Experiment call : " + start );
 		
-
-		
-		generateParameter(adjacency, laplacian, slaplacian, optiFunc, caixa1, ordermin, ordermax, minDegree, maxDegree, triangleFree, allowDiscGraphs, biptOnly);
-		
 	}
 	
 	
@@ -189,40 +185,6 @@ public class SagitariiInterface {
 
 	private String generateJsonPair(String paramName, String paramValue) {
 		return "\"" + paramName + "\":\"" + paramValue + "\""; 
-	}
-
-	public void generateParameter(String adjacency, String laplacian, String slaplacian, String optiFunc, String caixa1, String ordermin,
-			String ordermax, String minDegree, String maxDegree, String triangleFree, String allowDiscGraphs, String biptOnly) {
-
-			String SEPARATOR_SYMBOL = ";";
-		
-			int minimumOrder = Integer.valueOf(ordermin);
-			int maximumOrder = Integer.valueOf(ordermax);
-			
-			for (int order = minimumOrder; order < maximumOrder; order++) {
-
-				String graphOptions = "";
-				if ( biptOnly.equals("on") ) {
-					graphOptions += "-b ";
-				}
-				if ( triangleFree.equals("on") ) {
-					graphOptions += "-t ";
-				}
-				if ( !allowDiscGraphs.equals("on") ) {
-					graphOptions += "-c ";
-				}
-
-				String degreeOptions = "";
-				degreeOptions += " -d" + minDegree;
-				degreeOptions += " -D" + maxDegree;
-
-				String optimizationType = ( caixa1.equals("max") ? "maximization" : "minimization");				
-				
-				System.out.println( order + SEPARATOR_SYMBOL + optiFunc + SEPARATOR_SYMBOL
-						+ optimizationType + SEPARATOR_SYMBOL + graphOptions
-						+ SEPARATOR_SYMBOL + degreeOptions);
-			}
-
 	}
 
 	
