@@ -11,16 +11,25 @@ public class Main {
 	private static String inputFile;		// args[0]
 	private static String workFolder;		// args[1]
 
-	public static void main(String[] args) {
-		inputFile = args[0];			
-		workFolder = args[1];		 
+	
+	/**
+	 * Process the lines
+	 * @param columns : Array of string
+	 * 
+	 * Each index of this array will match the index of columns array
+	 * 
+	 */
+	public static void processLine( String[] lineData ) {
+
 		
 		String libraryDirectory = readLibraryDirectory();
-		
 		if( !libraryDirectory.equals("")  ) {
 			
-			String geng = libraryDirectory + "/geng -g -q 4 saida.g6";
-			String showg = libraryDirectory + "/showg -q -A saida.g6 saida.txt";
+			String gengOutput = workFolder + "/saida.g6";
+			String showgOutput = workFolder + "/saida.txt";
+			
+			String geng = libraryDirectory + "/geng -g -q 4 " + gengOutput;
+			String showg = libraryDirectory + "/showg -q -A " + gengOutput + " " + showgOutput;
 			
 			System.out.println("Running geng...");
 			run(geng);
@@ -32,7 +41,31 @@ public class Main {
 		} else {
 			System.out.println("Cannot find config file spectral.config");
 		}
-        
+		
+		
+		
+	}	
+	
+	
+	
+	public static void main(String[] args) throws Exception{
+		workFolder = args[0];		 
+
+		List<String> inputData = readFile( workFolder + "/sagi_input.txt" );
+		if( inputData.size() > 0 ) {
+
+			if( inputData.size() > 1 ) {
+				for( int x=1; x<inputData.size(); x++ ) {
+					String[] lineData = inputData.get(x).split(",");
+					processLine( lineData );
+				}
+			}
+			
+			
+		} else {
+			System.out.println("Empty input data file.");
+		}
+		
 	}
 
 	
@@ -100,6 +133,26 @@ public class Main {
 
 	}
 
+	
+	/**
+	 * This is a method to read the CSV data 
+	 * @param file
+	 * @return StringBuilder : The file data as a list of lines.
+	 * @throws Exception
+	 */
+	public static List<String> readFile(String file) throws Exception {
+		String line = "";
+		ArrayList<String> list = new ArrayList<String>();
+		BufferedReader br = new BufferedReader( new FileReader( file ) );
+		while ( (line = br.readLine() ) != null ) {
+		    list.add( line );
+		}
+		if (br != null) {
+			br.close();
+		}		
+		return list;
+	}
+	
 	
 	
 }
