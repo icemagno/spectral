@@ -90,7 +90,7 @@
 					<source>${jdk.version}</source>
 					<target>${jdk.version}</target>
 				</configuration>
-			</plugin>
+			</plugin> 
 			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
