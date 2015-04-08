@@ -8,10 +8,8 @@ import java.util.List;
 
 
 public class Main {
-	private static String inputFile;		// args[0]
-	private static String workFolder;		// args[1]
+	private static String workFolder; // args[0]
 
-	
 	/**
 	 * Process the lines
 	 * @param columns : Array of string
@@ -20,7 +18,23 @@ public class Main {
 	 * 
 	 */
 	public static void processLine( String[] lineData ) {
-
+		// maxdegree,biptonly,optifunc,mindegree,trianglefree,laplacian,allowdiscgraphs,ordermin,caixa1,slaplacian,adjacency,ordermax
+		// 0         1        2        3         4            5         6               7        8      9          10        11       
+		
+		String maxDegree = lineData[0];
+		String biptOnly = lineData[1];
+		String optiFunc = lineData[2];
+		String minDegree = lineData[3];
+		String triangleFree = lineData[4];
+		String laplacian = lineData[5];
+		String allowDiscGraphs = lineData[6];
+		String ordermin = lineData[7];
+		String caixa1 = lineData[8];
+		String slaplacian = lineData[9];
+		String adjacency = lineData[10];
+		String ordermax = lineData[11];
+		
+		generateParameter(adjacency, laplacian, slaplacian, optiFunc, caixa1, ordermin, ordermax, minDegree, maxDegree, triangleFree, allowDiscGraphs, biptOnly);
 		
 		String libraryDirectory = readLibraryDirectory();
 		if( !libraryDirectory.equals("")  ) {
@@ -31,12 +45,8 @@ public class Main {
 			String geng = libraryDirectory + "/geng -g -q 4 " + gengOutput;
 			String showg = libraryDirectory + "/showg -q -A " + gengOutput + " " + showgOutput;
 			
-			System.out.println("Running geng...");
 			run(geng);
-			System.out.println("Running showg...");
 			run(showg);
-			System.out.println("end.");
-			
 			
 		} else {
 			System.out.println("Cannot find config file spectral.config");
@@ -52,13 +62,11 @@ public class Main {
 		workFolder = args[0];		 
 
 		List<String> inputData = readFile( workFolder + "/sagi_input.txt" );
-		if( inputData.size() > 0 ) {
+		if( inputData.size() > 1 ) {
 
-			if( inputData.size() > 1 ) {
-				for( int x=1; x<inputData.size(); x++ ) {
-					String[] lineData = inputData.get(x).split(",");
-					processLine( lineData );
-				}
+			for( int x=1; x<inputData.size(); x++ ) {
+				String[] lineData = inputData.get(x).split(",");
+				processLine( lineData );
 			}
 			
 			
@@ -99,7 +107,7 @@ public class Main {
     }
 	
 	
-	public void generateParameter(String adjacency, String laplacian, String slaplacian, String optiFunc, String caixa1, String ordermin,
+	public static void generateParameter(String adjacency, String laplacian, String slaplacian, String optiFunc, String caixa1, String ordermin,
 			String ordermax, String minDegree, String maxDegree, String triangleFree, String allowDiscGraphs, String biptOnly) {
 
 			String SEPARATOR_SYMBOL = ";";
