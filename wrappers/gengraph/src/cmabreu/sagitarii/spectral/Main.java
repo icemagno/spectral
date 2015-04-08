@@ -48,6 +48,8 @@ public class Main {
 			run(geng);
 			run(showg);
 			
+			// awk '/^Graph/{close("graph_"f);f++}{print $0 > "graph_"f}' x.converted
+			
 		} else {
 			System.out.println("Cannot find config file spectral.config");
 		}
@@ -94,7 +96,7 @@ public class Main {
         try {
         	process = Runtime.getRuntime().exec( application );
 
-        	BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream() ) );
+        	BufferedReader reader = new BufferedReader( new InputStreamReader(process.getInputStream() ) );
             String line="";
             while ((line = reader.readLine()) != null) {
             	System.out.println( line );
