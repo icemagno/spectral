@@ -1,16 +1,20 @@
 package cmabreu.sagitarii.spectral;
 
 import java.io.BufferedReader;
-import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class Main {
 	private static String workFolder; // args[0]
-
+	private static List<String> outputData = new ArrayList<String>();
+	
+	
 	/**
 	 * Process the lines
 	 * @param columns : Array of string
@@ -18,9 +22,11 @@ public class Main {
 	 * Each index of this array will match the index of columns array
 	 * 
 	 */
-	public static void processLine( String[] lineData ) {
-		// maxdegree,biptonly,optifunc,mindegree,trianglefree,laplacian,allowdiscgraphs,ordermin,caixa1,slaplacian,adjacency,ordermax
-		// 0         1        2        3         4            5         6               7        8      9          10        11       
+	public static void processLine( String line ) throws Exception {
+		String[] lineData = line.split(","); 
+		
+		// maxdegree,biptonly,optifunc,mindegree,trianglefree,laplacian,allowdiscgraphs,order,caixa1,slaplacian,adjacency
+		// 0         1        2        3         4            5         6               7     8      9          10           
 		
 		String optiFunc = lineData[2];
 		String laplacian = lineData[5];
@@ -34,8 +40,7 @@ public class Main {
 		String minDegree = lineData[3];
 		String triangleFree = lineData[4];
 		String allowDiscGraphs = lineData[6];
-		String ordermin = lineData[7];
-		String ordermax = lineData[11];
+		String order = lineData[7];
 		
 		String libraryDirectory = readLibraryDirectory();
 		if( !libraryDirectory.equals("")  ) {
@@ -52,24 +57,14 @@ public class Main {
 				gengOptions += "-c ";
 			}			
 			
+			String gengOutput = workFolder + "/outbox/saida_" + order +  ".g6";
 
-			String order = "10"; // Order deverá vir do Sagitarii ( uma tupla para cada valor entre minorder e maxorder )
-		
-			String gengOutput = workFolder + "/saida_" + order +  ".g6";
-			String showgOutput = workFolder + "/saida_" + order +  ".txt";
-
-			System.out.println( gengOutput );
-			
-			
 			String geng = libraryDirectory + "/geng " + degreeOptions + " -g -q " + order + " " + gengOptions + " " + gengOutput;
 			run(geng);
 
-			String showg = libraryDirectory + "/showg -a " + gengOutput + " " + showgOutput;
-			run(showg);
-
-			String awk = "awk '/^Graph/{close(\"graph_\"f);f++}{print $0 > \"graph_\"f}' " + showgOutput;
-			runSystem( awk, workFolder );
-
+			// Send back original data plus file name
+			outputData.add( line + ",saida_" + order +  ".g6" );
+			saveOutput();
 			
 		} else {
 			System.out.println("Cannot find config file spectral.config");
@@ -79,6 +74,31 @@ public class Main {
 		
 	}	
 	
+	public static void saveOutput() throws FileNotFoundException {
+	    PrintWriter pw = new PrintWriter( new FileOutputStream( workFolder + "/sagi_output.txt"  ) );
+	    for ( String line : outputData ) {
+	        pw.println( line );
+	    }
+	    pw.close();
+	}
+	
+	
+	public static void run( String application ) {
+		Process process = null;
+        try {
+        	process = Runtime.getRuntime().exec( application );
+
+        	BufferedReader reader = new BufferedReader( new InputStreamReader(process.getInputStream() ) );
+            String line="";
+            while ((line = reader.readLine()) != null) {
+            	System.out.println( line );
+            }
+            process.waitFor();
+            
+        } catch ( Exception e ) {
+        	e.printStackTrace();
+        }
+    }
 	
 	
 	public static void main(String[] args) throws Exception{
@@ -86,11 +106,10 @@ public class Main {
 
 		List<String> inputData = readFile( workFolder + "/sagi_input.txt" );
 		if( inputData.size() > 1 ) {
-
-			for( int x=1; x<inputData.size(); x++ ) {
-				String[] lineData = inputData.get(x).split(",");
-				processLine( lineData );
-			}
+			
+			String line = inputData.get(1);  // This is a MAP activity. Just one line.
+			outputData.add( inputData.get(0) + ",g6file" );
+			processLine( line );
 			
 			
 		} else {
@@ -109,52 +128,6 @@ public class Main {
 		}
 		return line;
 	}	
-	
-	
-
-	private static int runSystem( String command, String directoryContext ) {
-		List<String> commands = new ArrayList<String>();
-		int result = 0;
-		File folder = null;
-		
-		if ( (directoryContext != null) && (!directoryContext.equals("")) ) {
-			folder = new File( directoryContext );
-		}
-		
-	    commands.add("/bin/sh");
-	    commands.add("-c");
-	    commands.add(command);
-		
-	    try {
-			SystemCommandExecutor commandExecutor = new SystemCommandExecutor(commands);
-			result = commandExecutor.executeCommand( folder );
-	    } catch ( Exception e ) {
-	    	result = 1;
-	    }
-		return result;
-	}
-	
-	
-	public static void run( String application ) {
-		
-		System.out.println(" run(): " + application );
-		
-		
-		Process process = null;
-        try {
-        	process = Runtime.getRuntime().exec( application );
-
-        	BufferedReader reader = new BufferedReader( new InputStreamReader(process.getInputStream() ) );
-            String line="";
-            while ((line = reader.readLine()) != null) {
-            	System.out.println( line );
-            }
-            process.waitFor();
-            
-        } catch ( Exception e ) {
-        	e.printStackTrace();
-        }
-    }
 	
 	
 	/**
