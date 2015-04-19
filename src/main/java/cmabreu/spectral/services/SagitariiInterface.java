@@ -26,25 +26,8 @@ public class SagitariiInterface {
 	private String securityToken;
 	private List<String> operationLog;
 
-	
-	//=========================== API TEST =====================================
-	/*
-	private String createTable( String securityToken ) {
-		StringBuilder sb = new StringBuilder();
-		sb.append("{");
-		sb.append( generateJsonPair("SagitariiApiFunction", "apiCreateTable") + "," ); 
-		sb.append( generateJsonPair("tableName", "test0011") + "," );
-		sb.append( generateJsonPair("tableDescription", "This is a test") + "," );
-		sb.append( generateJsonPair("my_field1", "STRING") + "," );
-		sb.append( generateJsonPair("my_field2", "FILE") + "," );
-		sb.append( generateJsonPair("my_field3", "INTEGER") + "," );
-		sb.append( generateJsonPair("securityToken", securityToken) ); 
-		sb.append("}");
-		return execute( sb.toString() );
-	}
-	*/
-	//==========================================================================
-	
+
+	@SuppressWarnings("deprecation")
 	public SagitariiInterface( String sagitariiHostURL, String user, String password ) {
 		this.sagitariiHostURL = sagitariiHostURL;
 		client = new DefaultHttpClient();
@@ -92,29 +75,55 @@ public class SagitariiInterface {
 		String experimentSerial = createNewExperiment( securityToken );
 		log("New experiment " + experimentSerial );
 		
+		int orderMin = Integer.valueOf( ordermin );
+		int orderMax = Integer.valueOf( ordermax );
 		
+		String insert = "";
 		StringBuilder sb = new StringBuilder();
+		
+
+		optiFunc = optiFunc.replace("\\", "\\\\");
+		
 		sb.append("{");
 		sb.append( generateJsonPair("SagitariiApiFunction", "apiReceiveData") + "," ); // Must have 
 		sb.append( generateJsonPair("tableName", "spectral_parameters") + "," ); // Must have
 		sb.append( generateJsonPair("experimentSerial", experimentSerial ) + "," ); // Must have
 		sb.append( generateJsonPair("securityToken", securityToken) + "," ); // Must have
-
-		sb.append( generateJsonPair("adjacency", adjacency) + "," );
-		sb.append( generateJsonPair("laplacian", laplacian) + "," );
-		sb.append( generateJsonPair("slaplacian", slaplacian) + "," );
-		sb.append( generateJsonPair("optiFunc", optiFunc) + "," );
-		sb.append( generateJsonPair("caixa1", caixa1) + "," );
-		sb.append( generateJsonPair("ordermin", ordermin) + "," );
-		sb.append( generateJsonPair("ordermax", ordermax) + "," );
-		sb.append( generateJsonPair("minDegree", minDegree) + "," );
-		sb.append( generateJsonPair("maxDegree", maxDegree) + "," );
-		sb.append( generateJsonPair("triangleFree", triangleFree) + "," );
-		sb.append( generateJsonPair("allowDiscGraphs", allowDiscGraphs) + "," );
-		sb.append( generateJsonPair("biptOnly", biptOnly) );
+		
+		StringBuilder data = new StringBuilder();
+		data.append("[");
+		String dataPrefix = "";
+		for ( int x = orderMin; x <= orderMax; x++ ) {
+			data.append( dataPrefix );
+			data.append("{");
+			data.append( generateJsonPair("adjacency", adjacency) + "," );
+			data.append( generateJsonPair("laplacian", laplacian) + "," );
+			data.append( generateJsonPair("slaplacian", slaplacian) + "," );
+			data.append( generateJsonPair("optifunc", optiFunc) + "," );
+			data.append( generateJsonPair("caixa1", caixa1) + "," );
+			
+			data.append( generateJsonPair("gorder", String.valueOf( x ) ) + "," );
+			
+			data.append( generateJsonPair("mindegree", minDegree) + "," );
+			data.append( generateJsonPair("maxdegree", maxDegree) + "," );
+			data.append( generateJsonPair("trianglefree", triangleFree) + "," );
+			data.append( generateJsonPair("allowdiscgraphs", allowDiscGraphs) + "," );
+			data.append( generateJsonPair("biptonly", biptOnly) );
+			data.append("}");
+			dataPrefix = ",";
+		}
+		data.append("]");
+		
+		
+		sb.append( addArray("data", data.toString() ) );
 		sb.append("}");
 
-		String insert = execute( sb.toString() );
+		insert = execute( sb.toString() );
+		
+		System.out.println( sb.toString() );
+		System.out.println(" > " + insert );
+		
+		
 		log( "Response to Insert Data : " + insert );
 		
 		String start = startExperiment( securityToken, experimentSerial );
@@ -187,5 +196,8 @@ public class SagitariiInterface {
 		return "\"" + paramName + "\":\"" + paramValue + "\""; 
 	}
 
+	private String addArray(String paramName, String arrayValue) {
+		return "\"" + paramName + "\":" + arrayValue ; 
+	}
 	
 }

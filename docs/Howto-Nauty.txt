@@ -1,0 +1,19 @@
+  tar xvzf nauty25r9.tar.gz
+   cd nauty25r9
+   ./configure
+   make
+
+Carlos, seguem informações sobre a primeira atividade do wf. 
+São dois programas, geng e showg. O geng gera todos os grafos correspondente
+a uma ordem (ie, número de vértices) em um arquivo de formato binário g6. 
+Já o showg toma como entrada um arquivo em formato g6 e gera as matrizes de adjacências 
+correspondentes em um único arquivo txt. Como exemplo, veja os comandos abaixo que geram grafos de ordem 4.
+
+./geng -g -q 4 saida.txt  
+./showg -q -A saida.g6 saida.txt
+
+Os executáveis desses dois programas estão na pasta /home/gpca/gportal/nauty24r2.
+
+Repare que as escolhas que o usuário fizer na IU devem ser traduzidas para opções na linha de 
+comando do geng. Para detalhes acerca dessas opções, veja o arquivo nug.pdf que também está na 
+mesma pasta.

@@ -30,10 +30,7 @@ public class Main {
 			String gengOutput = workFolder + "/inbox/" + inputFile;
 			String showgOutput = workFolder + "/outbox/" + inputFile +  ".txt";
 
-			String showg = libraryDirectory + "/showg -a " + gengOutput + " " + showgOutput;
-			run(showg);
-
-			String awk = "awk '/^Graph/{close(\"graph_\"f);f++}{print $0 > \"graph_\"f}' " + showgOutput;
+			String awk = "awk '{x=\"graph\"++i;}{print>x}' " + showgOutput;
 			runSystem( awk, workFolder );
 
 			

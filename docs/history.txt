@@ -1,0 +1,304 @@
+    1  apt-get update
+    2  shutdown now
+    3  apt-get install samba
+    4  cd /etc/samba
+    5  ls
+    6  apt-get install vim
+    7  mv smb.conf smb.conf.bak
+    8  vim smb.conf
+    9  smbpasswd -a magno
+   10  vim smb.conf
+   11  smnb restart
+   12  vim smb.conf
+   13  restart smnb
+   14  restart snmb
+   15  restart smbd
+   16  restart nmbd
+   17  vim smb.conf
+   18  restart nmbd
+   19  restart smbd
+   20  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E0B4DAB9
+   21  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+   22  apt-get update
+   23  apt-get install r-base r-base-dev
+   24  apt-get update
+   25  apt-get install r-base r-base-dev
+   26  r
+   27  R
+   28  add-apt-repository ppa:webupd8team/java
+   29  apt-get update
+   30  apt-get install oracle-jdk7-installer
+   31  java -version
+   32  R
+   33  javareconf
+   34  R CMD javareconf
+   35  R
+   36  ls /usr/lib64/R
+   37  cd /usr
+   38  cd lib64
+   39  cd lib
+   40  ls
+   41  cd R
+   42  ls
+   43  cd site-library/
+   44  ls
+   45  cd ..
+   46  ls
+   47  cd library
+   48  ls
+   49  cd ..
+   50  whereis rJava
+   51  whereis R
+   52  ls /usr/lib/R
+   53  ls /usr/bin/R
+   54  cd /usr/bin
+   55  cd R
+   56  cd /etc/R
+   57  ls
+   58  cd /usr/lib/R
+   59  ls
+   60  ls modules
+   61  ls bin
+   62  ls etx
+   63  ls etc
+   64  ls lib
+   65  ls site-library
+   66  cd /lib
+   67  ls
+   68  find / -type f -name "JRI.jar"
+   69  cd /usr/local/lib
+   70  ls
+   71  cd R
+   72  ls
+   73  cd site-library/
+   74  ls
+   75  cd rJava
+   76  ls
+   77  cd jri
+   78  ls
+   79  cd /home/magno
+   80  ls
+   81  chmod 0777 run.sh
+   82  ls
+   83  ./run.sh
+   84  .\run.sh
+   85  ./run.sh
+   86  vim run.sh
+   87  ./run.sh
+   88  vim run.sh
+   89  ./run.sh
+   90  vim run.sh
+   91  ./run.sh
+   92  vim run.sh
+   93  ls
+   94  rm .run.sh.swp
+   95  vim run.sh
+   96  ./run.sh
+   97  rm run.sh
+   98  vim run.sh
+   99  ./run.sh
+  100  ./rhome.sh
+  101  export
+  102  ./rhome.sh
+  103  export
+  104  ./rhome.sh
+  105  export R_HOME=/usr/lib/R
+  106  export
+  107  ./rhome.sh
+  108  export
+  109  ./run.sh
+  110  apt-get install gcc
+  111  apt-get install gcc++
+  112  ls
+  113  cd nauty
+  114  ls
+  115  chmod nauty25r9.tar 0755
+  116  chmod 0755 nauty25r9.tar 
+  117  ls
+  118  tar xvzf nauty25r9.tar
+  119  tar xvzf nauty25r9.tar.gz nauty25r9/
+  120  ls
+  121  cd nauty25r9/
+  122  ./configure
+  123  make
+  124  ls
+  125  geng
+  126  ./geng -g -q 4 saida.txt
+  127  ls
+  128  mv saida.txt /home/magno/
+  129  ./geng -g -q 4 saida.txt
+  130  ./showg -q -A saida.txt saida2.txt
+  131  vim saida2.txt 
+  132  cd ..
+  133  ls
+  134  cd nauty
+  135  ls
+  136  cd nauty25r9/
+  137  ls
+  138  /teapot/nauty/showg -q -A saida.txt saida2.txt
+  139  ./run.sh
+  140  cd /home/magno
+  141  ./run.sh
+  142  ./rhome.sh
+  143  ./run.sh
+  144  vim rhome.sh 
+  145  export R_HOME=/usr/lib/R
+  146  ./run.sh
+  147  R
+  148  ./run.sh
+  149  R
+  150  ./run.sh
+  151  ./upload.sh
+  152  ./teapot.sh
+  153  ./run.sh
+  154  ./upload.sh
+  155  ./teapot.sh
+  156  ./upload.sh
+  157  ./teapot.sh
+  158  ./run.sh
+  159  ./upload.sh
+  160  ./teapot.sh
+  161  ./run.sh
+  162  ./upload.sh
+  163  ./teapot.sh
+  164  ./run.sh
+  165  ./upload
+  166  ./upload.sh
+  167  ./teapot.sh
+  168  ./run.sh
+  169  ./upload.sh
+  170  ./teapot.sh
+  171  ./upload.sh
+  172  ./teapot.sh
+  173  ./upload
+  174  ./upload.sh
+  175  ./teapot.sh
+  176  ./upload.sh
+  177  ./teapot.sh
+  178  ./run.sh
+  179  ./upload.sh
+  180  ./teapot.sh
+  181  ./upload.sh
+  182  ./teapot.sh
+  183  exit
+  184  cd /home/magno/
+  185  ls
+  186  ./upload.sh
+  187  ./teapot.sh
+  188  ./upload.sh
+  189  ./teapot.sh
+  190  vim rhome.sh 
+  191  export R_HOME=/usr/lib/R
+  192  ./upload.sh
+  193  ./teapot.sh
+  194  ./upload.sh
+  195  ./teapot.sh
+  196  exit
+  197  cd /home/magno
+  198  ls
+  199  cd spectral/
+  200  java -jar gengraph.jar 
+  201  java -jar gengraph.jar 1 2
+  202  ls
+  203  java -jar gengraph.jar 1 2
+  204  /home/magno/nauty/nauty25r9/showg
+  205  ls
+  206  /home/magno/nauty/nauty25r9/showg -q -A 4 saida.g6 saida.txt
+  207  java -jar gengraph.jar 1 2
+  208  cd ..
+  209  ./teapot.sh
+  210  ./testgraph.sh
+  211  ls -lh
+  212  ./testgraph.sh
+  213  ./teapot.sh
+  214  cd /home/magno
+  215  ls
+  216  cd spectral
+  217  ls
+  218  mv ../convert.jar  .
+  219  ls
+  220  java -jar convert.jar 1 saida.txt
+  221  vim saida.txt.dot
+  222  ls
+  223  vim saida.g6
+  224  vim saida.txt
+  225  java -jar convert.jar 1 saida.txt
+  226  vim saida.txt.dot
+  227  vim saida.txt
+  228  exit
+  229  cd /home/magno
+  230  ls
+  231  ls spectral
+  232  cp gengraph.jar spectral
+  233  cd spectral
+  234  ls
+  235  java -jar gengraph.jar /home/magno/spectral
+  236  cd ..
+  237  ls
+  238  java -jar gengraph.jar /home/magno/028A3587
+  239  ls
+  240  ./nauty/showg
+  241  ./nauty/nauty25r9/showg -A 028A3587/saida.g6 
+  242  java -jar gengraph.jar /home/magno/028A3587
+  243  ./nauty/nauty25r9/showg -a 028A3587/saida.g6 
+  244  java -jar gengraph.jar /home/magno/028A3587
+  245  cd 028A3587/
+  246  ./testawk.sh 
+  247  ls
+  248  cd..
+  249  cd ..
+  250  java -jar gengraph.jar /home/magno/028A3587
+  251  ./nauty/nauty25r9/showg -a 028A3587/saida.g6 
+  252  ./nauty/nauty25r9/showg -a -c 028A3587/saida.g6 
+  253  ./nauty/nauty25r9/showg -c 028A3587/saida.g6 
+  254  java -jar gengraph.jar /home/magno/028A3587
+  255  ./nauty/nauty25r9/geng -d2 -D10 -g -q 50 ahaah.g6 
+  256  ./nauty/nauty25r9/geng -d2 -D10 -g -q 30 ahaah.g6 
+  257  java -jar gengraph.jar /home/magno/028A3587
+  258  cd 028A3587/
+  259  rm graph_*
+  260  ls
+  261  cd ..
+  262  rm -R 028A3587/
+  263  ls
+  264  ./teapot
+  265  ./teapot.sh
+  266  exit
+  267  cd /home/magno
+  268  ls
+  269  ls -lh
+  270  history > history.txt
+  271  ./nauty/nauty25r9/geng -d2 -D10 -g -q 5 saida.g6
+  272  awk '{x="graph"++i}{print>x}' saida.g6
+  273  awk '{x="graph"++i++".g6"}{print>x}' saida.g6
+  274  awk '{x="graph"++i".g6"}{print>x}' saida.g6
+  275  awk '{x="graph"++i".g6";}{print>x}' saida.g6
+  276  ./nauty/nauty25r9/geng -d2 -D10 -g -q 5 saida.g6
+  277  awk '{x="graph"++i".g6";}{print>x}' saida.g6
+  278  java -jar teapot-1.2.5-beta.jar 
+  279  java -jar gengraph.jar F091C0BC/
+  280  ./nauty/nauty25r9/geng -d4 -D7 -g -q 5 -b -t saida.g6
+  281  ./nauty/nauty25r9/geng -d4 -D7 -g -q 5 -b -t F091C0BC/outbox/saida_4.g6
+  282  ./nauty/nauty25r9/geng -d4 -D7 -g -q 5 -b -t F091C0BC//outbox/saida_4.g6
+  283  java -jar gengraph.jar F091C0BC
+  284  java -jar gengraph.jar /home/magno/F091C0BC
+  285  /bin/sh -c ls
+  286  /bin/sh -c cp config.xml namespaces
+  287  /bin/sh -c cp ./config.xml ./namespaces
+  288  /bin/sh -c cp /home/magno/config.xml /home/magno/namespaces
+  289  java -jar gengraph.jar /home/magno/F091C0BC
+  290  top
+  291  java -jar gengraph.jar /home/magno/F091C0BC
+  292  /home/magno/nauty/nauty25r9/geng asdasdas
+  293  ./nauty/nauty25r9/geng teste123.g6
+  294  ./nauty/nauty25r9/geng -p -q 20 teste123.g6
+  295  ./nauty/nauty25r9/geng -q 20 teste123.g6
+  296  java -jar gengraph.jar /home/magno/F091C0BC
+  297  ls F091C0BC/outbox/
+  298  ./nauty/nauty25r9/geng -d4 -D7 -g -q 4 -b -t /home/magno/F091C0BC/outbox/
+  299  ./nauty/nauty25r9/geng -d4 -D7 -g -q 4 -b -t /home/magno/F091C0BC/outbox/teste.g6
+  300  ./nauty/nauty25r9/geng -d4 -D7 -g -q -b -t 4 /home/magno/F091C0BC/outbox/teste.g6
+  301  ./nauty/nauty25r9/geng -b -t -d4 -D7 -g -q 4 /home/magno/F091C0BC/outbox/teste.g6
+  302  ./nauty/nauty25r9/geng -b -t -d1 -D8 -g -q 8 /home/magno/F091C0BC/outbox/teste.g6
+  303  java -jar gengraph.jar /home/magno/F091C0BC
+  304  history > history.txt

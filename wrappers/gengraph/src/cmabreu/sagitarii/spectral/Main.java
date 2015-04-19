@@ -1,6 +1,7 @@
 package cmabreu.sagitarii.spectral;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -25,22 +26,22 @@ public class Main {
 	public static void processLine( String line ) throws Exception {
 		String[] lineData = line.split(","); 
 		
-		// maxdegree,biptonly,optifunc,mindegree,trianglefree,laplacian,allowdiscgraphs,order,caixa1,slaplacian,adjacency
-		// 0         1        2        3         4            5         6               7     8      9          10           
-		
-		String optiFunc = lineData[2];
-		String laplacian = lineData[5];
-		String adjacency = lineData[10];
-		String caixa1 = lineData[8];
-		String slaplacian = lineData[9];
-
+		// 7,on,\lambda,4,on,on,4,on,min,on,on
+		// maxdegree,biptonly,optifunc,mindegree,trianglefree,laplacian,gorder,allowdiscgraphs,caixa1,slaplacian,adjacency
+		// 0         1        2        3         4            5         6      7               8      9          10           
 		
 		String maxDegree = lineData[0];
 		String biptOnly = lineData[1];
+		String optiFunc = lineData[2];
 		String minDegree = lineData[3];
 		String triangleFree = lineData[4];
-		String allowDiscGraphs = lineData[6];
-		String order = lineData[7];
+		String laplacian = lineData[5];
+		String order = lineData[6];
+		String allowDiscGraphs = lineData[7];
+		String caixa1 = lineData[8];
+		String slaplacian = lineData[9];
+		String adjacency = lineData[10];
+		
 		
 		String libraryDirectory = readLibraryDirectory();
 		if( !libraryDirectory.equals("")  ) {
@@ -59,7 +60,8 @@ public class Main {
 			
 			String gengOutput = workFolder + "/outbox/saida_" + order +  ".g6";
 
-			String geng = libraryDirectory + "/geng " + degreeOptions + " -g -q " + order + " " + gengOptions + " " + gengOutput;
+			String geng = libraryDirectory + "/geng " + degreeOptions + " -g -q " + gengOptions + " " + order + " " + gengOutput;
+
 			run(geng);
 
 			// Send back original data plus file name
@@ -85,6 +87,9 @@ public class Main {
 	
 	public static void run( String application ) {
 		Process process = null;
+		
+		System.out.println( application );
+		
         try {
         	process = Runtime.getRuntime().exec( application );
 
@@ -99,7 +104,6 @@ public class Main {
         	e.printStackTrace();
         }
     }
-	
 	
 	public static void main(String[] args) throws Exception{
 		workFolder = args[0];		 
