@@ -5,7 +5,7 @@
 	<groupId>cmabreu</groupId>
 	<artifactId>spectral</artifactId>
 	<packaging>war</packaging>
-	<version>1.0</version>
+	<version>1.0.12</version>
 	<name>Spectral Simulation Workflow Portal</name>
 	<url>https://github.com/icemagno/spectral/</url>
 	
@@ -126,21 +126,17 @@
 			<id>icemagno</id>
 		</developer>
 	</developers>	
-	
 	<organization>
 		<name>Carlos Magno Oliveira de Abreu</name>
 		<url>http://www.cmabreu.com.br</url>
 	</organization>
-
 	<issueManagement>
-		<system>GitHub Issues</system>
+		<system>Github</system>
 		<url>https://github.com/icemagno/spectral/issues</url>
 	</issueManagement>
-
-	<scm>
-		<url>https://github.com/icemagno/spectral/</url>
-		<connection>scm:git:git://github.com/icemagno/spectral.git</connection>
-		<developerConnection>scm:git:git@github.com:icemagno/spectral.git</developerConnection>
-	</scm>
+	<ciManagement>
+		<system>Github</system>
+		<url>https://github.com/icemagno/spectral</url>
+	</ciManagement>
 	
 </project>
