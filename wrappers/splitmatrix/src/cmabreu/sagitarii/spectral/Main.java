@@ -2,14 +2,22 @@ package cmabreu.sagitarii.spectral;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+
+//maxdegree,biptonly,optifunc,mindegree,trianglefree,laplacian,gorder,allowdiscgraphs,caixa1,slaplacian,adjacency,g6file
+//8,        on,      \lambda, 1,        on,          on,       8,     on,             min,   on,        on,       saida_8.g6
+//0         1        2        3         4            5         6      7               8      9          10        11
 
 
 public class Main {
 	private static String workFolder; // args[0]
+	private static List<String> awkResult = new ArrayList<String>();
+	private static List<String> outputCsv = new ArrayList<String>();
 
 	/**
 	 * Process the lines
@@ -18,40 +26,39 @@ public class Main {
 	 * Each index of this array will match the index of columns array
 	 * 
 	 */
-	public static void processLine( String line ) {
+	public static void processLine( String header, String line ) throws Exception {
 		String[] lineData = line.split(",");
 
 		String inputFile = lineData[11]; // Index of file name
 		
-		String libraryDirectory = readLibraryDirectory();
-		if( !libraryDirectory.equals("")  ) {
-			
+		String gengOutput = workFolder + "/inbox/" + inputFile;
+		String awkOutput = workFolder + "/sagi_output.txt";
+
+		String awk = "awk '{x=\"graph\"++i\".g6\";}{print>x}' " + gengOutput;
+		runSystem( awk, workFolder + "/outbox/" );
+
+		getAwkResult( workFolder + "/outbox/" );
 		
-			String gengOutput = workFolder + "/inbox/" + inputFile;
-			String showgOutput = workFolder + "/outbox/" + inputFile +  ".txt";
-
-			String awk = "awk '{x=\"graph\"++i;}{print>x}' " + showgOutput;
-			runSystem( awk, workFolder );
-
-			
-		} else {
-			System.out.println("Cannot find config file spectral.config");
+		outputCsv.add( header + ",g6splitedfile" );
+		for ( String awkFile : awkResult ) {
+			outputCsv.add( line + "," + awkFile );
 		}
-		
-		
-		
+
+		saveFile( awkOutput );
+			
 	}	
 	
 	
 	
 	public static void main(String[] args) throws Exception{
-		workFolder = args[0];		 
+		workFolder = args[0];	
 
 		List<String> inputData = readFile( workFolder + "/sagi_input.txt" );
 		if( inputData.size() > 1 ) {
 
-			String line = inputData.get( 1 ); // MAP just one line
-			processLine( line );
+			String header = inputData.get( 0 ); // Get the CSV header
+			String line = inputData.get( 1 ); // SPLIT MAP just one line
+			processLine( header, line );
 			
 			
 		} else {
@@ -60,27 +67,13 @@ public class Main {
 		
 	}
 
-	
-	private static String readLibraryDirectory() {
-		String line = "";
-		try (BufferedReader br = new BufferedReader( new FileReader( "spectral.config" ) ) ) {
-		    line = br.readLine(); 
-		} catch ( Exception e ) {
-			
-		}
-		return line;
-	}	
-	
-	
 
 	private static int runSystem( String command, String directoryContext ) {
 		List<String> commands = new ArrayList<String>();
 		int result = 0;
 		File folder = null;
 		
-		if ( (directoryContext != null) && (!directoryContext.equals("")) ) {
-			folder = new File( directoryContext );
-		}
+		folder = new File( directoryContext );
 		
 	    commands.add("/bin/sh");
 	    commands.add("-c");
@@ -94,28 +87,6 @@ public class Main {
 	    }
 		return result;
 	}
-	
-	
-	public static void run( String application ) {
-		
-		System.out.println(" run(): " + application );
-		
-		
-		Process process = null;
-        try {
-        	process = Runtime.getRuntime().exec( application );
-
-        	BufferedReader reader = new BufferedReader( new InputStreamReader(process.getInputStream() ) );
-            String line="";
-            while ((line = reader.readLine()) != null) {
-            	System.out.println( line );
-            }
-            process.waitFor();
-            
-        } catch ( Exception e ) {
-        	e.printStackTrace();
-        }
-    }
 	
 	
 	/**
@@ -138,6 +109,22 @@ public class Main {
 	}
 	
 	
+	public static void saveFile(String fileName) throws FileNotFoundException {
+	    PrintWriter pw = new PrintWriter(new FileOutputStream(fileName));
+	    for ( String outLine : outputCsv ) {
+	        pw.println( outLine );
+	    }
+	    pw.close();
+	}
+	
+	public static void getAwkResult( String outbox ) {
+		File folder = new File( outbox );
+	    for (final File fileEntry : folder.listFiles()) {
+	        if ( !fileEntry.isDirectory()) {
+	            awkResult.add( fileEntry.getName() );
+	        }
+	    }
+	}
 	
 }
 
