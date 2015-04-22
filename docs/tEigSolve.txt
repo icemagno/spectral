@@ -1,12 +1,16 @@
 Carlos, segue especificação para implementação da próxima atividade.
 
-Na pasta ~/gportal/lapackpp-2.5.4/testing, você encontra o executável tEigSolve. Esse programa toma como entrada cada matriz de adjacências e gera os autovalores correspondentes. Como exemplo de uso desse programa, considere que a matriz de adjacências está no arquivo denominado "graph_5". Sendo assim, os comandos a seguir geram os autovalores das matrizes de adjacências, laplaciana e laplaciana sem sinal, respectivamente.
+Na pasta ~/gportal/lapackpp-2.5.4/testing, você encontra o executável tEigSolve. Esse programa toma como 
+entrada cada matriz de adjacências e gera os autovalores correspondentes. Como exemplo de uso desse programa, 
+considere que a matriz de adjacências está no arquivo denominado "graph_5". Sendo assim, os comandos a seguir 
+geram os autovalores das matrizes de adjacências, laplaciana e laplaciana sem sinal, respectivamente.
 
 ./tEigSolve -a -f graph5
 ./tEigSolve -l -f graph5
 ./tEigSolve -q -f graph5
 
-Na interface gráfica, o usuário escolhe para qual tipo de matriz gerar. Dependendo da escolha do usuário, o programa tEigSolve gera um arquivo com um prefixo "a_", "l_",  ou "q_", que contém, em cada linha, os autovalores da matriz escolhida.
+Na interface gráfica, o usuário escolhe para qual tipo de matriz gerar. Dependendo da escolha do usuário, 
+o programa tEigSolve gera um arquivo com um prefixo "a_", "l_",  ou "q_", que contém, em cada linha, os autovalores da matriz escolhida.
 
 []s
 Eduardo
