@@ -9,14 +9,14 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-//maxdegree,biptonly,optifunc,mindegree,trianglefree,laplacian,gorder,allowdiscgraphs,caixa1,slaplacian,adjacency,g6file
-//8,        on,      \lambda, 1,        on,          on,       8,     on,             min,   on,        on,       saida_8.g6
-//0         1        2        3         4            5         6      7               8      9          10        11
+//maxdegree,biptonly,optifunc,mindegree,trianglefree,laplacian,gorder,allowdiscgraphs,caixa1,slaplacian,adjacency,g6file,     g6filesplited
+//8,        on,      \lambda, 1,        on,          on,       8,     on,             min,   on,        on,       saida_8.g6, graph_78.g6
+//0         1        2        3         4            5         6      7               8      9          10        11          12
 
 
 public class Main {
 	private static String workFolder; // args[0]
-	private static List<String> awkResult = new ArrayList<String>();
+	private static List<String> eigResult = new ArrayList<String>();
 	private static List<String> outputCsv = new ArrayList<String>();
 
 	/**
@@ -29,26 +29,64 @@ public class Main {
 	public static void processLine( String header, String line ) throws Exception {
 		String[] lineData = line.split(",");
 
-		String inputFile = lineData[11]; // Index of file name
+		String inputFile = lineData[12]; // Index of file name (splited by awk)
+		String laplacian = lineData[5]; 
+		String slaplacian = lineData[9]; 
+		String adjacency = lineData[10]; 
 		
-		String gengOutput = workFolder + "/inbox/" + inputFile;
-		String awkOutput = workFolder + "/sagi_output.txt";
-
-		String awk = "awk '{x=\"graph\"++i\".g6\";}{print>x}' " + gengOutput;
-		runSystem( awk, workFolder + "/outbox/" );
-
-		getAwkResult( workFolder + "/outbox/" );
+		String libraryDirectory = readLibraryDirectory();
+		if( !libraryDirectory.equals("")  ) {
 		
-		outputCsv.add( header + ",g6splitedfile" );
-		for ( String awkFile : awkResult ) {
-			outputCsv.add( line + "," + awkFile );
+			String awkOutput = workFolder + "/inbox/" + inputFile;
+			String eigsolveOutput = workFolder + "/sagi_output.txt";
+	
+			/*
+				./tEigSolve -a -f graph5 => adjacências
+				./tEigSolve -l -f graph5 => laplaciana
+				./tEigSolve -q -f graph5 => laplaciana sem sinal
+			 */
+			
+			if( laplacian.equals("on")  ) {
+				String eigCommand = libraryDirectory + "/tEigSolve -l -f " + awkOutput;
+				runSystem( eigCommand, workFolder + "/outbox/" );
+			}
+			
+			if( adjacency.equals("on")  ) {
+				String eigCommand = libraryDirectory + "/tEigSolve -a -f " + awkOutput;
+				runSystem( eigCommand, workFolder + "/outbox/" );
+			}
+			
+			if( slaplacian.equals("on")  ) {
+				String eigCommand = libraryDirectory + "/tEigSolve -q -f " + awkOutput;
+				runSystem( eigCommand, workFolder + "/outbox/" );
+			}
+	
+			getEigResult( workFolder + "/outbox/" );
+			
+			outputCsv.add( header + ",eigsolve" );
+			for ( String eigFile : eigResult ) {
+				outputCsv.add( line + "," + eigFile );
+			}
+			saveFile( eigsolveOutput );
+
+		} else {
+			System.out.println("Cannot find config file spectral.config");
 		}
-
-		saveFile( awkOutput );
+					
 			
 	}	
 	
-	
+
+	private static String readLibraryDirectory() {
+		String line = "";
+		try (BufferedReader br = new BufferedReader( new FileReader( "spectral.config" ) ) ) {
+		    br.readLine(); // This line is for geng location. Discard.
+		    line = br.readLine(); // Read again. Second line is for tEigSolve location
+		} catch ( Exception e ) {
+			
+		}
+		return line;
+	}		
 	
 	public static void main(String[] args) throws Exception{
 		workFolder = args[0];	
@@ -117,11 +155,11 @@ public class Main {
 	    pw.close();
 	}
 	
-	public static void getAwkResult( String outbox ) {
+	public static void getEigResult( String outbox ) {
 		File folder = new File( outbox );
 	    for (final File fileEntry : folder.listFiles()) {
 	        if ( !fileEntry.isDirectory()) {
-	            awkResult.add( fileEntry.getName() );
+	            eigResult.add( fileEntry.getName() );
 	        }
 	    }
 	}
