@@ -43,6 +43,18 @@ Prior to installing Lapack++, the following packages have to be installed:
 
 By this the Fortran compiler g77 will be installed, too.
 
+
+sudo apt-get install libatlas-dev libatlas-doc libatlas-test libatlas-base-dev 
+libatlas3gf-base libatlas-cpp-0.6-dev libatlas-cpp-0.6-1 libatlas-cpp-0.6-1-dbg 
+
+As other comments already indicate, your system has an ATLAS implementation of 
+LAPACK. The correct order of library linking (for the non-threaded version of ATLAS) would be then:
+-llapack -lf77blas -lcblas -latlas
+
+
+
+
+
 Compiling
 
 In order to install the Lapack++ library, one has to compile it from source. The sources can be downloaded 

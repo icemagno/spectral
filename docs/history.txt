@@ -302,3 +302,63 @@
   302  ./nauty/nauty25r9/geng -b -t -d1 -D8 -g -q 8 /home/magno/F091C0BC/outbox/teste.g6
   303  java -jar gengraph.jar /home/magno/F091C0BC
   304  history > history.txt
+  305  exit
+  306  cd /home/magno
+  307  ls
+  308  rm -R namespaces
+  309  java -jar teapot-1.2.5-beta.jar 
+  310  java -jar gengraph.jar /home/magno/F091C0BC
+  311  ls /home/magno/F091C0BC/
+  312  ls /home/magno/F091C0BC/outbox/
+  313  java -jar gengraph.jar /home/magno/F091C0BC
+  314  java -jar teapot-1.2.5-beta.jar 
+  315  cd /home/magno
+  316  java -jar teapot-1.2.5-beta.jar 
+  317  exit
+  318  cd /home/magno
+  319  java -jar splitmatrix.jar /home/magno/passo2
+  320  java -jar teapot-1.2.5-beta.jar 
+  321  java -jar teapot-1.0.125.jar 
+  322  ping 192.168.25.27
+  323  ping 192.168.25.3
+  324  java -jar teapot-1.0.125.jar 
+  325  java -jar splitmatrix.jar /home/magno/passo2
+  326  java -jar splitmatrix.jar namespaces/SPECTRAL_PORTAL/9E90284B-C033-48B/6DA7256B/42452EF6-FE47-4/1D4ACFD8/
+  327  java -jar splitmatrix.jar /home/magno/namespaces/SPECTRAL_PORTAL/9E90284B-C033-48B/6DA7256B/42452EF6-FE47-4/1D4ACFD8/
+  328  java -jar teapot-1.0.125.jar 
+  329  cd /mnt
+  330  ls
+  331  cd /var
+  332  ls
+  333  cd /dev/cd
+  334  cd /dev
+  335  ls
+  336  cd /media
+  337  ls
+  338  cd cdrom/
+  339  ls
+  340  cd /media/cdrom/
+  341  ls
+  342  mont
+  343  mount
+  344  lsblk
+  345  apt-get install --no-install-recommends virtualbox-guest-utils
+  346  apt-get install virtualbox-guest-dkms
+  347  init 0
+  348  cd /home/magno
+  349  java -jar teapot-1.0.125.jar 
+  350  cd lapac
+  351  ls
+  352  make
+  353  ./configure
+  354  make
+  355  make install
+  356  cd testing
+  357  ls
+  358  make
+  359  make install
+  360  make install-am
+  361  make tEigSolve
+  362  cd..
+  363  cd ..
+  364  history > history.txt
