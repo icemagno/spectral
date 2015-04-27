@@ -1,7 +1,6 @@
 package cmabreu.sagitarii.spectral;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -26,22 +25,15 @@ public class Main {
 	public static void processLine( String line ) throws Exception {
 		String[] lineData = line.split(","); 
 		
-		// 7,on,\lambda,4,on,on,4,on,min,on,on
-		// maxdegree,biptonly,optifunc,mindegree,trianglefree,laplacian,gorder,allowdiscgraphs,caixa1,slaplacian,adjacency
-		// 0         1        2        3         4            5         6      7               8      9          10           
+		// maxdegree,biptonly,optifunc,mindegree,trianglefree,eigsolveoption,  gorder,allowdiscgraphs,caixa1,adjacency
+		// 0         1        2        3         4            5                6      7               8      9                 
 		
 		String maxDegree = lineData[0];
 		String biptOnly = lineData[1];
-		String optiFunc = lineData[2];
 		String minDegree = lineData[3];
 		String triangleFree = lineData[4];
-		String laplacian = lineData[5];
 		String order = lineData[6];
 		String allowDiscGraphs = lineData[7];
-		String caixa1 = lineData[8];
-		String slaplacian = lineData[9];
-		String adjacency = lineData[10];
-		
 		
 		String libraryDirectory = readLibraryDirectory();
 		if( !libraryDirectory.equals("")  ) {

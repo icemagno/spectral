@@ -17,7 +17,7 @@ import org.nfunk.jep.JEP;
 public class TesteAvaliacao {
 	public static void main(String args[]) {
 
-		Double teste[] = { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0 };
+		Double teste[] = { 1.5, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0 };
 
 		String math = "\\lambda_1 + \\lambda_2 + \\bar{M_1} + \\bar{M_2} + M_1 + \\bar{\\lambda_1} + \\bar{q_1} + q_1 + q_2";
 		// String math = "\\lambda_1 + \\lambda_2";
@@ -86,7 +86,7 @@ public class TesteAvaliacao {
 			throws IOException {
 		ArrayList<String> subString = new ArrayList<String>();
 		subString.add(" ");
-		File f = new File("conf.txt");
+		File f = new File("d:/conf.txt");
 		BufferedReader in = new BufferedReader(new FileReader(f));
 
 		while (in.ready()) {

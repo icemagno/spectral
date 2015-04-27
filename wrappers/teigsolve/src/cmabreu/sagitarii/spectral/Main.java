@@ -5,13 +5,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
-//maxdegree,biptonly,optifunc,mindegree,trianglefree,laplacian,gorder,allowdiscgraphs,caixa1,slaplacian,adjacency,g6file,     g6filesplited
-//8,        on,      \lambda, 1,        on,          on,       8,     on,             min,   on,        on,       saida_8.g6, graph_78.g6
-//0         1        2        3         4            5         6      7               8      9          10        11          12
+//maxdegree,biptonly,optifunc,mindegree,trianglefree,eigsolveoption,  gorder,allowdiscgraphs,caixa1,adjacency,g6file,g6filesplited
+//0         1        2        3         4            5                6      7               8      9 		  10     11	                
 
 
 public class Main {
@@ -29,10 +30,8 @@ public class Main {
 	public static void processLine( String header, String line ) throws Exception {
 		String[] lineData = line.split(",");
 
-		String inputFile = lineData[12]; // Index of file name (splited by awk)
-		String laplacian = lineData[5]; 
-		String slaplacian = lineData[9]; 
-		String adjacency = lineData[10]; 
+		String inputFile = lineData[11]; // Index of file name (splited by awk)
+		String eigsolveoption = lineData[5]; 
 		
 		String libraryDirectory = readLibraryDirectory();
 		if( !libraryDirectory.equals("")  ) {
@@ -46,29 +45,33 @@ public class Main {
 				./tEigSolve -q -f graph5 => laplaciana sem sinal
 			 */
 			
-			if( laplacian.equals("on")  ) {
+			String generatedFile = "";
+			if( eigsolveoption.equals("L")  ) {
 				String eigCommand = libraryDirectory + "/tEigSolve -l -f " + awkOutput;
 				runSystem( eigCommand, workFolder + "/outbox/" );
+				generatedFile = generatedFile + ".lap";
 			}
 			
-			if( adjacency.equals("on")  ) {
+			if( eigsolveoption.equals("A")  ) {
 				String eigCommand = libraryDirectory + "/tEigSolve -a -f " + awkOutput;
 				runSystem( eigCommand, workFolder + "/outbox/" );
+				generatedFile = generatedFile + ".adj";
 			}
 			
-			if( slaplacian.equals("on")  ) {
+			if( eigsolveoption.equals("Q")  ) {
 				String eigCommand = libraryDirectory + "/tEigSolve -q -f " + awkOutput;
 				runSystem( eigCommand, workFolder + "/outbox/" );
+				generatedFile = generatedFile + ".lap";
 			}
-	
-			getEigResult( workFolder + "/outbox/" );
-			
-			outputCsv.add( header + ",eigsolve" );
-			for ( String eigFile : eigResult ) {
-				outputCsv.add( line + "," + eigFile );
-			}
-			saveFile( eigsolveOutput );
 
+			if ( !generatedFile.equals("") ) {
+				// tEigSolve produces on same folder of input file.. Lets move it to outbox!
+				moveFile( workFolder + "/inbox/" + generatedFile, workFolder + "/outbox/" + generatedFile );
+				outputCsv.add( header + ",eigsolve" );
+				outputCsv.add( line + "," + generatedFile );
+				saveFile( eigsolveOutput );
+			}
+			
 		} else {
 			System.out.println("Cannot find config file spectral.config");
 		}
@@ -76,7 +79,13 @@ public class Main {
 			
 	}	
 	
-
+	private static void moveFile(String source, String dest) throws IOException {
+		File src = new File(source);
+		File trgt = new File(dest);
+	    Files.copy(src.toPath(), trgt.toPath());
+	    src.delete();
+	}
+	
 	private static String readLibraryDirectory() {
 		String line = "";
 		try (BufferedReader br = new BufferedReader( new FileReader( "spectral.config" ) ) ) {
@@ -155,14 +164,6 @@ public class Main {
 	    pw.close();
 	}
 	
-	public static void getEigResult( String outbox ) {
-		File folder = new File( outbox );
-	    for (final File fileEntry : folder.listFiles()) {
-	        if ( !fileEntry.isDirectory()) {
-	            eigResult.add( fileEntry.getName() );
-	        }
-	    }
-	}
 	
 }
 

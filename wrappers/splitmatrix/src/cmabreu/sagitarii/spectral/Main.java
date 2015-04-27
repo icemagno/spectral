@@ -9,10 +9,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-//maxdegree,biptonly,optifunc,mindegree,trianglefree,laplacian,gorder,allowdiscgraphs,caixa1,slaplacian,adjacency,g6file
-//8,        on,      \lambda, 1,        on,          on,       8,     on,             min,   on,        on,       saida_8.g6
-//0         1        2        3         4            5         6      7               8      9          10        11
-
+// maxdegree,biptonly,optifunc,mindegree,trianglefree,eigsolveoption,  gorder,allowdiscgraphs,caixa1,adjacency,g6file
+// 0         1        2        3         4            5                6      7               8      9 		   10	                
 
 public class Main {
 	private static String workFolder; // args[0]
@@ -29,7 +27,7 @@ public class Main {
 	public static void processLine( String header, String line ) throws Exception {
 		String[] lineData = line.split(",");
 
-		String inputFile = lineData[11]; // Index of file name
+		String inputFile = lineData[10]; // Index of file name
 		
 		String gengOutput = workFolder + "/inbox/" + inputFile;
 		String awkOutput = workFolder + "/sagi_output.txt";

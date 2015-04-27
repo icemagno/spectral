@@ -67,8 +67,24 @@ public class SagitariiInterface {
 		return execute( sb.toString() );
 	}
 	
+	public String getDataFor( String tEigsolveOption, String optiFunc, String caixa1, 
+			int order, String minDegree, String maxDegree, String triangleFree, String allowDiscGraphs, String biptOnly ) {
+		StringBuilder data = new StringBuilder();
+		data.append("{");
+		data.append( generateJsonPair("eigsolveoption", tEigsolveOption) + "," );
+		data.append( generateJsonPair("optifunc", optiFunc) + "," );
+		data.append( generateJsonPair("caixa1", caixa1) + "," );
+		data.append( generateJsonPair("gorder", String.valueOf( order ) ) + "," );
+		data.append( generateJsonPair("mindegree", minDegree) + "," );
+		data.append( generateJsonPair("maxdegree", maxDegree) + "," );
+		data.append( generateJsonPair("trianglefree", triangleFree) + "," );
+		data.append( generateJsonPair("allowdiscgraphs", allowDiscGraphs) + "," );
+		data.append( generateJsonPair("biptonly", biptOnly) );
+		data.append("}");
+		return data.toString();
+	}
 	
-	public void submit( String adjacency, String laplacian,	 String slaplacian,	 String optiFunc, String caixa1, String ordermin,
+	public void submit( String adjacency, String laplacian, String slaplacian, String optiFunc, String caixa1, String ordermin,
 			String ordermax, String minDegree, String maxDegree, String triangleFree, String allowDiscGraphs, String biptOnly ) {
 
 		
@@ -81,7 +97,6 @@ public class SagitariiInterface {
 		String insert = "";
 		StringBuilder sb = new StringBuilder();
 		
-
 		optiFunc = optiFunc.replace("\\", "\\\\");
 		
 		sb.append("{");
@@ -93,27 +108,36 @@ public class SagitariiInterface {
 		StringBuilder data = new StringBuilder();
 		data.append("[");
 		String dataPrefix = "";
-		for ( int x = orderMin; x <= orderMax; x++ ) {
-			data.append( dataPrefix );
-			data.append("{");
-			data.append( generateJsonPair("adjacency", adjacency) + "," );
-			data.append( generateJsonPair("laplacian", laplacian) + "," );
-			data.append( generateJsonPair("slaplacian", slaplacian) + "," );
-			data.append( generateJsonPair("optifunc", optiFunc) + "," );
-			data.append( generateJsonPair("caixa1", caixa1) + "," );
-			
-			data.append( generateJsonPair("gorder", String.valueOf( x ) ) + "," );
-			
-			data.append( generateJsonPair("mindegree", minDegree) + "," );
-			data.append( generateJsonPair("maxdegree", maxDegree) + "," );
-			data.append( generateJsonPair("trianglefree", triangleFree) + "," );
-			data.append( generateJsonPair("allowdiscgraphs", allowDiscGraphs) + "," );
-			data.append( generateJsonPair("biptonly", biptOnly) );
-			data.append("}");
-			dataPrefix = ",";
-		}
-		data.append("]");
+
 		
+		// Force aways do a ADJACENCY eigsolve ...
+		adjacency = "on";
+		// =======================================
+		
+		
+		if ( adjacency.equals("on") ) {
+			for ( int x = orderMin; x <= orderMax; x++ ) {
+				data.append( dataPrefix );
+				data.append( getDataFor("A", optiFunc, caixa1, x, minDegree, maxDegree, triangleFree, allowDiscGraphs, biptOnly ) );
+				dataPrefix = ",";
+			}
+		}
+		if ( laplacian.equals("on") ) {
+			for ( int x = orderMin; x <= orderMax; x++ ) {
+				data.append( dataPrefix );
+				data.append( getDataFor("L", optiFunc, caixa1, x, minDegree, maxDegree, triangleFree, allowDiscGraphs, biptOnly ) );
+				dataPrefix = ",";
+			}
+		}
+		if ( slaplacian.equals("on") ) {
+			for ( int x = orderMin; x <= orderMax; x++ ) {
+				data.append( dataPrefix );
+				data.append( getDataFor("Q", optiFunc, caixa1, x, minDegree, maxDegree, triangleFree, allowDiscGraphs, biptOnly ) );
+				dataPrefix = ",";
+			}
+		}
+		
+		data.append("]");
 		
 		sb.append( addArray("data", data.toString() ) );
 		sb.append("}");
@@ -121,8 +145,6 @@ public class SagitariiInterface {
 		insert = execute( sb.toString() );
 		
 		System.out.println( sb.toString() );
-		System.out.println(" > " + insert );
-		
 		
 		log( "Response to Insert Data : " + insert );
 		
