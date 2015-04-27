@@ -61,7 +61,7 @@ public class Main {
 			if( eigsolveoption.equals("Q")  ) {
 				String eigCommand = libraryDirectory + "/tEigSolve -q -f " + awkOutput;
 				runSystem( eigCommand, workFolder + "/outbox/" );
-				generatedFile = generatedFile + ".lap";
+				generatedFile = generatedFile + ".unsiglap";
 			}
 
 			if ( !generatedFile.equals("") ) {
@@ -89,7 +89,7 @@ public class Main {
 	private static String readLibraryDirectory() {
 		String line = "";
 		try (BufferedReader br = new BufferedReader( new FileReader( "spectral.config" ) ) ) {
-		    br.readLine(); // This line is for geng location. Discard.
+		    br.readLine();        // First line. This line is for geng location. Discard.
 		    line = br.readLine(); // Read again. Second line is for tEigSolve location
 		} catch ( Exception e ) {
 			
@@ -104,7 +104,7 @@ public class Main {
 		if( inputData.size() > 1 ) {
 
 			String header = inputData.get( 0 ); // Get the CSV header
-			String line = inputData.get( 1 ); // SPLIT MAP just one line
+			String line = inputData.get( 1 );   // MAP just one line
 			processLine( header, line );
 			
 			
