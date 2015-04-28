@@ -25,8 +25,12 @@ public class Main {
 	public static void processLine( String line ) throws Exception {
 		String[] lineData = line.split(","); 
 		
-		// maxdegree,biptonly,optifunc,mindegree,trianglefree,eigsolveoption,  gorder,allowdiscgraphs,caixa1,adjacency
-		// 0         1        2        3         4            5                6      7               8      9                 
+
+		// maxdegree,biptonly,optifunc,mindegree,trianglefree,eigsolveoption,gorder,allowdiscgraphs,caixa1
+		// 8,on,lambda,1,on,L,1,on,min
+		
+		// 0         1        2        3         4            5              6      7               8                       
+
 		
 		String maxDegree = lineData[0];
 		String biptOnly = lineData[1];

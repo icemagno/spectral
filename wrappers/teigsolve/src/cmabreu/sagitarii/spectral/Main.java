@@ -11,26 +11,21 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
-//maxdegree,biptonly,optifunc,mindegree,trianglefree,eigsolveoption,  gorder,allowdiscgraphs,caixa1,adjacency,g6file,g6filesplited
-//0         1        2        3         4            5                6      7               8      9 		  10     11	                
+
+// maxdegree,biptonly,optifunc,mindegree,trianglefree,eigsolveoption,gorder,allowdiscgraphs,caixa1,g6file,g6splitedfile
+// 8,on,lambda,1,on,L,2,on,min,saida_2.g6,graph1.g6
+// 0         1        2        3         4            5              6      7               8      9 	  10                
 
 
 public class Main {
 	private static String workFolder; // args[0]
-	private static List<String> eigResult = new ArrayList<String>();
 	private static List<String> outputCsv = new ArrayList<String>();
 
-	/**
-	 * Process the lines
-	 * @param columns : Array of string
-	 * 
-	 * Each index of this array will match the index of columns array
-	 * 
-	 */
+
 	public static void processLine( String header, String line ) throws Exception {
 		String[] lineData = line.split(",");
 
-		String inputFile = lineData[11]; // Index of file name (splited by awk)
+		String inputFile = lineData[10]; // Index of file name (splited by awk)
 		String eigsolveoption = lineData[5]; 
 		
 		String libraryDirectory = readLibraryDirectory();
@@ -49,19 +44,19 @@ public class Main {
 			if( eigsolveoption.equals("L")  ) {
 				String eigCommand = libraryDirectory + "/tEigSolve -l -f " + awkOutput;
 				runSystem( eigCommand, workFolder + "/outbox/" );
-				generatedFile = generatedFile + ".lap";
+				generatedFile = inputFile + ".lap";
 			}
 			
 			if( eigsolveoption.equals("A")  ) {
 				String eigCommand = libraryDirectory + "/tEigSolve -a -f " + awkOutput;
 				runSystem( eigCommand, workFolder + "/outbox/" );
-				generatedFile = generatedFile + ".adj";
+				generatedFile = inputFile + ".adj";
 			}
 			
 			if( eigsolveoption.equals("Q")  ) {
 				String eigCommand = libraryDirectory + "/tEigSolve -q -f " + awkOutput;
 				runSystem( eigCommand, workFolder + "/outbox/" );
-				generatedFile = generatedFile + ".unsiglap";
+				generatedFile = inputFile + ".sgnlap";
 			}
 
 			if ( !generatedFile.equals("") ) {
@@ -80,10 +75,15 @@ public class Main {
 	}	
 	
 	private static void moveFile(String source, String dest) throws IOException {
+		
+		System.out.println("copy " + source + " to " + dest);
+		
 		File src = new File(source);
 		File trgt = new File(dest);
-	    Files.copy(src.toPath(), trgt.toPath());
-	    src.delete();
+		if ( src.exists() ) {
+		    Files.copy(src.toPath(), trgt.toPath());
+		    src.delete();
+		}
 	}
 	
 	private static String readLibraryDirectory() {
@@ -126,6 +126,8 @@ public class Main {
 	    commands.add("-c");
 	    commands.add(command);
 		
+	    System.out.println( command );
+	    
 	    try {
 			SystemCommandExecutor commandExecutor = new SystemCommandExecutor(commands);
 			result = commandExecutor.executeCommand( folder );
