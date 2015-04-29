@@ -108,12 +108,10 @@ public class SagitariiInterface {
 		StringBuilder data = new StringBuilder();
 		data.append("[");
 		String dataPrefix = "";
-
 		
 		// Force aways do a ADJACENCY eigsolve ...
 		adjacency = "on";
 		// =======================================
-		
 		
 		if ( adjacency.equals("on") ) {
 			for ( int x = orderMin; x <= orderMax; x++ ) {
@@ -122,14 +120,16 @@ public class SagitariiInterface {
 				dataPrefix = ",";
 			}
 		}
-		if ( laplacian.equals("on") ) {
+
+		if ( ( slaplacian != null ) && ( laplacian.equals("on") ) ) {
 			for ( int x = orderMin; x <= orderMax; x++ ) {
 				data.append( dataPrefix );
 				data.append( getDataFor("L", optiFunc, caixa1, x, minDegree, maxDegree, triangleFree, allowDiscGraphs, biptOnly ) );
 				dataPrefix = ",";
 			}
 		}
-		if ( slaplacian.equals("on") ) {
+		
+		if ( ( slaplacian != null ) && (slaplacian.equals("on") ) ) {
 			for ( int x = orderMin; x <= orderMax; x++ ) {
 				data.append( dataPrefix );
 				data.append( getDataFor("Q", optiFunc, caixa1, x, minDegree, maxDegree, triangleFree, allowDiscGraphs, biptOnly ) );
@@ -143,8 +143,6 @@ public class SagitariiInterface {
 		sb.append("}");
 
 		insert = execute( sb.toString() );
-		
-		System.out.println( sb.toString() );
 		
 		log( "Response to Insert Data : " + insert );
 		

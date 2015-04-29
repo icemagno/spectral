@@ -20,17 +20,23 @@ public class Main {
 	private static List<String> awkResult = new ArrayList<String>();
 	private static List<String> outputCsv = new ArrayList<String>();
 
-	/**
-	 * Process the lines
-	 * @param columns : Array of string
-	 * 
-	 * Each index of this array will match the index of columns array
-	 * 
-	 */
+
+	private static int getIndex( String key, String header) {
+		int index = -1;
+		String[] headers = header.split(",");
+		for ( int x = 0; x < headers.length; x++  ) {
+			if ( headers[x].equals( key )  ) {
+				index = x;
+			}
+		}
+		return index;
+	}
+	
+	
 	public static void processLine( String header, String line ) throws Exception {
 		String[] lineData = line.split(",");
 
-		String inputFile = lineData[9]; // Index of file name
+		String inputFile = lineData[ getIndex("g6file", header) ]; 
 		
 		String gengOutput = workFolder + "/inbox/" + inputFile;
 		String awkOutput = workFolder + "/sagi_output.txt";

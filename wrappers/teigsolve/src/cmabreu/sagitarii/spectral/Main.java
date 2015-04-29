@@ -12,21 +12,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-// maxdegree,biptonly,optifunc,mindegree,trianglefree,eigsolveoption,gorder,allowdiscgraphs,caixa1,g6file,g6splitedfile
+// maxdegree,biptonly,optifunc,mindegree,trianglefree,g6splitedfile,eigsolveoption,gorder,allowdiscgraphs,caixa1,g6file
 // 8,on,lambda,1,on,L,2,on,min,saida_2.g6,graph1.g6
 // 0         1        2        3         4            5              6      7               8      9 	  10                
-
 
 public class Main {
 	private static String workFolder; // args[0]
 	private static List<String> outputCsv = new ArrayList<String>();
 
+	private static int getIndex( String key, String header) {
+		int index = -1;
+		String[] headers = header.split(",");
+		for ( int x = 0; x < headers.length; x++  ) {
+			if ( headers[x].equals( key )  ) {
+				index = x;
+			}
+		}
+		return index;
+	}
 
 	public static void processLine( String header, String line ) throws Exception {
 		String[] lineData = line.split(",");
-
-		String inputFile = lineData[10]; // Index of file name (splited by awk)
-		String eigsolveoption = lineData[5]; 
+		
+		int fileIndex = getIndex("g6splitedfile", header);
+		int optIndex = getIndex("eigsolveoption", header);
+		
+		String inputFile = lineData[fileIndex];
+		String eigsolveoption = lineData[optIndex]; 
 		
 		String libraryDirectory = readLibraryDirectory();
 		if( !libraryDirectory.equals("")  ) {
