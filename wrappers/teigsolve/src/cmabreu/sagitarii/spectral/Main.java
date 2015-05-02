@@ -87,9 +87,6 @@ public class Main {
 	}	
 	
 	private static void moveFile(String source, String dest) throws IOException {
-		
-		System.out.println("copy " + source + " to " + dest);
-		
 		File src = new File(source);
 		File trgt = new File(dest);
 		if ( src.exists() ) {
@@ -137,8 +134,6 @@ public class Main {
 	    commands.add("/bin/sh");
 	    commands.add("-c");
 	    commands.add(command);
-		
-	    System.out.println( command );
 	    
 	    try {
 			SystemCommandExecutor commandExecutor = new SystemCommandExecutor(commands);
@@ -146,7 +141,12 @@ public class Main {
 	    } catch ( Exception e ) {
 	    	result = 1;
 	    }
-		return result;
+
+	    System.out.println("");
+	    System.out.println( command );
+	    System.out.println("");
+	    
+	    return result;
 	}
 	
 	
