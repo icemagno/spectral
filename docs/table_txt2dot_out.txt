@@ -1,0 +1,29 @@
+CREATE TABLE txt2dot_out
+(
+  index_id serial NOT NULL,
+  id_experiment integer,
+  id_activity integer,
+  id_pipeline integer,
+  eigsolveoption character varying(250),
+  optifunc character varying(250),
+  caixa1 character varying(250),
+  gorder character varying(250),
+  mindegree character varying(250),
+  maxdegree character varying(250),
+  trianglefree character varying(250),
+  allowdiscgraphs character varying(250),
+  biptonly character varying(250),
+  g6file character varying(250),
+  showgfile character varying(250),
+  dotfile character varying(250),
+  CONSTRAINT txt2dot_out_pkey PRIMARY KEY (index_id),
+  CONSTRAINT txt2dot_out_fkac FOREIGN KEY (id_activity)
+      REFERENCES activities (id_activity) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT txt2dot_out_fkex FOREIGN KEY (id_experiment)
+      REFERENCES experiments (id_experiment) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT txt2dot_out_fkpi FOREIGN KEY (id_pipeline)
+      REFERENCES pipelines (id_pipeline) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
