@@ -14,6 +14,35 @@ public class Main {
 	private static String workFolder; // args[0]
 	private static List<String> outputData = new ArrayList<String>();
 	
+	public static double evaluateOptimizationFunction( String optimizationFunction, Double[] values ) {
+		for (int i = 0; i < values.length; i++) {
+			String old = "q_" + Integer.toString(i + 1);
+			optimizationFunction = optimizationFunction.replace( old, "" + values[i] );
+			
+			old = "M_" + Integer.toString(i + 1);
+			optimizationFunction = optimizationFunction.replace( old, "" + values[i] );
+			
+			old = "\\lambda_" + Integer.toString(i + 1);
+			optimizationFunction = optimizationFunction.replace( old, "" + values[i] );
+		}
+		
+		
+		optimizationFunction = optimizationFunction.replace( "\\frac", "" );
+		optimizationFunction = optimizationFunction.replaceAll(	"[}]{1,1}+[\\s]*+[{]{1,1}", ")/(" );
+		optimizationFunction = optimizationFunction.replace( "}", ")" );
+		optimizationFunction = optimizationFunction.replace( "{", "(" );
+		
+		/*
+		JEP myParser = new JEP();
+		myParser.parseExpression(optimizationFunction);
+		System.out.println(optimizationFunction + " = " + myParser.getValue());
+		return myParser.getValue();
+		*/
+		
+		return 0.0;
+	}
+
+
 	
 	/**
 	 * Process the lines
@@ -31,6 +60,14 @@ public class Main {
 		
 		// 0         1        2        3         4            5              6      7               8                       
 
+		
+		
+		// Arquivo: graph10356.g6.adj
+		/*
+		Double teste[] = {-2.92144,	-1.92231, -1.47701, -0.941143, -0.462193, 0.355915, 0.820754, 1.50535, 5.04208};
+		String math = " q_1 + q_2 ";
+		evaluateOptimizationFunction(math, teste);
+		*/
 		
 		String maxDegree = lineData[0];
 		String biptOnly = lineData[1];
