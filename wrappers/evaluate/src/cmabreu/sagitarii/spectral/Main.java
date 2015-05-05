@@ -1,6 +1,7 @@
 package cmabreu.sagitarii.spectral;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -9,10 +10,28 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.nfunk.jep.JEP;
+
+// 0         1        2        3         4            5              6      7               8                       
+// maxdegree,biptonly,optifunc,mindegree,trianglefree,eigsolveoption,gorder,allowdiscgraphs,caixa1
+// 8,		 on,	  lambda,  1,        on,          L,             1,     on,             min
+
 
 public class Main {
 	private static String workFolder; // args[0]
 	private static List<String> outputData = new ArrayList<String>();
+	
+	private static int getIndex( String key, String header) {
+		int index = -1;
+		String[] headers = header.split(",");
+		for ( int x = 0; x < headers.length; x++  ) {
+			if ( headers[x].equals( key )  ) {
+				index = x;
+			}
+		}
+		return index;
+	}
+	
 	
 	public static double evaluateOptimizationFunction( String optimizationFunction, Double[] values ) {
 		for (int i = 0; i < values.length; i++) {
@@ -26,24 +45,21 @@ public class Main {
 			optimizationFunction = optimizationFunction.replace( old, "" + values[i] );
 		}
 		
-		
 		optimizationFunction = optimizationFunction.replace( "\\frac", "" );
 		optimizationFunction = optimizationFunction.replaceAll(	"[}]{1,1}+[\\s]*+[{]{1,1}", ")/(" );
 		optimizationFunction = optimizationFunction.replace( "}", ")" );
 		optimizationFunction = optimizationFunction.replace( "{", "(" );
 		
-		/*
 		JEP myParser = new JEP();
 		myParser.parseExpression(optimizationFunction);
-		System.out.println(optimizationFunction + " = " + myParser.getValue());
-		return myParser.getValue();
-		*/
 		
-		return 0.0;
+		System.out.println(optimizationFunction + " = " + myParser.getValue());
+		
+		return myParser.getValue();
+		
 	}
 
 
-	
 	/**
 	 * Process the lines
 	 * @param columns : Array of string
@@ -51,63 +67,40 @@ public class Main {
 	 * Each index of this array will match the index of columns array
 	 * 
 	 */
-	public static void processLine( String line ) throws Exception {
-		String[] lineData = line.split(","); 
+	public static void processLine(String header, String line ) throws Exception {
+		String[] lineData = line.split(",");
+		String inputFile = lineData[ getIndex("eigsolve", header) ]; // Get the eigsolve file
+		String optimizationFunction = lineData[ getIndex("optifunc", header) ];  // Get the function
 		
-
-		// maxdegree,biptonly,optifunc,mindegree,trianglefree,eigsolveoption,gorder,allowdiscgraphs,caixa1
-		// 8,on,lambda,1,on,L,1,on,min
+		String eigsolveOutput = workFolder + "/inbox/" + inputFile;
+		String evaluatedOutput = workFolder + "/outbox/" + inputFile + ".txt";
 		
-		// 0         1        2        3         4            5              6      7               8                       
-
+		List<String> inputData = readFile( eigsolveOutput );
 		
-		
-		// Arquivo: graph10356.g6.adj
-		/*
-		Double teste[] = {-2.92144,	-1.92231, -1.47701, -0.941143, -0.462193, 0.355915, 0.820754, 1.50535, 5.04208};
-		String math = " q_1 + q_2 ";
-		evaluateOptimizationFunction(math, teste);
-		*/
-		
-		String maxDegree = lineData[0];
-		String biptOnly = lineData[1];
-		String minDegree = lineData[3];
-		String triangleFree = lineData[4];
-		String order = lineData[6];
-		String allowDiscGraphs = lineData[7];
-		
-		String libraryDirectory = readLibraryDirectory();
-		if( !libraryDirectory.equals("")  ) {
-			
-			String degreeOptions = " -d" + minDegree + " -D" + maxDegree;
-			String gengOptions = "";
-			if ( biptOnly.equals("on") ) {
-				gengOptions += "-b ";
-			}
-			if ( triangleFree.equals("on") ) {
-				gengOptions += "-t ";
-			}			
-			if ( !allowDiscGraphs.equals("on") ) {
-				gengOptions += "-c ";
-			}			
-			
-			String gengOutput = workFolder + "/outbox/saida_" + order +  ".g6";
-
-			String geng = libraryDirectory + "/geng " + degreeOptions + " -g -q " + gengOptions + " " + order + " " + gengOutput;
-
-			run(geng);
-
-			// Send back original data plus file name
-			outputData.add( line + ",saida_" + order +  ".g6" );
-			saveOutput();
-			
-		} else {
-			System.out.println("Cannot find config file spectral.config");
+		// Convert String format into Double format
+		List<Double> convertedValues = new ArrayList<Double>();
+		for ( String stringValue : inputData ) {
+			Double value = Double.valueOf( stringValue );
+			convertedValues.add( value );
 		}
+		Double[] values = new Double[ convertedValues.size() ];
+		values = convertedValues.toArray(values);
+
 		
+		Double evaluatedValue = evaluateOptimizationFunction( optimizationFunction, values );
 		
-		
+		// Put results in a file and save it
+		List<String> outputValues = new ArrayList<String>();
+		outputValues.add( evaluatedValue.toString() );
+		saveFile(outputValues, evaluatedOutput);
+
+		// Send back original data plus file name
+		outputData.add( inputData.get(0) + ",evaluatedFile" );
+		outputData.add( line + "," + inputFile + ".txt" );
+		saveOutput();
+
 	}	
+	
 	
 	public static void saveOutput() throws FileNotFoundException {
 	    PrintWriter pw = new PrintWriter( new FileOutputStream( workFolder + "/sagi_output.txt"  ) );
@@ -117,37 +110,23 @@ public class Main {
 	    pw.close();
 	}
 	
-	
-	public static void run( String application ) {
-		Process process = null;
-		
-		System.out.println( application );
-		
-        try {
-        	process = Runtime.getRuntime().exec( application );
-
-        	BufferedReader reader = new BufferedReader( new InputStreamReader(process.getInputStream() ) );
-            String line="";
-            while ((line = reader.readLine()) != null) {
-            	System.out.println( line );
-            }
-            process.waitFor();
-            
-        } catch ( Exception e ) {
-        	e.printStackTrace();
-        }
-    }
+	public static void saveFile( List<String> data,  String fileName  ) throws FileNotFoundException {
+	    PrintWriter pw = new PrintWriter( new FileOutputStream( workFolder + File.separator + "outbox" + File.separator + fileName  ) );
+	    for ( String line : data ) {
+	        pw.println( line );
+	    }
+	    pw.close();
+	}
 	
 	public static void main(String[] args) throws Exception{
 		workFolder = args[0];		 
 
-		List<String> inputData = readFile( workFolder + "/sagi_input.txt" );
+		List<String> inputData = readFile( workFolder + File.separator + "sagi_input.txt" );
 		if( inputData.size() > 1 ) {
 			
-			String line = inputData.get(1);  // This is a MAP activity. Just one line.
-			outputData.add( inputData.get(0) + ",g6file" );
-			processLine( line );
-			
+			String header = inputData.get( 0 ); // Get the CSV header
+			String line = inputData.get( 1 );   // MAP just one line
+			processLine( header, line );
 			
 		} else {
 			System.out.println("Empty input data file.");
@@ -155,17 +134,6 @@ public class Main {
 		
 	}
 
-	
-	private static String readLibraryDirectory() {
-		String line = "";
-		try (BufferedReader br = new BufferedReader( new FileReader( "spectral.config" ) ) ) {
-		    line = br.readLine(); 
-		} catch ( Exception e ) {
-			
-		}
-		return line;
-	}	
-	
 	
 	/**
 	 * This is a method to read the CSV data 
