@@ -84,7 +84,7 @@
 										</tr>
 										
 										<tr>
-											<td>Sagitarii URL Host (Temporário)</td>
+											<td>Sagitarii URL Host</td>
 											<td><input type="text" value="http://localhost:8080/sagitarii/" name="sagitariiUrl" /></td>
 										</tr>
 	
