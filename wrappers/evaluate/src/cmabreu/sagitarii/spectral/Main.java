@@ -5,16 +5,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.nfunk.jep.JEP;
-
-// 0         1        2        3         4            5              6      7               8                       
-// maxdegree,biptonly,optifunc,mindegree,trianglefree,eigsolveoption,gorder,allowdiscgraphs,caixa1
-// 8,		 on,	  lambda,  1,        on,          L,             1,     on,             min
 
 
 public class Main {
@@ -32,6 +27,13 @@ public class Main {
 		return index;
 	}
 	
+	private static List<Double> convertToDouble( List<String> values ) throws Exception {
+		List<Double> result = new ArrayList<Double>();
+		for ( String value : values ) {
+			result.add(  Double.valueOf( value ) );
+		}
+		return result;
+	}
 	
 	public static double evaluateOptimizationFunction( String optimizationFunction, Double[] values ) {
 		for (int i = 0; i < values.length; i++) {
@@ -69,34 +71,23 @@ public class Main {
 	 */
 	public static void processLine(String header, String line ) throws Exception {
 		String[] lineData = line.split(",");
-		String inputFile = lineData[ getIndex("eigsolve", header) ]; // Get the eigsolve file
+		String inputFile = lineData[ getIndex("eigsolve", header) ];             // Get the eigsolve file
 		String optimizationFunction = lineData[ getIndex("optifunc", header) ];  // Get the function
 		
 		String eigsolveOutput = workFolder + "/inbox/" + inputFile;
-		String evaluatedOutput = workFolder + "/outbox/" + inputFile + ".txt";
 		
 		List<String> inputData = readFile( eigsolveOutput );
 		
-		// Convert String format into Double format
-		List<Double> convertedValues = new ArrayList<Double>();
-		for ( String stringValue : inputData ) {
-			Double value = Double.valueOf( stringValue );
-			convertedValues.add( value );
-		}
+		List<Double> convertedValues = convertToDouble( inputData );
 		Double[] values = new Double[ convertedValues.size() ];
 		values = convertedValues.toArray(values);
 
 		
 		Double evaluatedValue = evaluateOptimizationFunction( optimizationFunction, values );
 		
-		// Put results in a file and save it
-		List<String> outputValues = new ArrayList<String>();
-		outputValues.add( evaluatedValue.toString() );
-		saveFile(outputValues, evaluatedOutput);
-
 		// Send back original data plus file name
-		outputData.add( inputData.get(0) + ",evaluatedFile" );
-		outputData.add( line + "," + inputFile + ".txt" );
+		outputData.add( header + ",evaluatedvalue" );
+		outputData.add( line + "," + evaluatedValue );
 		saveOutput();
 
 	}	
