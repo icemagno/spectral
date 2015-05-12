@@ -15,8 +15,11 @@ CREATE TABLE txt2dot_out
   biptonly character varying(250),
   g6file character varying(250),
   showgfile character varying(250),
-  dotfile character varying(250),
+  dotfile integer,
   CONSTRAINT txt2dot_out_pkey PRIMARY KEY (index_id),
+  CONSTRAINT dotfile_fk FOREIGN KEY (dotfile)
+      REFERENCES files (id_file) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT txt2dot_out_fkac FOREIGN KEY (id_activity)
       REFERENCES activities (id_activity) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,

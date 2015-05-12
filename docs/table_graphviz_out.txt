@@ -1,4 +1,4 @@
-CREATE TABLE awk_out
+CREATE TABLE graphviz_out
 (
   index_id serial NOT NULL,
   id_experiment integer,
@@ -14,18 +14,20 @@ CREATE TABLE awk_out
   allowdiscgraphs character varying(250),
   biptonly character varying(250),
   g6file character varying(250),
-  g6splitedfile integer,
-  CONSTRAINT awk_out_pkey PRIMARY KEY (index_id),
-  CONSTRAINT awk_out_fkac FOREIGN KEY (id_activity)
+  showgfile character varying(250),
+  dotfile character varying(250),
+  gvfile integer,
+  CONSTRAINT graphviz_out_pkey PRIMARY KEY (index_id),
+  CONSTRAINT gvfile_fk FOREIGN KEY (gvfile)
+      REFERENCES files (id_file) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT graphviz_out_fkac FOREIGN KEY (id_activity)
       REFERENCES activities (id_activity) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT awk_out_fkex FOREIGN KEY (id_experiment)
+  CONSTRAINT graphviz_out_fkex FOREIGN KEY (id_experiment)
       REFERENCES experiments (id_experiment) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT awk_out_fkpi FOREIGN KEY (id_pipeline)
+  CONSTRAINT graphviz_out_fkpi FOREIGN KEY (id_pipeline)
       REFERENCES pipelines (id_pipeline) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT g6splitedfile_fk FOREIGN KEY (g6splitedfile)
-      REFERENCES files (id_file) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )

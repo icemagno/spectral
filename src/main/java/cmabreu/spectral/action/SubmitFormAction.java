@@ -33,13 +33,13 @@ public class SubmitFormAction extends BasicActionClass {
 	private List<String> log;
 	
 	public String execute () {
-		
 		if( caixa1 != null ) {
 			try {
 				SagitariiInterface si = new SagitariiInterface(sagitariiUrl, user, password);
 				si.submit(adjacency, laplacian, slaplacian, optiFunc, caixa1, ordermin, ordermax, minDegree, maxDegree, triangleFree, allowDiscGraphs, biptOnly);
 				log = si.getLog();
 			} catch ( Exception e ) {
+				e.printStackTrace();
 				setMessageText( e.getMessage() );
 			}
 		} else {

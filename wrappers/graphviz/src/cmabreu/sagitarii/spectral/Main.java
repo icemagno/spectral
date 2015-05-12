@@ -1,19 +1,34 @@
 package cmabreu.sagitarii.spectral;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.InputStreamReader;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class Main {
 	private static String workFolder; // args[0]
-	private static List<String> outputData = new ArrayList<String>();
+	private static List<String> outputCsv = new ArrayList<String>();
+	private static List<String> folderContent = new ArrayList<String>();
+
 	
+	
+	private static int getIndex( String key, String header) {
+		int index = -1;
+		String[] headers = header.split(",");
+		for ( int x = 0; x < headers.length; x++  ) {
+			if ( headers[x].equals( key )  ) {
+				index = x;
+			}
+		}
+		return index;
+	}	
 	
 	/**
 	 * Process the lines
@@ -22,94 +37,100 @@ public class Main {
 	 * Each index of this array will match the index of columns array
 	 * 
 	 */
-	public static void processLine( String line ) throws Exception {
+	public static void processLine( String header, String line ) throws Exception {
 		String[] lineData = line.split(","); 
+
+		String inputFile = lineData[ getIndex("dotfile", header) ]; 
 		
+		String dotOutput = workFolder + File.separator + "inbox" + File.separator + inputFile;
+		String outbox = workFolder + File.separator + "outbox" + File.separator ;	
+		String inbox = workFolder + File.separator + "inbox" + File.separator ;	
+		String gvOutput = workFolder + File.separator + "sagi_output.txt";
 
-		// maxdegree,biptonly,optifunc,mindegree,trianglefree,eigsolveoption,gorder,allowdiscgraphs,caixa1
-		// 8,on,lambda,1,on,L,1,on,min
+		// 0         1        2        3         4            5              6      7               8      9      10        11         
+		// maxdegree,biptonly,optifunc,mindegree,trianglefree,eigsolveoption,gorder,allowdiscgraphs,caixa1,g6file,showgfile,dotFile
+		// 16,off,lambda,4,off,L,9,on,min,saida_9.g6,saida_9.g6.txt,saida_9.g6.txt.dot
 		
-		// 0         1        2        3         4            5              6      7               8                       
+		String graphviz = "dot -Tgif -O " + dotOutput;
 
+		runSystem( graphviz, outbox );
+		getFolderContent( inbox );
 		
-		String maxDegree = lineData[0];
-		String biptOnly = lineData[1];
-		String minDegree = lineData[3];
-		String triangleFree = lineData[4];
-		String order = lineData[6];
-		String allowDiscGraphs = lineData[7];
-		
-		String libraryDirectory = readLibraryDirectory();
-		if( !libraryDirectory.equals("")  ) {
-			
-			String degreeOptions = " -d" + minDegree + " -D" + maxDegree;
-			String gengOptions = "";
-			if ( biptOnly.equals("on") ) {
-				gengOptions += "-b ";
-			}
-			if ( triangleFree.equals("on") ) {
-				gengOptions += "-t ";
-			}			
-			if ( !allowDiscGraphs.equals("on") ) {
-				gengOptions += "-c ";
-			}			
-			
-			String gengOutput = workFolder + "/outbox/saida_" + order +  ".g6";
-
-			String geng = libraryDirectory + "/geng " + degreeOptions + " -g -q " + gengOptions + " " + order + " " + gengOutput;
-
-			run(geng);
-
-			// Send back original data plus file name
-			outputData.add( line + ",saida_" + order +  ".g6" );
-			saveOutput();
-			
-		} else {
-			System.out.println("Cannot find config file spectral.config");
+		outputCsv.add( header + ",gvfile" );
+		for ( String gvFile : folderContent ) {
+			moveFile( inbox + gvFile, outbox + gvFile);
+			outputCsv.add( line + "," + gvFile );
 		}
-		
-		
+
+		saveFile( gvOutput );
+			
 		
 	}	
 	
+	private static void moveFile(String source, String dest) throws IOException {
+		File src = new File(source);
+		File trgt = new File(dest);
+		if ( src.exists() ) {
+		    Files.copy(src.toPath(), trgt.toPath());
+		    src.delete();
+		}
+	}
+	
+	public static void getFolderContent( String outbox ) {
+		File folder = new File( outbox );
+	    for (final File fileEntry : folder.listFiles()) {
+	        if ( (fileEntry.getName().contains(".gif") ) && !fileEntry.isDirectory()) {
+	            folderContent.add( fileEntry.getName() );
+	        }
+	    }
+	}
+	
 	public static void saveOutput() throws FileNotFoundException {
 	    PrintWriter pw = new PrintWriter( new FileOutputStream( workFolder + "/sagi_output.txt"  ) );
-	    for ( String line : outputData ) {
+	    for ( String line : outputCsv ) {
 	        pw.println( line );
 	    }
 	    pw.close();
 	}
 	
+	public static void saveFile(String fileName) throws FileNotFoundException {
+	    PrintWriter pw = new PrintWriter(new FileOutputStream(fileName));
+	    for ( String outLine : outputCsv ) {
+	        pw.println( outLine );
+	    }
+	    pw.close();
+	}
 	
-	public static void run( String application ) {
-		Process process = null;
+	private static int runSystem( String command, String directoryContext ) {
+		List<String> commands = new ArrayList<String>();
+		int result = 0;
+		File folder = null;
 		
-		System.out.println( application );
+		folder = new File( directoryContext );
 		
-        try {
-        	process = Runtime.getRuntime().exec( application );
-
-        	BufferedReader reader = new BufferedReader( new InputStreamReader(process.getInputStream() ) );
-            String line="";
-            while ((line = reader.readLine()) != null) {
-            	System.out.println( line );
-            }
-            process.waitFor();
-            
-        } catch ( Exception e ) {
-        	e.printStackTrace();
-        }
-    }
+	    commands.add("/bin/sh");
+	    commands.add("-c");
+	    commands.add(command);
+		
+	    try {
+			SystemCommandExecutor commandExecutor = new SystemCommandExecutor(commands);
+			result = commandExecutor.executeCommand( folder );
+	    } catch ( Exception e ) {
+	    	result = 1;
+	    }
+		return result;
+	}
+	
 	
 	public static void main(String[] args) throws Exception{
-		workFolder = args[0];		 
+		workFolder = args[0];	
 
 		List<String> inputData = readFile( workFolder + "/sagi_input.txt" );
 		if( inputData.size() > 1 ) {
-			
-			String line = inputData.get(1);  // This is a MAP activity. Just one line.
-			outputData.add( inputData.get(0) + ",g6file" );
-			processLine( line );
+
+			String header = inputData.get( 0 ); // Get the CSV header
+			String line = inputData.get( 1 ); // SPLIT MAP just one line
+			processLine( header, line );
 			
 			
 		} else {
@@ -118,17 +139,6 @@ public class Main {
 		
 	}
 
-	
-	private static String readLibraryDirectory() {
-		String line = "";
-		try (BufferedReader br = new BufferedReader( new FileReader( "spectral.config" ) ) ) {
-		    line = br.readLine(); 
-		} catch ( Exception e ) {
-			
-		}
-		return line;
-	}	
-	
 	
 	/**
 	 * This is a method to read the CSV data 

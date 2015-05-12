@@ -121,7 +121,7 @@ public class SagitariiInterface {
 			}
 		}
 
-		if ( ( slaplacian != null ) && ( laplacian.equals("on") ) ) {
+		if ( ( laplacian != null ) && ( laplacian.equals("on") ) ) {
 			for ( int x = orderMin; x <= orderMax; x++ ) {
 				data.append( dataPrefix );
 				data.append( getDataFor("L", optiFunc, caixa1, x, minDegree, maxDegree, triangleFree, allowDiscGraphs, biptOnly ) );

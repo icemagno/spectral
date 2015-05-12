@@ -15,8 +15,11 @@ CREATE TABLE eigsolve_out
   biptonly character varying(250),
   g6file character varying(250),
   g6filesplited character varying(250),
-  eigsolve character varying(250),
+  eigsolve integer,
   CONSTRAINT eigsolve_out_pkey PRIMARY KEY (index_id),
+  CONSTRAINT eigsolve_fk FOREIGN KEY (eigsolve)
+      REFERENCES files (id_file) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT eigsolve_out_fkac FOREIGN KEY (id_activity)
       REFERENCES activities (id_activity) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,

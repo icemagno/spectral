@@ -14,6 +14,17 @@ public class Main {
 	private static String workFolder; // args[0]
 	private static List<String> outputData = new ArrayList<String>();
 	
+	private static int getIndex( String key, String header) {
+		int index = -1;
+		String[] headers = header.split(",");
+		for ( int x = 0; x < headers.length; x++  ) {
+			if ( headers[x].equals( key )  ) {
+				index = x;
+			}
+		}
+		return index;
+	}
+		
 	
 	/**
 	 * Process the lines
@@ -22,22 +33,19 @@ public class Main {
 	 * Each index of this array will match the index of columns array
 	 * 
 	 */
-	public static void processLine( String line ) throws Exception {
+	public static void processLine( String header, String line ) throws Exception {
 		String[] lineData = line.split(","); 
-		
 
+		// 0         1        2        3         4            5              6      7               8                       
 		// maxdegree,biptonly,optifunc,mindegree,trianglefree,eigsolveoption,gorder,allowdiscgraphs,caixa1
 		// 8,on,lambda,1,on,L,1,on,min
 		
-		// 0         1        2        3         4            5              6      7               8                       
-
-		
-		String maxDegree = lineData[0];
-		String biptOnly = lineData[1];
-		String minDegree = lineData[3];
-		String triangleFree = lineData[4];
-		String order = lineData[6];
-		String allowDiscGraphs = lineData[7];
+		String maxDegree = lineData[ getIndex("maxdegree", header) ]; 
+		String biptOnly = lineData[ getIndex("biptonly", header) ]; 
+		String minDegree = lineData[ getIndex("mindegree", header) ];
+		String triangleFree = lineData[ getIndex("trianglefree", header) ];
+		String order = lineData[ getIndex("gorder", header) ];
+		String allowDiscGraphs = lineData[ getIndex("allowdiscgraphs", header) ];
 		
 		String libraryDirectory = readLibraryDirectory();
 		if( !libraryDirectory.equals("")  ) {
@@ -61,6 +69,7 @@ public class Main {
 			run(geng);
 
 			// Send back original data plus file name
+			outputData.add( header +  ",g6file" );
 			outputData.add( line + ",saida_" + order +  ".g6" );
 			saveOutput();
 			
@@ -102,14 +111,14 @@ public class Main {
     }
 	
 	public static void main(String[] args) throws Exception{
-		workFolder = args[0];		 
+		workFolder = args[0];	
 
 		List<String> inputData = readFile( workFolder + "/sagi_input.txt" );
 		if( inputData.size() > 1 ) {
-			
-			String line = inputData.get(1);  // This is a MAP activity. Just one line.
-			outputData.add( inputData.get(0) + ",g6file" );
-			processLine( line );
+
+			String header = inputData.get( 0 ); // Get the CSV header
+			String line = inputData.get( 1 ); // SPLIT MAP just one line
+			processLine( header, line );
 			
 			
 		} else {
