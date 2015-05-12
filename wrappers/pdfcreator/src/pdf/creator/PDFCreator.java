@@ -40,14 +40,9 @@ public class PDFCreator {
 	 * @throws IOException
 	 *             Quando não achar a pasta com os arquivos GIF.
 	 */
-	public static List<String> gerarPDF(File f, ArrayList<Double> values, String outputFolder ) throws DocumentException, IOException {
+	public static List<String> gerarPDF(String imageFileName, List<Double> values, String outputFolder ) throws DocumentException, IOException {
 		Document document;
 		
-		if ( !f.isDirectory() ) {
-			throw new IllegalArgumentException("Argument is not a directory.");
-		} else if ( f.list().length != values.size() ) {
-			throw new IllegalArgumentException(	"Size of directory is not compatible with quantity of values.");
-		}
 		List<String> generatedPdfs = new ArrayList<String>();
 		int contador = 1;
 		for (Double i : values) {
@@ -56,7 +51,7 @@ public class PDFCreator {
 			generatedPdfs.add( pdfName );
 			PdfWriter.getInstance(document, new FileOutputStream(outputFolder + File.separator + pdfName ) );
 			document.open();
-			Image img = Image.getInstance(f + "/img" + contador + ".gif");
+			Image img = Image.getInstance( imageFileName );
 			img.setAlignment(Image.MIDDLE);
 			document.add(img);
 			Paragraph p = new Paragraph("Value of optimization function: " + i);

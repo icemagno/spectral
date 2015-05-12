@@ -12,23 +12,40 @@ import java.util.List;
 
 public class Main {
 
+	
 	private static String workFolder; // args[0]
 	private static List<String> outputData = new ArrayList<String>();
 	
-
+	private static List<Double> convertToDouble( List<String> values ) throws Exception {
+		List<Double> result = new ArrayList<Double>();
+		for ( String value : values ) {
+			result.add(  Double.valueOf( value ) );
+		}
+		return result;
+	}
+	
+	private static int getIndex( String key, String header) {
+		int index = -1;
+		String[] headers = header.split(",");
+		for ( int x = 0; x < headers.length; x++  ) {
+			if ( headers[x].equals( key )  ) {
+				index = x;
+			}
+		}
+		return index;
+	}	
+	
 	public static void processLine(String header, String line ) throws Exception {
+		String[] lineData = line.split(",");
+		String inputFolder = workFolder + File.separator + "inbox" + File.separator;
+		String outputFolder = workFolder + File.separator + "outbox" + File.separator;
 
-		String inputFolder = workFolder + File.separator + "inbox";
-		String outputFolder = workFolder + File.separator + "outbox";
+		String imageFile = inputFolder + File.separator + lineData[ getIndex("gvfile", header) ];
+		String valuesFile = inputFolder + File.separator + lineData[ getIndex("eigsolve", header) ];
 		
-		File f = new File( inputFolder );
-		ArrayList<Double> values = new ArrayList<Double>();
-		values.add(3.4);
-		values.add(4.3);
-		values.add(5.5);
-		values.add(7.8);
-		values.add(8.7);
-		List<String> generatedPdfs = PDFCreator.gerarPDF(f, values, outputFolder);
+		List<String> valuesS = readFile( valuesFile );
+		List<Double> valuesD = convertToDouble( valuesS );   
+		List<String> generatedPdfs = PDFCreator.gerarPDF( imageFile , valuesD, outputFolder );
 		
 		// Send back original data plus file name
 		outputData.add( header + ",pdfFile" );
@@ -47,7 +64,7 @@ public class Main {
 		if( inputData.size() > 1 ) {
 
 			String header = inputData.get( 0 ); // Get the CSV header
-			String line = inputData.get( 1 ); // SPLIT MAP just one line
+			String line = inputData.get( 1 );   // MAP just one line
 			processLine( header, line );
 			
 			

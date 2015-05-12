@@ -47,9 +47,9 @@ public class Main {
 		String inbox = workFolder + File.separator + "inbox" + File.separator ;	
 		String gvOutput = workFolder + File.separator + "sagi_output.txt";
 
-		// 0         1        2        3         4            5              6      7               8      9      10        11         
-		// maxdegree,biptonly,optifunc,mindegree,trianglefree,eigsolveoption,gorder,allowdiscgraphs,caixa1,g6file,showgfile,dotFile
-		// 16,off,lambda,4,off,L,9,on,min,saida_9.g6,saida_9.g6.txt,saida_9.g6.txt.dot
+		// 0         1        2        3         4            5              6      7               8      9          10             11         
+		// maxdegree,biptonly,optifunc,mindegree,trianglefree,eigsolveoption,gorder,allowdiscgraphs,caixa1,g6file,    showgfile,     dotFile
+		// 16,       off,     lambda,  4,        off,         L,             9,     on,             min,   saida_9.g6,saida_9.g6.txt,saida_9.g6.txt.dot
 		
 		String graphviz = "dot -Tgif -O " + dotOutput;
 
