@@ -3,7 +3,6 @@ package pdf.creator;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.itextpdf.text.Document;
@@ -40,27 +39,36 @@ public class PDFCreator {
 	 * @throws IOException
 	 *             Quando não achar a pasta com os arquivos GIF.
 	 */
-	public static List<String> gerarPDF(String imageFileName, List<Double> values, String outputFolder ) throws DocumentException, IOException {
-		Document document;
+	public static String gerarPDF( List<JobUnity> jobs, String outputFolder ) throws DocumentException, IOException {
+		String pdfName = "grafos.pdf";
+
+		Document document = new Document();
+		PdfWriter.getInstance(document, new FileOutputStream(outputFolder + File.separator + pdfName ) );
+		document.open();
 		
-		List<String> generatedPdfs = new ArrayList<String>();
-		int contador = 1;
-		for (Double i : values) {
-			document = new Document();
-			String pdfName = "grafo" + contador + ".pdf";
-			generatedPdfs.add( pdfName );
-			PdfWriter.getInstance(document, new FileOutputStream(outputFolder + File.separator + pdfName ) );
-			document.open();
-			Image img = Image.getInstance( imageFileName );
-			img.setAlignment(Image.MIDDLE);
-			document.add(img);
-			Paragraph p = new Paragraph("Value of optimization function: " + i);
+		for ( JobUnity job : jobs ) {
+			List<Double> values = job.getValues();
+			String imageFileName = job.getImageFile();
+			
+			Image image = Image.getInstance( imageFileName );
+
+			float scaler = ((document.getPageSize().getWidth() - document.leftMargin()
+		               - document.rightMargin() ) / image.getWidth()) * 100;
+
+			image.scalePercent(scaler);			
+			
+			image.setAlignment(Image.MIDDLE);
+			document.add(image);
+			Paragraph p = new Paragraph("Value of optimization function: " + values.toString() );
 			p.setAlignment(Element.ALIGN_CENTER);
 			document.add(p);
-			document.close();
-			contador++;
+
+			document.newPage();
 		}
-		return generatedPdfs;
+		
+		
+		document.close();
+		return pdfName;
 	}
 
 }

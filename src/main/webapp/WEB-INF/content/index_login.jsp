@@ -114,7 +114,8 @@
 
 	
 	function showFunctionImage() {
-		var theFunction = $("#optiFunc").val();
+		var theFunction = encodeURIComponent( $("#optiFunc").val() );
+		
 		if ( theFunction.length > 0 ) {
 			$("#functionImage").attr( "src", "getPreview?function=" + theFunction );
 			$("#functionImage").css("display","block");

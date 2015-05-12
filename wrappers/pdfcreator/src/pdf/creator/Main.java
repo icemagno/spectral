@@ -11,10 +11,10 @@ import java.util.List;
 
 
 public class Main {
-
-	
 	private static String workFolder; // args[0]
 	private static List<String> outputData = new ArrayList<String>();
+	private static List<JobUnity> jobs = new ArrayList<JobUnity>();
+	
 	
 	private static List<Double> convertToDouble( List<String> values ) throws Exception {
 		List<Double> result = new ArrayList<Double>();
@@ -38,25 +38,18 @@ public class Main {
 	public static void processLine(String header, String line ) throws Exception {
 		String[] lineData = line.split(",");
 		String inputFolder = workFolder + File.separator + "inbox" + File.separator;
-		String outputFolder = workFolder + File.separator + "outbox" + File.separator;
 
 		String imageFile = inputFolder + File.separator + lineData[ getIndex("gvfile", header) ];
 		String valuesFile = inputFolder + File.separator + lineData[ getIndex("eigsolve", header) ];
 		
 		List<String> valuesS = readFile( valuesFile );
-		List<Double> valuesD = convertToDouble( valuesS );   
-		List<String> generatedPdfs = PDFCreator.gerarPDF( imageFile , valuesD, outputFolder );
+		List<Double> valuesD = convertToDouble( valuesS );  
 		
-		// Send back original data plus file name
-		outputData.add( header + ",pdfFile" );
-		for ( String pdfFile : generatedPdfs ) {
-			outputData.add( line + "," + pdfFile );
-		}
-		saveOutput();
+		jobs.add( new JobUnity(valuesD, imageFile) );
+
 	}
 
 
-	
 	public static void main(String[] args) throws Exception{
 		workFolder = args[0];	
 
@@ -64,8 +57,21 @@ public class Main {
 		if( inputData.size() > 1 ) {
 
 			String header = inputData.get( 0 ); // Get the CSV header
-			String line = inputData.get( 1 );   // MAP just one line
-			processLine( header, line );
+			String line = "";
+			for ( int x = 1; x < inputData.size(); x++  ) {
+				line = inputData.get( x );      // REDUCE process every line
+				processLine( header, line );
+			}
+			
+			
+			String outputFolder = workFolder + File.separator + "outbox" + File.separator;
+
+			String generatedPdf = PDFCreator.gerarPDF( jobs, outputFolder );
+			outputData.add( "pdfFile" );
+			outputData.add( generatedPdf );
+			saveOutput();
+			
+
 			
 			
 		} else {

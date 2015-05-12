@@ -24,13 +24,11 @@ public class GetPreviewAction extends BasicActionClass {
 	private String function;
 	
 	public String execute () {
-		
 		LatexFunctionGenerator sc = new LatexFunctionGenerator();
 		fileInputStream = sc.getImage( function ) ;
 		if( fileInputStream == null ) {
 			fileInputStream = sc.getImage( "Function Error" ) ;
 		}
-		
 		return "ok";
 	}
 
