@@ -1,4 +1,4 @@
-package pdf.creator;
+package cmabreu.sagitarii.spectral;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -47,8 +47,9 @@ public class PDFCreator {
 		document.open();
 		
 		for ( JobUnity job : jobs ) {
-			List<Double> values = job.getValues();
+			String values = job.getValues();
 			String imageFileName = job.getImageFile();
+			String evalValue = job.getEvalValue();
 			
 			Image image = Image.getInstance( imageFileName );
 
@@ -59,9 +60,14 @@ public class PDFCreator {
 			
 			image.setAlignment(Image.MIDDLE);
 			document.add(image);
-			Paragraph p = new Paragraph("Value of optimization function: " + values.toString() );
+
+			Paragraph p = new Paragraph("Value of optimization function: " + evalValue );
 			p.setAlignment(Element.ALIGN_CENTER);
 			document.add(p);
+			
+			Paragraph p2 = new Paragraph("Eigenvalues: " + values );
+			p2.setAlignment(Element.ALIGN_CENTER);
+			document.add(p2);
 
 			document.newPage();
 		}

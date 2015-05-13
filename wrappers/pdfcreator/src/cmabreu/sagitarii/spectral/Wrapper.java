@@ -1,4 +1,4 @@
-package pdf.creator;
+package cmabreu.sagitarii.spectral;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -9,20 +9,11 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+public class Wrapper {
 
-public class Main {
 	private static String workFolder; // args[0]
 	private static List<String> outputData = new ArrayList<String>();
 	private static List<JobUnity> jobs = new ArrayList<JobUnity>();
-	
-	
-	private static List<Double> convertToDouble( List<String> values ) throws Exception {
-		List<Double> result = new ArrayList<Double>();
-		for ( String value : values ) {
-			result.add(  Double.valueOf( value ) );
-		}
-		return result;
-	}
 	
 	private static int getIndex( String key, String header) {
 		int index = -1;
@@ -41,11 +32,10 @@ public class Main {
 
 		String imageFile = inputFolder + File.separator + lineData[ getIndex("gvfile", header) ];
 		String valuesFile = inputFolder + File.separator + lineData[ getIndex("eigsolve", header) ];
+		String evalValue = lineData[ getIndex("evaluatedvalue", header) ];
 		
 		List<String> valuesS = readFile( valuesFile );
-		List<Double> valuesD = convertToDouble( valuesS );  
-		
-		jobs.add( new JobUnity(valuesD, imageFile) );
+		jobs.add( new JobUnity(valuesS.toString(), imageFile, evalValue) );
 
 	}
 
@@ -109,5 +99,5 @@ public class Main {
 		return list;
 	}
 	
-	
+
 }
