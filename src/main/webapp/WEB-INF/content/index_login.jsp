@@ -42,21 +42,21 @@
 										</tr>
 										<tr>
 											<td>Minimum order</td>
-											<td><input style="width:15px" type="text" name="ordermin" size="2" /></td>
+											<td><input style="width:15px" type="text" name="ordermin" id="ordermin" size="2" /></td>
 										</tr>
 										<tr>
 											<td>Maximun order</td>
-											<td><input style="width:15px" type="text" name="ordermax" size="2" /></td>
+											<td><input style="width:15px" type="text" name="ordermax" id="ordermax" size="2" /></td>
 										</tr>
 	
 	
 										<tr>
 											<td>Minimum degree</td>
-											<td><input style="width:15px" type="text" name="minDegree" size="2" /></td>
+											<td><input style="width:15px" type="text" name="minDegree" id="minDegree" size="2" /></td>
 										</tr>
 										<tr>
 											<td>Maximun degree</td>
-											<td><input style="width:15px" type="text" name="maxDegree" size="2" /></td>
+											<td><input style="width:15px" type="text" name="maxDegree" id="maxDegree" size="2" /></td>
 										</tr>
 	
 	
@@ -108,7 +108,58 @@
 <script>
 
 	function doSubmit() {
-		$("#formFunction").submit();
+		var uncoded = $("#optiFunc").val();
+		checkOptions( uncoded );
+		
+		var ordermin = $("#ordermin").val();
+		var ordermax = $("#ordermax").val();
+		var minDegree = $("#minDegree").val();
+		var maxDegree = $("#maxDegree").val();
+		var selA = $("#adjacency").prop('checked');
+		var selL = $("#laplacian").prop('checked');
+		var selQ = $("#slaplacian").prop('checked');
+		
+		if ( (!selA) && (!selL) && (!selQ) ) {
+			showMessageBox("You must choose at least one (A), (Q) or (L) option.");
+			return;
+		}
+		
+		if ( uncoded == "" ) {
+			showMessageBox("You must provide an Optimization Function");
+			return;
+		}
+
+		if ( ordermin == "" ) {
+			showMessageBox("You must provide the Minimun Order value");
+			return;
+		}
+
+		if ( ordermax == "" ) {
+			showMessageBox("You must provide the Maximun Order value");
+			return;
+		}
+
+		if ( minDegree == "" ) {
+			showMessageBox("You must provide the Minimun Degree value");
+			return;
+		}
+		
+		if ( maxDegree == "" ) {
+			showMessageBox("You must provide the Maximun Degree value");
+			return;
+		}
+		
+		if ( +ordermin > +ordermax ) {
+			showMessageBox("The Minimun Order value must be less than Maximun Order");
+			return;
+		}
+
+		if ( +minDegree > +maxDegree ) {
+			showMessageBox("The Minimun Degree value must be less than Maximun Degree");
+			return;
+		}
+		
+		//$("#formFunction").submit();
 		return false;
 	}
 
@@ -129,15 +180,10 @@
 		if ( funct.indexOf("q_") > -1 ) {
 			$("#slaplacian").prop('checked', true);
 		}
-
-		
-		
-		
 	}
 	
 	function showFunctionImage() {
 		var uncoded = $("#optiFunc").val();
-		
 		checkOptions( uncoded );
 		
 		var theFunction = encodeURIComponent( uncoded );

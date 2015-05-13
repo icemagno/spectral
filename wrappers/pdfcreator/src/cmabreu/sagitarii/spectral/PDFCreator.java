@@ -10,6 +10,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
 /**
@@ -48,12 +49,13 @@ public class PDFCreator {
 			image.scalePercent(scaler);			
 			image.setAlignment(Image.MIDDLE);
 			document.add(image);
-
+			
+			document.add( new Paragraph("") );
+			
 			// Function image
 			LatexFunctionGenerator sc = new LatexFunctionGenerator();
 			ByteArrayOutputStream stream = sc.getImageAsBaos( job.getFunction() + " = " + evalValue ) ;			
 			Image imgFunc = Image.getInstance( stream.toByteArray() );
-
 			imgFunc.setAlignment(Image.MIDDLE);
 			document.add(imgFunc);			
 			

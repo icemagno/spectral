@@ -109,10 +109,6 @@ public class SagitariiInterface {
 		data.append("[");
 		String dataPrefix = "";
 		
-		// Force aways do a ADJACENCY eigsolve ...
-		adjacency = "on";
-		// =======================================
-		
 		if ( adjacency.equals("on") ) {
 			for ( int x = orderMin; x <= orderMax; x++ ) {
 				data.append( dataPrefix );
