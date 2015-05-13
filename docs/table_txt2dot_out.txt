@@ -15,6 +15,8 @@ CREATE TABLE txt2dot_out
   biptonly character varying(250),
   g6file character varying(250),
   showgfile character varying(250),
+  g6splitedfile character varying(250),
+  g6fileid character varying(250),
   dotfile integer,
   CONSTRAINT txt2dot_out_pkey PRIMARY KEY (index_id),
   CONSTRAINT dotfile_fk FOREIGN KEY (dotfile)

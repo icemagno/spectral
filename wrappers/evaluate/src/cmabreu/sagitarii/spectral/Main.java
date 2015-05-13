@@ -35,16 +35,18 @@ public class Main {
 		return result;
 	}
 	
-	public static double evaluateOptimizationFunction( String optimizationFunction, Double[] values ) {
-		for (int i = 0; i < values.length; i++) {
+	public static double evaluateOptimizationFunction( String optimizationFunction, 
+			Double[] valuesAdj, Double[] valuesLap, Double[] valuesSgnlap ) {
+		
+		for (int i = 0; i < valuesAdj.length; i++) {
 			String old = "q_" + Integer.toString(i + 1);
-			optimizationFunction = optimizationFunction.replace( old, "" + values[i] );
+			optimizationFunction = optimizationFunction.replace( old, "" + valuesSgnlap[i] );
 			
-			old = "M_" + Integer.toString(i + 1);
-			optimizationFunction = optimizationFunction.replace( old, "" + values[i] );
+			old = "\\mu_" + Integer.toString(i + 1);
+			optimizationFunction = optimizationFunction.replace( old, "" + valuesLap[i] );
 			
 			old = "\\lambda_" + Integer.toString(i + 1);
-			optimizationFunction = optimizationFunction.replace( old, "" + values[i] );
+			optimizationFunction = optimizationFunction.replace( old, "" + valuesAdj[i] );
 		}
 		
 		optimizationFunction = optimizationFunction.replace( "\\frac", "" );
@@ -55,41 +57,47 @@ public class Main {
 		JEP myParser = new JEP();
 		myParser.parseExpression(optimizationFunction);
 		
-		System.out.println(optimizationFunction + " = " + myParser.getValue());
-		
 		return myParser.getValue();
 		
 	}
 
 
-	/**
-	 * Process the lines
-	 * @param columns : Array of string
-	 * 
-	 * Each index of this array will match the index of columns array
-	 * 
-	 */
-	public static void processLine(String header, String line ) throws Exception {
-		String[] lineData = line.split(",");
-		String inputFile = lineData[ getIndex("eigsolve", header) ];             // Get the eigsolve file
-		String optimizationFunction = lineData[ getIndex("optifunc", header) ];  // Get the function
+	public static void processJob( JobUnity job ) throws Exception {
+		List<Double> convertedAdj = new ArrayList<Double>();
+		List<Double> convertedLap = new ArrayList<Double>();
+		List<Double> convertedSgnLap = new ArrayList<Double>();
 		
-		String eigsolveOutput = workFolder + "/inbox/" + inputFile;
-		
-		List<String> inputData = readFile( eigsolveOutput );
-		
-		List<Double> convertedValues = convertToDouble( inputData );
-		Double[] values = new Double[ convertedValues.size() ];
-		values = convertedValues.toArray(values);
+		if ( job.isAdj() ) {
+			String adjFile = workFolder + File.separator + "inbox" + File.separator + job.getAdjFile();
+			convertedAdj = convertToDouble( readFile( adjFile ) );
+		}
 
+		if ( job.isLap() ) {
+			String lapFile = workFolder + File.separator + "inbox" + File.separator + job.getLapFile();
+			convertedLap = convertToDouble( readFile( lapFile ) );
+		}
 		
-		Double evaluatedValue = evaluateOptimizationFunction( optimizationFunction, values );
+		if ( job.isSgnlap() ) {
+			String sgnlapFile = workFolder + File.separator + "inbox" + File.separator + job.getSgnlapFile();
+			convertedSgnLap = convertToDouble( readFile( sgnlapFile ) );
+		}
+		
+		Double[] valuesAdj = new Double[ convertedAdj.size() ];
+		valuesAdj = convertedAdj.toArray( valuesAdj );
+		
+		Double[] valuesLap = new Double[ convertedLap.size() ];
+		valuesLap = convertedLap.toArray( valuesLap );
+
+		Double[] valuesSgnLap = new Double[ convertedSgnLap.size() ];
+		valuesSgnLap = convertedSgnLap.toArray( valuesSgnLap );
+		
+		Double evaluatedValue = evaluateOptimizationFunction( job.getOptimizationFunction(), valuesAdj, valuesLap, valuesSgnLap );
 		
 		// Send back original data plus file name
-		outputData.add( header + ",evaluatedvalue" );
-		outputData.add( line + "," + evaluatedValue );
+		outputData.add(  "optifunc,g6fileid,evaluatedvalue" );
+		outputData.add( job.getOptimizationFunction() + "," + job.getG6fileid() + "," + evaluatedValue );
 		saveOutput();
-
+		
 	}	
 	
 	
@@ -114,10 +122,35 @@ public class Main {
 
 		List<String> inputData = readFile( workFolder + File.separator + "sagi_input.txt" );
 		if( inputData.size() > 1 ) {
-			
 			String header = inputData.get( 0 ); // Get the CSV header
-			String line = inputData.get( 1 );   // MAP just one line
-			processLine( header, line );
+			
+			JobUnity job = new JobUnity();
+			
+			for ( int x=1; x < inputData.size(); x++ ) {  // REDUCE read all lines
+				String line = inputData.get( x );  
+				String[] lineData = line.split(",");
+				String inputFile = lineData[ getIndex("eigsolve", header) ];             // Get the eigsolve file
+				String optimizationFunction = lineData[ getIndex("optifunc", header) ];  // Get the function
+				String g6fileid = lineData[ getIndex("g6fileid", header) ];  			// Get the source file reference
+				
+				
+				job.setOptimizationFunction( optimizationFunction );
+				job.setHeader(header);
+				job.setG6fileid(g6fileid);
+												
+				if ( inputFile.contains(".lap") ) {
+					job.setLapFile( inputFile );
+				}
+				if ( inputFile.contains(".adj") ) {
+					job.setAdjFile( inputFile );
+				}
+				if ( inputFile.contains(".sgnlap") ) {
+					job.setSgnlapFile( inputFile );
+				}
+				
+			}
+
+			processJob( job );
 			
 		} else {
 			System.out.println("Empty input data file.");

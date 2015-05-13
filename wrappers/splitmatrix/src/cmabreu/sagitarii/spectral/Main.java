@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 // maxdegree,biptonly,optifunc,mindegree,trianglefree,eigsolveoption,gorder,allowdiscgraphs,caixa1,g6file
@@ -17,7 +18,6 @@ import java.util.List;
 
 public class Main {
 	private static String workFolder; // args[0]
-	private static List<String> awkResult = new ArrayList<String>();
 	private static List<String> outputCsv = new ArrayList<String>();
 
 
@@ -43,17 +43,16 @@ public class Main {
 		String awk = "awk '{x=\"graph\"++i\".g6\";}{print>x}' " + gengOutput;
 		runSystem( awk, workFolder + "/outbox/" );
 
-		getAwkResult( workFolder + "/outbox/" );
+		List<String> awkResult = getAwkResult( workFolder + "/outbox/" );
 		
-		outputCsv.add( header + ",g6splitedfile" );
+		outputCsv.add( header + ",g6splitedfile,g6fileid" );
 		for ( String awkFile : awkResult ) {
-			outputCsv.add( line + "," + awkFile );
+	        String fileId = UUID.randomUUID().toString().toUpperCase().substring(0,8);
+			outputCsv.add( line + "," + awkFile + "," + fileId );
 		}
 
 		saveFile( awkOutput );
-			
 	}	
-	
 	
 	
 	public static void main(String[] args) throws Exception{
@@ -123,13 +122,15 @@ public class Main {
 	    pw.close();
 	}
 	
-	public static void getAwkResult( String outbox ) {
+	public static List<String> getAwkResult( String outbox ) {
+		List<String> awkResult = new ArrayList<String>();
 		File folder = new File( outbox );
 	    for (final File fileEntry : folder.listFiles()) {
 	        if ( !fileEntry.isDirectory()) {
 	            awkResult.add( fileEntry.getName() );
 	        }
 	    }
+	    return awkResult;
 	}
 	
 }

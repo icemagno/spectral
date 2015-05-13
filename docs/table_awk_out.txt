@@ -14,6 +14,7 @@ CREATE TABLE awk_out
   allowdiscgraphs character varying(250),
   biptonly character varying(250),
   g6file character varying(250),
+  g6fileid character varying(250),
   g6splitedfile integer,
   CONSTRAINT awk_out_pkey PRIMARY KEY (index_id),
   CONSTRAINT awk_out_fkac FOREIGN KEY (id_activity)
