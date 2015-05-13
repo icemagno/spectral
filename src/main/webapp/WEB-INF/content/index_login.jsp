@@ -23,11 +23,11 @@
 										</tr>
 										<tr>
 											<td >Laplacian (L)</td>
-											<td><input style="width:15px" type="checkbox" name="laplacian" /></td>
+											<td><input style="width:15px" type="checkbox" name="laplacian" id="laplacian" /></td>
 										</tr>
 										<tr>
 											<td>Signless Laplacian (Q)</td>
-											<td><input style="width:15px" type="checkbox" name="slaplacian" /></td>
+											<td><input style="width:15px" type="checkbox" name="slaplacian" id="slaplacian" /></td>
 										</tr>
 										<tr>
 											<td >Optimization Function</td>
@@ -113,8 +113,34 @@
 	}
 
 	
+	function checkOptions( funct ) {
+		$("#adjacency").prop('checked', false);
+		$("#laplacian").prop('checked', false);
+		$("#slaplacian").prop('checked', false);
+		
+		if ( funct.indexOf("lambda") > -1 ) {
+			$("#adjacency").prop('checked', true);
+		}
+		
+		if ( funct.indexOf("mu") > -1 ) {
+			$("#laplacian").prop('checked', true);
+		}
+
+		if ( funct.indexOf("q_") > -1 ) {
+			$("#slaplacian").prop('checked', true);
+		}
+
+		
+		
+		
+	}
+	
 	function showFunctionImage() {
-		var theFunction = encodeURIComponent( $("#optiFunc").val() );
+		var uncoded = $("#optiFunc").val();
+		
+		checkOptions( uncoded );
+		
+		var theFunction = encodeURIComponent( uncoded );
 		
 		if ( theFunction.length > 0 ) {
 			$("#functionImage").attr( "src", "getPreview?function=" + theFunction );
