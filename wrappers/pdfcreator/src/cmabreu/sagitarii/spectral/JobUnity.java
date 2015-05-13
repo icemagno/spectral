@@ -2,12 +2,12 @@ package cmabreu.sagitarii.spectral;
 
 
 public class JobUnity {
-	private String values;
+	private String function;
 	private String imageFile;
 	private String evalValue;
 	
-	public JobUnity( String values, String imageFile, String evalValue ) {
-		this.values = values;
+	public JobUnity( String function, String imageFile, String evalValue ) {
+		this.function = function;
 		this.imageFile = imageFile;
 		this.evalValue = evalValue;
 	}
@@ -16,8 +16,8 @@ public class JobUnity {
 		return imageFile;
 	}
 	
-	public String getValues() {
-		return values;
+	public String getFunction() {
+		return function;
 	}
 	
 	public String getEvalValue() {

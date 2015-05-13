@@ -31,11 +31,10 @@ public class Wrapper {
 		String inputFolder = workFolder + File.separator + "inbox" + File.separator;
 
 		String imageFile = inputFolder + File.separator + lineData[ getIndex("gvfile", header) ];
-		String valuesFile = inputFolder + File.separator + lineData[ getIndex("eigsolve", header) ];
+		String function =  lineData[ getIndex("optifunc", header) ];
 		String evalValue = lineData[ getIndex("evaluatedvalue", header) ];
 		
-		List<String> valuesS = readFile( valuesFile );
-		jobs.add( new JobUnity(valuesS.toString(), imageFile, evalValue) );
+		jobs.add( new JobUnity(function, imageFile, evalValue) );
 
 	}
 

@@ -1,5 +1,6 @@
 package cmabreu.sagitarii.spectral;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -7,9 +8,8 @@ import java.util.List;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
 import com.itextpdf.text.Image;
-import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfWriter;
 
 /**
@@ -24,51 +24,39 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 public class PDFCreator {
 
-	/**
-	 * Função responsável por gerar arquivos PDF com imagens GIF de grafos e os
-	 * valores de suas respectivas funções de otimização.
-	 * 
-	 * @param f
-	 *            Caminho da pasta aonde estão os arquivos GIF.
-	 * @param values
-	 *            Lista com o valor da função de otimização de cada grafo.
-	 * @param outputFolder           
-	 *   			Pasta onde os PDF serao gravados
-	 * @throws DocumentException
-	 *             Quando não conseguir criar o arquivo PDF.
-	 * @throws IOException
-	 *             Quando não achar a pasta com os arquivos GIF.
-	 */
 	public static String gerarPDF( List<JobUnity> jobs, String outputFolder ) throws DocumentException, IOException {
 		String pdfName = "grafos.pdf";
 
-		Document document = new Document();
-		PdfWriter.getInstance(document, new FileOutputStream(outputFolder + File.separator + pdfName ) );
+		Document document = new Document( PageSize.A4 );
+		PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(outputFolder + File.separator + pdfName ) );
 		document.open();
 		
+		document.addCreator("Sagitarii");
+		document.addAuthor("Carlos Magno Abreu");
+		document.addTitle("Spectral Portal");
+		
+		writer.setPageEvent( new HeaderAndFooter() );
+		
 		for ( JobUnity job : jobs ) {
-			String values = job.getValues();
 			String imageFileName = job.getImageFile();
 			String evalValue = job.getEvalValue();
 			
+			// Graph image
 			Image image = Image.getInstance( imageFileName );
-
 			float scaler = ((document.getPageSize().getWidth() - document.leftMargin()
 		               - document.rightMargin() ) / image.getWidth()) * 100;
-
 			image.scalePercent(scaler);			
-			
 			image.setAlignment(Image.MIDDLE);
 			document.add(image);
 
-			Paragraph p = new Paragraph("Value of optimization function: " + evalValue );
-			p.setAlignment(Element.ALIGN_CENTER);
-			document.add(p);
-			
-			Paragraph p2 = new Paragraph("Eigenvalues: " + values );
-			p2.setAlignment(Element.ALIGN_CENTER);
-			document.add(p2);
+			// Function image
+			LatexFunctionGenerator sc = new LatexFunctionGenerator();
+			ByteArrayOutputStream stream = sc.getImageAsBaos( job.getFunction() + " = " + evalValue ) ;			
+			Image imgFunc = Image.getInstance( stream.toByteArray() );
 
+			imgFunc.setAlignment(Image.MIDDLE);
+			document.add(imgFunc);			
+			
 			document.newPage();
 		}
 		
