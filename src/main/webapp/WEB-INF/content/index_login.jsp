@@ -7,7 +7,7 @@
 
 					<div >
 					
-						<div style="text-align: center; margin-top: 5px;;height:54px" >
+						<div style="text-align: center; margin-top: 5px;;height:100px" >
 							<img id="functionImage" style="margin: 0 auto;display:none" src="">
 						</div>
 
@@ -159,7 +159,7 @@
 			return;
 		}
 		
-		//$("#formFunction").submit();
+		$("#formFunction").submit();
 		return false;
 	}
 
