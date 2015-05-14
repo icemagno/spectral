@@ -40,15 +40,17 @@ public class Main {
 		String gengOutput = workFolder + "/inbox/" + inputFile;
 		String awkOutput = workFolder + "/sagi_output.txt";
 
-		String awk = "awk '{x=\"graph\"++i\".g6\";}{print>x}' " + gengOutput;
+		String fileId = UUID.randomUUID().toString().toUpperCase().substring(0,8);
+		
+		String awk = "awk '{x=\""+fileId+"\"++i\".g6\";}{print>x}' " + gengOutput;
 		runSystem( awk, workFolder + "/outbox/" );
 
 		List<String> awkResult = getAwkResult( workFolder + "/outbox/" );
 		
 		outputCsv.add( header + ",g6splitedfile,g6fileid" );
 		for ( String awkFile : awkResult ) {
-	        String fileId = UUID.randomUUID().toString().toUpperCase().substring(0,8);
-			outputCsv.add( line + "," + awkFile + "," + fileId );
+	        String fileIdIndexed = UUID.randomUUID().toString().toUpperCase().substring(0,8);
+			outputCsv.add( line + "," + awkFile + "," + fileIdIndexed );
 		}
 
 		saveFile( awkOutput );

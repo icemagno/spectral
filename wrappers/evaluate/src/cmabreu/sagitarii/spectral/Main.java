@@ -38,16 +38,45 @@ public class Main {
 	public static double evaluateOptimizationFunction( String optimizationFunction, 
 			Double[] valuesAdj, Double[] valuesLap, Double[] valuesSgnlap ) {
 		
+		System.out.println("original optimization function: " + optimizationFunction  );
+		
+		boolean haveLap = false; boolean haveSgnLap = false; boolean haveAdj = false;
 		for (int i = 0; i < valuesAdj.length; i++) {
 			String old = "q_" + Integer.toString(i + 1);
-			optimizationFunction = optimizationFunction.replace( old, "" + valuesSgnlap[i] );
+			if ( valuesSgnlap.length > 0 ) {
+				optimizationFunction = optimizationFunction.replace( old, "" + valuesSgnlap[i] );
+				haveSgnLap = true;
+			}
 			
 			old = "\\mu_" + Integer.toString(i + 1);
-			optimizationFunction = optimizationFunction.replace( old, "" + valuesLap[i] );
+			if ( valuesLap.length > 0 ) {
+				optimizationFunction = optimizationFunction.replace( old, "" + valuesLap[i] );
+				haveLap = true;
+			}
 			
 			old = "\\lambda_" + Integer.toString(i + 1);
-			optimizationFunction = optimizationFunction.replace( old, "" + valuesAdj[i] );
+			if ( valuesAdj.length > 0 ) {
+				optimizationFunction = optimizationFunction.replace( old, "" + valuesAdj[i] );
+				haveAdj = true;
+			}
 		}
+		
+		if ( haveSgnLap ) {
+			System.out.println("using signless Laplacian Matrix");
+		} else {
+			System.out.println("dont have signless Laplacian Matrix (Q)");
+		}
+		if ( haveLap ) {
+			System.out.println("using Laplacian Matrix");
+		} else {
+			System.out.println("dont have Laplacian Matrix (Mu)");
+		}
+		if ( haveAdj ) {
+			System.out.println("using Adjacency Matrix");
+		} else {
+			System.out.println("dont have Adjacency Matrix (Lambda)");
+		}
+		
 		
 		optimizationFunction = optimizationFunction.replace( "\\frac", "" );
 		optimizationFunction = optimizationFunction.replaceAll(	"[}]{1,1}+[\\s]*+[{]{1,1}", ")/(" );
@@ -56,6 +85,8 @@ public class Main {
 		
 		JEP myParser = new JEP();
 		myParser.parseExpression(optimizationFunction);
+		
+		System.out.println("optimization function result: " + optimizationFunction + " = " + myParser.getValue() );
 		
 		return myParser.getValue();
 		

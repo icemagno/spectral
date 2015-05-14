@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 public class Main {
@@ -62,15 +63,16 @@ public class Main {
 				gengOptions += "-c ";
 			}			
 			
-			String gengOutput = workFolder + "/outbox/saida_" + order +  ".g6";
+			String fileName = UUID.randomUUID().toString().toUpperCase().substring(0,8) + "_" + order + ".g6";
+			String gengOutput = workFolder + "/outbox/" + fileName;
 
 			String geng = libraryDirectory + "/geng " + degreeOptions + " -g -q " + gengOptions + " " + order + " " + gengOutput;
 
 			run(geng);
 
 			// Send back original data plus file name
-			outputData.add( header +  ",g6file" );
-			outputData.add( line + ",saida_" + order +  ".g6" );
+			outputData.add( header + ",g6file" );
+			outputData.add( line + "," + fileName );
 			saveOutput();
 			
 		} else {
