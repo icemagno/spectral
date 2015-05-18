@@ -35,10 +35,11 @@ public class Main {
 		String[] lineData = line.split(",");
 		
 		int fileIndex = getIndex("g6splitedfile", header);
-		int optIndex = getIndex("eigsolveoption", header);
 		
 		String inputFile = lineData[fileIndex];
-		String eigsolveoption = lineData[optIndex]; 
+		String adjacency = lineData[getIndex("adjacency", header)]; 
+		String laplacian = lineData[getIndex("laplacian", header)]; 
+		String slaplacian = lineData[getIndex("slaplacian", header)]; 
 		
 		String libraryDirectory = readLibraryDirectory();
 		if( !libraryDirectory.equals("")  ) {
@@ -46,38 +47,40 @@ public class Main {
 			String awkOutput = workFolder + "/inbox/" + inputFile;
 			String eigsolveOutput = workFolder + "/sagi_output.txt";
 	
-			/*
-				./tEigSolve -a -f graph5 => adjacências
-				./tEigSolve -l -f graph5 => laplaciana
-				./tEigSolve -q -f graph5 => laplaciana sem sinal
-			 */
+			System.out.println("User Options: (A): " + adjacency + " (Q): "+ slaplacian + " (L): " + laplacian);
 			
-			String generatedFile = "";
-			if( eigsolveoption.equals("L")  ) {
+			outputCsv.add( header + ",eigsolve" );
+			if( laplacian.equals("on")  ) {
+				String generatedFile = "";
 				String eigCommand = libraryDirectory + "/tEigSolve -l -f " + awkOutput;
 				runSystem( eigCommand, workFolder + "/outbox/" );
 				generatedFile = inputFile + ".lap";
+				// tEigSolve produces on same folder of input file.. Lets move it to outbox!
+				moveFile( workFolder + "/inbox/" + generatedFile, workFolder + "/outbox/" + generatedFile );
+				outputCsv.add( line + "," + generatedFile );
 			}
 			
-			if( eigsolveoption.equals("A")  ) {
+			if( adjacency.equals("on")  ) {
+				String generatedFile = "";
 				String eigCommand = libraryDirectory + "/tEigSolve -a -f " + awkOutput;
 				runSystem( eigCommand, workFolder + "/outbox/" );
 				generatedFile = inputFile + ".adj";
+				// tEigSolve produces on same folder of input file.. Lets move it to outbox!
+				moveFile( workFolder + "/inbox/" + generatedFile, workFolder + "/outbox/" + generatedFile );
+				outputCsv.add( line + "," + generatedFile );
 			}
 			
-			if( eigsolveoption.equals("Q")  ) {
+			if( slaplacian.equals("on")  ) {
+				String generatedFile = "";
 				String eigCommand = libraryDirectory + "/tEigSolve -q -f " + awkOutput;
 				runSystem( eigCommand, workFolder + "/outbox/" );
 				generatedFile = inputFile + ".sgnlap";
-			}
-
-			if ( !generatedFile.equals("") ) {
 				// tEigSolve produces on same folder of input file.. Lets move it to outbox!
 				moveFile( workFolder + "/inbox/" + generatedFile, workFolder + "/outbox/" + generatedFile );
-				outputCsv.add( header + ",eigsolve" );
 				outputCsv.add( line + "," + generatedFile );
-				saveFile( eigsolveOutput );
 			}
+
+			saveFile( eigsolveOutput );
 			
 		} else {
 			System.out.println("Cannot find config file spectral.config");

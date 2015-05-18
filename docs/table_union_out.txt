@@ -1,0 +1,24 @@
+CREATE TABLE union_out
+(
+  index_id serial NOT NULL,
+  id_experiment integer,
+  id_activity integer,
+  id_pipeline integer,
+  gvfile integer,
+  optifunc character varying(250),
+  evaluatedvalue character varying(250),
+  g6fileid character varying(250),
+  CONSTRAINT union_out_pkey PRIMARY KEY (index_id),
+  CONSTRAINT gvfile_fkfile FOREIGN KEY (gvfile)
+      REFERENCES files (id_file) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT union_out_fkac FOREIGN KEY (id_activity)
+      REFERENCES activities (id_activity) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT union_out_fkex FOREIGN KEY (id_experiment)
+      REFERENCES experiments (id_experiment) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT union_out_fkpi FOREIGN KEY (id_pipeline)
+      REFERENCES pipelines (id_pipeline) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)

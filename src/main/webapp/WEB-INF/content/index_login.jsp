@@ -17,21 +17,21 @@
 							<div class="userBoardT2" style="text-align:center;width:95%">
 								<form action="doSubmitFunction" method="post" name="formFunction" id="formFunction">
 									<table>
-										<tr>
+										<tr style="display:none">
 											<td style="width:60%">Adjacency (A)</td>
 											<td><input style="width:15px" type="checkbox" name="adjacency"  id="adjacency" /></td>
 										</tr>
-										<tr>
+										<tr style="display:none">
 											<td >Laplacian (L)</td>
 											<td><input style="width:15px" type="checkbox" name="laplacian" id="laplacian" /></td>
 										</tr>
-										<tr>
+										<tr style="display:none">
 											<td>Signless Laplacian (Q)</td>
 											<td><input style="width:15px" type="checkbox" name="slaplacian" id="slaplacian" /></td>
 										</tr>
 										<tr>
 											<td >Optimization Function</td>
-											<td><input type="text" name="optiFunc" id="optiFunc"></td>
+											<td><input type="text" value="\frac{q_3}{q_4} + \lambda_1" name="optiFunc" id="optiFunc"></td>
 										</tr>
 										<tr>
 											<td>&nbsp;</td>
@@ -205,6 +205,8 @@
 			showFunctionImage();
 		});
 
+		
+		showFunctionImage();
 	});
 	
 </script>				

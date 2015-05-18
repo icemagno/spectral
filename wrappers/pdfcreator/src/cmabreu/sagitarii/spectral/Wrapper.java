@@ -56,7 +56,7 @@ public class Wrapper {
 			String outputFolder = workFolder + File.separator + "outbox" + File.separator;
 
 			String generatedPdf = PDFCreator.gerarPDF( jobs, outputFolder );
-			outputData.add( "pdfFile" );
+			outputData.add( "pdffile" );
 			outputData.add( generatedPdf );
 			saveOutput();
 			
