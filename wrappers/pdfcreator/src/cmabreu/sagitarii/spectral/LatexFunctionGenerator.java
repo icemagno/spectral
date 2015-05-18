@@ -39,7 +39,7 @@ public class LatexFunctionGenerator  {
 
 		try {
 			TeXFormula fomule = new TeXFormula(expression);
-			TeXIcon ti = fomule.createTeXIcon(TeXConstants.STYLE_DISPLAY, 40);
+			TeXIcon ti = fomule.createTeXIcon(TeXConstants.STYLE_DISPLAY, 20);
 			BufferedImage image = new BufferedImage(ti.getIconWidth(),	ti.getIconHeight(), BufferedImage.TYPE_4BYTE_ABGR);
 			ti.paintIcon(new JLabel(), image.getGraphics(), 0, 0);
 			ByteArrayOutputStream os = new ByteArrayOutputStream();

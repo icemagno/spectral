@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -26,7 +27,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 public class PDFCreator {
 
 	public static String gerarPDF( List<JobUnity> jobs, String outputFolder ) throws DocumentException, IOException {
-		String pdfName = "grafos.pdf";
+		String pdfName = UUID.randomUUID().toString().toUpperCase().substring(0,8) + ".pdf";
 
 		Document document = new Document( PageSize.A4 );
 		PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(outputFolder + File.separator + pdfName ) );
@@ -45,17 +46,26 @@ public class PDFCreator {
 			// Graph image
 			Image image = Image.getInstance( imageFileName );
 			float scaler = ((document.getPageSize().getWidth() - document.leftMargin()
-		               - document.rightMargin() ) / image.getWidth()) * 100;
-			image.scalePercent(scaler);			
+		               - document.rightMargin() ) / image.getWidth()) * 30;
+			//image.scalePercent(scaler);			
 			image.setAlignment(Image.MIDDLE);
+			image.setBorder( Image.BOX );
+			image.setBorderWidth(1);
+			
 			document.add(image);
 			
-			document.add( new Paragraph("") );
+			document.add( new Paragraph("\n\n") );
 			
 			// Function image
 			LatexFunctionGenerator sc = new LatexFunctionGenerator();
 			ByteArrayOutputStream stream = sc.getImageAsBaos( job.getFunction() + " = " + evalValue ) ;			
 			Image imgFunc = Image.getInstance( stream.toByteArray() );
+
+			float scaler2 = ((document.getPageSize().getWidth() - document.leftMargin()
+		               - document.rightMargin() ) / image.getWidth()) * 30;
+			image.scalePercent(scaler2);			
+
+			
 			imgFunc.setAlignment(Image.MIDDLE);
 			document.add(imgFunc);			
 			
