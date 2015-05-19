@@ -10,7 +10,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class Matrix2Dot {
@@ -107,45 +109,45 @@ public class Matrix2Dot {
 	 *             Quando não achar o arquivo especificado no parâmetro.
 	 */
 	public static void converterMatriz(String inputFile, String outputFile) throws IOException {
+		// Try it!! 
+		// http://graphviz-dev.appspot.com/
 		File f = new File(inputFile);
-
-		// Inicialização das variáveis
 		BufferedReader in = new BufferedReader(new FileReader(f));
-		int vertice_1 = 1;
-		int vertice_2 = 1;
-		boolean primeiro_vertice = true;
+		Map<String,String> controle = new HashMap<String,String>();
 
-		// Criação do arquivo de saída
 		File g = new File( outputFile );
 		BufferedWriter out = new BufferedWriter(new FileWriter(g));
 		out.write("graph Graph_1 {");
 		out.newLine();
 		String linha = in.readLine();
 
-		// Leitura do arquivo de entrada e escrita do de saída
-		while (in.ready()) {
+		int verticeOrigem = 1;
+		int verticeDestino = 1;
+		while ( in.ready() ) {
 			linha = in.readLine();
+			System.out.println( "linha " + verticeOrigem + ": " + linha );
 			for (int i = 0; i < linha.length(); i++) {
 				if (linha.charAt(i) == '0') {
-					vertice_2++;
+					verticeDestino++;
 				}
+				
 				if (linha.charAt(i) == '1') {
-					if (primeiro_vertice) {
-						primeiro_vertice = false;
-					} else {
-						if (vertice_1 < vertice_2) {
-							out.write("   V" + vertice_1 + " -- V" + vertice_2);
-							out.newLine();
-						}
-						vertice_2++;
+					String vO = "V" + verticeOrigem;
+					String vD = "V" + verticeDestino;
+					String chave = vO+vD;
+					String invertedChave = vD+vO;
+					if ( !controle.containsKey( invertedChave ) ) {
+						out.write("   " + vO + " -- " + vD );
+						out.newLine();
+						controle.put(chave, chave);
 					}
+					verticeDestino++;
 				}
 			}
-			vertice_1++;
-			vertice_2 = 1;
+			verticeOrigem++;
+			verticeDestino = 1;
 		}
 
-		// Fechamento dos dois arquivos
 		in.close();
 		out.write('}');
 		out.close();
