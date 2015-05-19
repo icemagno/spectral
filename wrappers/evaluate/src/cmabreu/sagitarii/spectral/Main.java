@@ -42,21 +42,24 @@ public class Main {
 		
 		boolean haveLap = false; boolean haveSgnLap = false; boolean haveAdj = false;
 		for (int i = 0; i < valuesAdj.length; i++) {
+			
+			int index = (valuesAdj.length-1) - i;
+			
 			String old = "q_" + Integer.toString(i + 1);
 			if ( valuesSgnlap.length > 0 ) {
-				optimizationFunction = optimizationFunction.replace( old, "" + valuesSgnlap[i] );
+				optimizationFunction = optimizationFunction.replace( old, "" + valuesSgnlap[ index ] );
 				haveSgnLap = true;
 			}
 			
 			old = "\\mu_" + Integer.toString(i + 1);
 			if ( valuesLap.length > 0 ) {
-				optimizationFunction = optimizationFunction.replace( old, "" + valuesLap[i] );
+				optimizationFunction = optimizationFunction.replace( old, "" + valuesLap[ index ] );
 				haveLap = true;
 			}
 			
 			old = "\\lambda_" + Integer.toString(i + 1);
 			if ( valuesAdj.length > 0 ) {
-				optimizationFunction = optimizationFunction.replace( old, "" + valuesAdj[i] );
+				optimizationFunction = optimizationFunction.replace( old, "" + valuesAdj[ index ] );
 				haveAdj = true;
 			}
 		}
