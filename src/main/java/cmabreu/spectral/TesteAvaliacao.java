@@ -25,14 +25,14 @@ public class TesteAvaliacao {
 	}
 
 	/**
-	 * Função responsável por substituir os valores nas variáveis da função,
+	 * Funcao responsavel por substituir os valores nas variaveis da funcao,
 	 * calculando assim o seu resultado.
 	 * 
 	 * @param optimizationFunction
-	 *            Função de otimização.
+	 *            Funcao de otimizacao.
 	 * @param values
-	 *            Valores de cada variável da função.
-	 * @return Resultado da função.
+	 *            Valores de cada variavel da funcao.
+	 * @return Resultado da funcao.
 	 */
 	public static double evaluateOptimizationFunction( String optimizationFunction, Double[] values ) {
 		for (int i = 0; i < values.length; i++) {
@@ -59,15 +59,15 @@ public class TesteAvaliacao {
 	}
 
 	/**
-	 * Função responsável por verificar se a função digitada pelo usuário é
+	 * Funcao responsavel por verificar se a funcao digitada pelo usuario e
 	 * valida.
 	 * 
 	 * @param optimizationFunction
-	 *            Função de otimização.
-	 * @return Verdadeiro se for válida e falso se possuir algum caractere
-	 *         inválido.
+	 *            Funcao de otimizacao.
+	 * @return Verdadeiro se for valida e falso se possuir algum caractere
+	 *         invalido.
 	 * @throws IOException
-	 *             Quando não achar o arquivo conf.txt.
+	 *             Quando nao achar o arquivo conf.txt.
 	 */
 	public static boolean verifyVariables(String optimizationFunction)
 			throws IOException {
@@ -78,7 +78,7 @@ public class TesteAvaliacao {
 
 		while (in.ready()) {
 			String linha = in.readLine();
-			// Com esta verificação, comentários no arquivo conf.txt não são
+			// Com esta verificacao, comentarios no arquivo conf.txt nao sao
 			// adicionados na lista.
 			if (!linha.startsWith(Pattern.quote("//"))) {
 				subString.add(linha);
@@ -97,14 +97,14 @@ public class TesteAvaliacao {
 	}
 
 	/**
-	 * Função responsável por verificar se a quantidade de variáveis na função
-	 * de otimização é igual a de valores.
+	 * Funcao responsavel por verificar se a quantidade de variaveis na funcao
+	 * de otimizacao e igual a de valores.
 	 * 
 	 * @param optimizationFunction
-	 *            Função de otimização.
+	 *            Funcao de otimizacao.
 	 * @param values
-	 *            Valores de cada variável da função.
-	 * @return Verdadeiro se a quantidade for a mesma e falso se não for.
+	 *            Valores de cada variavel da funcao.
+	 * @return Verdadeiro se a quantidade for a mesma e falso se nao for.
 	 */
 	public static boolean testValues(String optimizationFunction,
 			Double[] values) {
