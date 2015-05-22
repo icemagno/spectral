@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,14 +40,19 @@ public class PDFCreator {
 		
 		writer.setPageEvent( new HeaderAndFooter() );
 		
+		UnityComparator comparator = new UnityComparator();
+		Collections.sort( jobs, comparator );
+		
 		for ( JobUnity job : jobs ) {
 			String imageFileName = job.getImageFile();
 			String evalValue = job.getEvalValue();
 			
+			System.out.println( evalValue );
+			
 			// Graph image
 			Image image = Image.getInstance( imageFileName );
-			float scaler = ((document.getPageSize().getWidth() - document.leftMargin()
-		               - document.rightMargin() ) / image.getWidth()) * 30;
+			//float scaler = ((document.getPageSize().getWidth() - document.leftMargin()
+		     //          - document.rightMargin() ) / image.getWidth()) * 30;
 			//image.scalePercent(scaler);			
 			image.setAlignment(Image.MIDDLE);
 			image.setBorder( Image.BOX );
@@ -74,6 +80,7 @@ public class PDFCreator {
 		
 		
 		document.close();
+		writer.close();
 		return pdfName;
 	}
 

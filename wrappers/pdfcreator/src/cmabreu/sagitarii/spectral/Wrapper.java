@@ -33,8 +33,9 @@ public class Wrapper {
 		String imageFile = inputFolder + File.separator + lineData[ getIndex("gvfile", header) ];
 		String function =  lineData[ getIndex("optifunc", header) ];
 		String evalValue = lineData[ getIndex("evaluatedvalue", header) ];
+		String caixa1 = lineData[ getIndex("caixa1", header) ];
 		
-		jobs.add( new JobUnity(function, imageFile, evalValue) );
+		jobs.add( new JobUnity(function, imageFile, evalValue, caixa1) );
 
 	}
 
@@ -52,9 +53,7 @@ public class Wrapper {
 				processLine( header, line );
 			}
 			
-			
 			String outputFolder = workFolder + File.separator + "outbox" + File.separator;
-
 			String generatedPdf = PDFCreator.gerarPDF( jobs, outputFolder );
 			outputData.add( "pdffile" );
 			outputData.add( generatedPdf );
