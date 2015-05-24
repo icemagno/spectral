@@ -7,6 +7,15 @@ public class JobUnity {
 	private String header;
 	private String optimizationFunction;
 	private String g6fileid;
+	private String maxResults;
+	
+	public void setMaxResults(String maxResults) {
+		this.maxResults = maxResults;
+	}
+	
+	public String getMaxResults() {
+		return maxResults;
+	}
 	
 	public void setG6fileid(String g6fileid) {
 		this.g6fileid = g6fileid;

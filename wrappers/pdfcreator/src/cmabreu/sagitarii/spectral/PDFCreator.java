@@ -23,6 +23,8 @@ import com.itextpdf.text.pdf.PdfWriter;
  * @author Kaique
  * @author Lucas
  * 
+ * Modifcado po Carlos Magno em 23/05/2015
+ * 
  */
 
 public class PDFCreator {
@@ -43,17 +45,26 @@ public class PDFCreator {
 		UnityComparator comparator = new UnityComparator();
 		Collections.sort( jobs, comparator );
 		
+		int index = 0;
 		for ( JobUnity job : jobs ) {
 			String imageFileName = job.getImageFile();
 			String evalValue = job.getEvalValue();
+			int maxResults = Integer.valueOf( job.getMaxresults() );
 			
 			System.out.println( evalValue );
 			
+			if ( maxResults == index ) {
+				break;
+			}
+			index++;
+			
 			// Graph image
 			Image image = Image.getInstance( imageFileName );
+
 			//float scaler = ((document.getPageSize().getWidth() - document.leftMargin()
 		     //          - document.rightMargin() ) / image.getWidth()) * 30;
 			//image.scalePercent(scaler);			
+			
 			image.setAlignment(Image.MIDDLE);
 			image.setBorder( Image.BOX );
 			image.setBorderWidth(1);

@@ -68,7 +68,7 @@ public class SagitariiInterface {
 	}
 	
 	public String getData(String adjacency, String laplacian, String slaplacian, String optiFunc, String caixa1, 
-			int order, String minDegree, String maxDegree, String triangleFree, String allowDiscGraphs, String biptOnly ) {
+			int order, String minDegree, String maxDegree, String triangleFree, String allowDiscGraphs, String biptOnly, String maxResults ) {
 		StringBuilder data = new StringBuilder();
 		data.append("{");
 		data.append( generateJsonPair("adjacency", adjacency) + "," );
@@ -81,13 +81,14 @@ public class SagitariiInterface {
 		data.append( generateJsonPair("maxdegree", maxDegree) + "," );
 		data.append( generateJsonPair("trianglefree", triangleFree) + "," );
 		data.append( generateJsonPair("allowdiscgraphs", allowDiscGraphs) + "," );
-		data.append( generateJsonPair("biptonly", biptOnly) );
+		data.append( generateJsonPair("biptonly", biptOnly) + "," );
+		data.append( generateJsonPair("maxresults", maxResults) );
 		data.append("}");
 		return data.toString();
 	}
 	
 	public void submit( String adjacency, String laplacian, String slaplacian, String optiFunc, String caixa1, String ordermin,
-			String ordermax, String minDegree, String maxDegree, String triangleFree, String allowDiscGraphs, String biptOnly ) {
+			String ordermax, String minDegree, String maxDegree, String triangleFree, String allowDiscGraphs, String biptOnly, String maxResults ) {
 
 		
 		String experimentSerial = createNewExperiment( securityToken );
@@ -111,31 +112,12 @@ public class SagitariiInterface {
 		data.append("[");
 		String dataPrefix = "";
 		
-		//if ( adjacency.equals("on") ) {
-			for ( int x = orderMin; x <= orderMax; x++ ) {
-				data.append( dataPrefix );
-				data.append( getData(adjacency, laplacian, slaplacian, optiFunc, caixa1, x, minDegree, maxDegree, triangleFree, allowDiscGraphs, biptOnly ) );
-				dataPrefix = ",";
-			}
-		//}
-		
-		/*
-		if ( ( laplacian != null ) && ( laplacian.equals("on") ) ) {
-			for ( int x = orderMin; x <= orderMax; x++ ) {
-				data.append( dataPrefix );
-				data.append( getDataFor("L", optiFunc, caixa1, x, minDegree, maxDegree, triangleFree, allowDiscGraphs, biptOnly ) );
-				dataPrefix = ",";
-			}
+		for ( int x = orderMin; x <= orderMax; x++ ) {
+			data.append( dataPrefix );
+			data.append( getData(adjacency, laplacian, slaplacian, optiFunc, caixa1, x, minDegree, maxDegree, 
+					triangleFree, allowDiscGraphs, biptOnly, maxResults ) );
+			dataPrefix = ",";
 		}
-		
-		if ( ( slaplacian != null ) && (slaplacian.equals("on") ) ) {
-			for ( int x = orderMin; x <= orderMax; x++ ) {
-				data.append( dataPrefix );
-				data.append( getDataFor("Q", optiFunc, caixa1, x, minDegree, maxDegree, triangleFree, allowDiscGraphs, biptOnly ) );
-				dataPrefix = ",";
-			}
-		}
-		*/
 		
 		data.append("]");
 		

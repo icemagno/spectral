@@ -25,6 +25,7 @@ public class SubmitFormAction extends BasicActionClass {
 	private String triangleFree;
 	private String allowDiscGraphs;
 	private String biptOnly;
+	private String maxResults;
 	
 	private String user;
 	private String password;
@@ -36,7 +37,8 @@ public class SubmitFormAction extends BasicActionClass {
 		if( caixa1 != null ) {
 			try {
 				SagitariiInterface si = new SagitariiInterface(sagitariiUrl, user, password);
-				si.submit(adjacency, laplacian, slaplacian, optiFunc, caixa1, ordermin, ordermax, minDegree, maxDegree, triangleFree, allowDiscGraphs, biptOnly);
+				si.submit(adjacency, laplacian, slaplacian, optiFunc, caixa1, ordermin, ordermax, minDegree, maxDegree, 
+						triangleFree, allowDiscGraphs, biptOnly, maxResults);
 				log = si.getLog();
 			} catch ( Exception e ) {
 				e.printStackTrace();
@@ -111,5 +113,9 @@ public class SubmitFormAction extends BasicActionClass {
 	
 	public void setSagitariiUrl(String sagitariiUrl) {
 		this.sagitariiUrl = sagitariiUrl;
+	}
+	
+	public void setMaxResults(String maxResults) {
+		this.maxResults = maxResults;
 	}
 }

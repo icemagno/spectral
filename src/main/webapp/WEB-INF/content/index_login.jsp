@@ -58,6 +58,10 @@
 											<td>Maximun degree</td>
 											<td><input style="width:15px" type="text" name="maxDegree" id="maxDegree" size="2" /></td>
 										</tr>
+										<tr>
+											<td>Number of results to show</td>
+											<td><input style="width:15px" type="text" name="maxResults" id="maxResults" size="2" /></td>
+										</tr>
 	
 	
 										<tr>

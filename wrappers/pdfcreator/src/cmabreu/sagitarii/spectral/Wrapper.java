@@ -34,8 +34,9 @@ public class Wrapper {
 		String function =  lineData[ getIndex("optifunc", header) ];
 		String evalValue = lineData[ getIndex("evaluatedvalue", header) ];
 		String caixa1 = lineData[ getIndex("caixa1", header) ];
+		String maxresults = lineData[ getIndex("maxresults", header) ];
 		
-		jobs.add( new JobUnity(function, imageFile, evalValue, caixa1) );
+		jobs.add( new JobUnity(function, imageFile, evalValue, caixa1, maxresults) );
 
 	}
 
@@ -58,9 +59,6 @@ public class Wrapper {
 			outputData.add( "pdffile" );
 			outputData.add( generatedPdf );
 			saveOutput();
-			
-
-			
 			
 		} else {
 			System.out.println("Empty input data file.");

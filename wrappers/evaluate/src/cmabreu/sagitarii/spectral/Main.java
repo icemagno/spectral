@@ -128,8 +128,8 @@ public class Main {
 		Double evaluatedValue = evaluateOptimizationFunction( job.getOptimizationFunction(), valuesAdj, valuesLap, valuesSgnLap );
 		
 		// Send back original data plus file name
-		outputData.add(  "optifunc,g6fileid,evaluatedvalue" );
-		outputData.add( job.getOptimizationFunction() + "," + job.getG6fileid() + "," + evaluatedValue );
+		outputData.add(  "optifunc,g6fileid,evaluatedvalue,maxresults" );
+		outputData.add( job.getOptimizationFunction() + "," + job.getG6fileid() + "," + evaluatedValue + "," + job.getMaxResults() );
 		saveOutput();
 		
 	}	
@@ -163,14 +163,17 @@ public class Main {
 			for ( int x=1; x < inputData.size(); x++ ) {  // REDUCE read all lines
 				String line = inputData.get( x );  
 				String[] lineData = line.split(",");
-				String inputFile = lineData[ getIndex("eigsolve", header) ];             // Get the eigsolve file
-				String optimizationFunction = lineData[ getIndex("optifunc", header) ];  // Get the function
+				String inputFile = lineData[ getIndex("eigsolve", header) ];            // Get the eigsolve file
+				String optimizationFunction = lineData[ getIndex("optifunc", header) ]; // Get the function
 				String g6fileid = lineData[ getIndex("g6fileid", header) ];  			// Get the source file reference
+				String maxResults = lineData[ getIndex("maxresults", header) ];			// Get Maximun results to show
 				
 				
 				job.setOptimizationFunction( optimizationFunction );
 				job.setHeader(header);
 				job.setG6fileid(g6fileid);
+				job.setMaxResults(maxResults);
+				
 												
 				if ( inputFile.contains(".lap") ) {
 					job.setLapFile( inputFile );
