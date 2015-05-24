@@ -1,7 +1,0 @@
-Carlos, seguem retificações, em função do que discutimos na última reunião (i.e., estava demorando muito para gerar os arquivos pequenos em formato ASCII). O showg não será mais usado. Agora, o geng gera todos os grafos correspondente a uma ordem (ie, número de vértices) em um arquivo de formato binário g6. 
-
-A saída do geng é um arquivo em formato g6. Em seguida, use o awk para quebrar esse arquivo em diversos outros (também no formato g6). O novo comando awk é o seguinte:
-
-awk '{x="graph"++i;}{print>x}' saida.g6
-
-No comando acima, saida.g6 corresponde à saída do geng (que agora gera g6 e não ASCII). O comando acima gera vários arquivos pequenos em formato g6, um para cada grafo. Cada um desses arquivos deve ser passado como entrada para a nova versão do tEigSolve. O novo executável desse programa está na pasta ~/gportal/lapackpp-2.5.4/testing.

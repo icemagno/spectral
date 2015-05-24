@@ -19,6 +19,7 @@ CREATE TABLE showgraph_out
   g6file character varying(250),
   g6fileid character varying(250),
   showgfile integer,
+  maxresults character varying(250),
   CONSTRAINT showgraph_out_pkey PRIMARY KEY (index_id),
   CONSTRAINT showgfile_fk FOREIGN KEY (showgfile)
       REFERENCES files (id_file) MATCH SIMPLE

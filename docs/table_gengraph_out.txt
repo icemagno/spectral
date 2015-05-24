@@ -16,6 +16,7 @@ CREATE TABLE gengraph_out
   allowdiscgraphs character varying(250),
   biptonly character varying(250),
   g6file integer,
+  maxresults character varying(250),
   CONSTRAINT gengraph_out_pkey PRIMARY KEY (index_id),
   CONSTRAINT g6file_fk FOREIGN KEY (g6file)
       REFERENCES files (id_file) MATCH SIMPLE

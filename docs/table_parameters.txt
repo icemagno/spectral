@@ -15,6 +15,7 @@ CREATE TABLE spectral_parameters
   trianglefree character varying(250),
   allowdiscgraphs character varying(250),
   biptonly character varying(250),
+  maxresults character varying(250),
   CONSTRAINT spectral_parameters_pkey PRIMARY KEY (index_id),
   CONSTRAINT spectral_parameters_fkac FOREIGN KEY (id_activity)
       REFERENCES activities (id_activity) MATCH SIMPLE

@@ -7,6 +7,7 @@ CREATE TABLE evaluate_out
   optifunc character varying(250),
   evaluatedvalue character varying(250),
   g6fileid character varying(250),
+  maxresults character varying(250),
   CONSTRAINT evaluate_out_pkey PRIMARY KEY (index_id),
   CONSTRAINT evaluate_out_fkac FOREIGN KEY (id_activity)
       REFERENCES activities (id_activity) MATCH SIMPLE

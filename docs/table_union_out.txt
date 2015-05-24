@@ -8,7 +8,8 @@ CREATE TABLE union_out
   optifunc character varying(250),
   evaluatedvalue character varying(250),
   g6fileid character varying(250),
-  CONSTRAINT union_out_pkey PRIMARY KEY (index_id),
+  maxresults character varying(250),
+CONSTRAINT union_out_pkey PRIMARY KEY (index_id),
   CONSTRAINT gvfile_fkfile FOREIGN KEY (gvfile)
       REFERENCES files (id_file) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,

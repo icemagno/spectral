@@ -20,6 +20,7 @@ CREATE TABLE txt2dot_out
   g6splitedfile character varying(250),
   g6fileid character varying(250),
   dotfile integer,
+  maxresults character varying(250),
   CONSTRAINT txt2dot_out_pkey PRIMARY KEY (index_id),
   CONSTRAINT dotfile_fk FOREIGN KEY (dotfile)
       REFERENCES files (id_file) MATCH SIMPLE

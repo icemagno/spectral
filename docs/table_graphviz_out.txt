@@ -21,6 +21,7 @@ CREATE TABLE graphviz_out
   g6splitedfile character varying(250),
   g6fileid character varying(250),
   gvfile integer,
+  maxresults character varying(250),
   CONSTRAINT graphviz_out_pkey PRIMARY KEY (index_id),
   CONSTRAINT gvfile_fk FOREIGN KEY (gvfile)
       REFERENCES files (id_file) MATCH SIMPLE

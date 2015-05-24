@@ -18,6 +18,7 @@ CREATE TABLE awk_out
   g6file character varying(250),
   g6fileid character varying(250),
   g6splitedfile integer,
+  maxresults character varying(250),
   CONSTRAINT awk_out_pkey PRIMARY KEY (index_id),
   CONSTRAINT awk_out_fkac FOREIGN KEY (id_activity)
       REFERENCES activities (id_activity) MATCH SIMPLE
