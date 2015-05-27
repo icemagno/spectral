@@ -5,7 +5,10 @@
 				<div id="leftBoxAlter" style="width:100%; border-right:0px" > 
 
 
-					<div >
+					<div style="position:relative">
+					
+						<img style="height: 50px;cursor:pointer;position:absolute; top:15px;left:50px" onclick="back();" src="img/back.png">
+					
 					
 						<div style="text-align: center; margin-top: 5px;;height:100px" >
 							<img id="functionImage" style="margin: 0 auto;display:none" src="">
@@ -213,6 +216,11 @@
 		showFunctionImage();
 	});
 	
+	
+	function back() {
+		window.location.href="index";
+	}
+
 </script>				
 				
 <%@ include file="../../footer.jsp" %>

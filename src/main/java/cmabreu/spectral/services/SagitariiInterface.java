@@ -14,6 +14,11 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
+import cmabreu.spectral.entity.Experiment;
+import cmabreu.spectral.entity.ExperimentData;
+
+import com.google.gson.Gson;
+
 /**
  * Interface to Sagitarii API
  * 
@@ -54,6 +59,26 @@ public class SagitariiInterface {
 		sb.append( generateJsonPair("securityToken", securityToken) ); 
 		sb.append("}");
 		return execute( sb.toString() );
+	}
+
+	private ExperimentData convertToElements( String jsonString ) {
+		Gson gson = new Gson();
+		ExperimentData data = gson.fromJson( jsonString, ExperimentData.class );
+		return data;
+	}
+	
+	public List<Experiment> getMyExperiments() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("{");
+		sb.append( generateJsonPair("SagitariiApiFunction", "apiGetExperiments") + "," ); 
+		sb.append( generateJsonPair("securityToken", securityToken) ); 
+		sb.append("}");
+		
+		String result = execute( sb.toString() );
+		ExperimentData data = convertToElements( result );
+		List<Experiment> experiments = data.getData();
+		
+		return experiments;
 	}
 
 

@@ -55,6 +55,9 @@
     <dependent-module archiveName="jama-1.0.3.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/gov/nist/math/jama/1.0.3/jama-1.0.3.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
+    <dependent-module archiveName="gson-2.2.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/com/google/code/gson/gson/2.2.2/gson-2.2.2.jar">
+      <dependency-type>uses</dependency-type>
+    </dependent-module>
     <dependent-module archiveName="httpclient-cache-4.4.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/apache/httpcomponents/httpclient-cache/4.4.1/httpclient-cache-4.4.1.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>

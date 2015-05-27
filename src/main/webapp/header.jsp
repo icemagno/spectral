@@ -23,12 +23,9 @@
 		<div id="mainContainer" >
 		
 			<div id="topBar"> 
-			
 				<div style="margin-left:10px;float:left;margin-top:5px;height:70px;width:170px;" id="systemLogo">
-					<img src="img/logos/logo.png" style="background-color:white;padding-right:10px;padding-left:10px;border: 1px solid black; height:67;width:210;border-radius:5px;" > 
 				</div>
-			
-				<div style="margin-left: 70px;" id="orgName">Spectral Simulation Workflow Portal</div>
+				<div style="margin-left: 70px;" id="orgName">&nbsp;</div>
 			</div>
 
 			<div id="msgBar">

@@ -7,9 +7,6 @@ public class ClientAccessInterceptor implements Interceptor {
 	private static final long serialVersionUID = -2344136157076941239L;
 	
 	public String intercept(ActionInvocation invocation) throws Exception {
-		
-		System.out.println("invoke");
-		
 		return invocation.invoke();
 	}
  
@@ -21,7 +18,7 @@ public class ClientAccessInterceptor implements Interceptor {
 	
 	@Override
 	public void init() {
-		System.out.println("init");
+		System.out.println("system init");
 	}	
 	
 }
