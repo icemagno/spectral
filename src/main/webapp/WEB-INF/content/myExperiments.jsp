@@ -14,7 +14,7 @@
 							<img id="functionImage" style="margin: 0 auto;display:none" src="">
 						</div>
 				
-						<div class="userBoard" style="margin:0 auto;margin-top:10px;width: 400px;">
+						<div class="userBoard" style="margin:0 auto;margin-top:10px;width: 500px;">
 							<div class="userBoardT1" style="text-align:center;width:95%">Request Result Data</div>
 							<div class="userBoardT2" style="text-align:center;width:95%">
 								<table class="tableForm" id="example">
@@ -23,6 +23,7 @@
 										<th>Experiment</th>
 										<th>Start Date/Time</th>
 										<th>Status</th>
+										<th>&nbsp;</th>
 									</tr>
 									</thead>
 									<tbody>
@@ -31,12 +32,23 @@
 											<td>${experiment.tagExec}</td>
 											<td>${experiment.startDate}</td>
 											<td>${experiment.status}</td>
+											<td>
+												<c:if test="${experiment.status == 'FINISHED'}">
+													<img class="dicas" title="Download result" onclick="getFiles('${experiment.tagExec}')" src="img/save.png" style="margin:0px;cursor:pointer;height:24px;width:24px;">
+												</c:if>&nbsp;
+											</td>
 										</tr>
 									</c:forEach>
 									</tbody>
 								</table>
 							</div>
 						</div>
+						<form action="getFiles" method="post" name="formFunction" id="formFunction">
+							<input type="hidden" id="experiment" name="experiment" value="">
+							<input type="hidden" id="sagitariiUrl" name="sagitariiUrl" value="${sagitariiUrl}">
+							<input type="hidden" id="password" name="password" value="${password}">
+							<input type="hidden" id="user" name="user" value="${user}">
+						</form>
 					
 					</div>
 										
@@ -48,7 +60,12 @@
 	function back() {
 		window.location.href="index";
 	}
-
+	
+	function getFiles( exp ) {
+		$("#experiment").val( exp );
+		$("#formFunction").submit();
+	}
+	
 	$(document).ready(function() {
 		$('#example').dataTable({
 	        "oLanguage": {
@@ -62,9 +79,10 @@
 			"bAutoWidth": false,
 			"sPaginationType": "full_numbers",
 			"aoColumns": [ 
-						  { "sWidth": "20%" },
-						  { "sWidth": "10%" },
-						  { "sWidth": "20%" }]						
+						  { "sWidth": "30%" },
+						  { "sWidth": "30%" },
+						  { "sWidth": "30%" },
+						  { "sWidth": "10%" }]						
 		} ).fnSort( [[0,'desc']] );
 	} );	
 

@@ -16,6 +16,8 @@ import org.apache.http.message.BasicNameValuePair;
 
 import cmabreu.spectral.entity.Experiment;
 import cmabreu.spectral.entity.ExperimentData;
+import cmabreu.spectral.entity.SagitariiFile;
+import cmabreu.spectral.entity.SagitariiFileData;
 
 import com.google.gson.Gson;
 
@@ -61,12 +63,6 @@ public class SagitariiInterface {
 		return execute( sb.toString() );
 	}
 
-	private ExperimentData convertToElements( String jsonString ) {
-		Gson gson = new Gson();
-		ExperimentData data = gson.fromJson( jsonString, ExperimentData.class );
-		return data;
-	}
-	
 	public List<Experiment> getMyExperiments() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{");
@@ -75,13 +71,38 @@ public class SagitariiInterface {
 		sb.append("}");
 		
 		String result = execute( sb.toString() );
-		ExperimentData data = convertToElements( result );
+
+		Gson gson = new Gson();
+		ExperimentData data = gson.fromJson( result, ExperimentData.class );
 		List<Experiment> experiments = data.getData();
 		
 		return experiments;
 	}
 
 
+	public List<SagitariiFile> getFiles( String experiment ) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("{");
+		sb.append( generateJsonPair("SagitariiApiFunction", "apiGetFilesExperiment") + "," ); 
+		sb.append( generateJsonPair("securityToken", securityToken) + "," ); 
+		sb.append( generateJsonPair("experimentSerial", experiment) + "," ); 
+		sb.append( generateJsonPair("activityTag", "PDFCREATOR") + "," ); 
+		sb.append( generateJsonPair("rangeStart", "0") + "," ); 
+		sb.append( generateJsonPair("rangeEnd", "1000")  ); 
+		sb.append("}");
+		
+		String result = execute( sb.toString() );
+		
+		System.out.println( ">>> " + result );
+		
+		Gson gson = new Gson();
+		SagitariiFileData data = gson.fromJson( result, SagitariiFileData.class );
+		List<SagitariiFile> files = data.getData();
+		
+		return files;
+	}
+	
+	
 	private String startExperiment( String securityToken, String experimentSerial ) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{");

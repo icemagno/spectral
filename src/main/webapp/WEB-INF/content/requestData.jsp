@@ -36,7 +36,7 @@
 										</tr>
 	
 										<tr>
-											<td style="width:50%">&nbsp;</td><td><div style="margin-right: 7px;margin-top: 0px;" class="basicButton" onclick="doSubmit()">Submit Job</div></td>
+											<td style="width:50%">&nbsp;</td><td><div style="margin-right: 7px;margin-top: 0px;" class="basicButton" onclick="doSubmit()">Send</div></td>
 										</tr>
 									</table>
 								</form>

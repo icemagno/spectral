@@ -42,4 +42,22 @@ public class ShowMyExperimentsAction extends BasicActionClass {
 	public List<Experiment> getExperiments() {
 		return experiments;
 	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public String getSagitariiUrl() {
+		return sagitariiUrl;
+	}
+
+	public void setExperiments(List<Experiment> experiments) {
+		this.experiments = experiments;
+	}
+	
+	
 }
