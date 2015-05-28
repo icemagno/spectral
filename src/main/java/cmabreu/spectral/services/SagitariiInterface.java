@@ -93,8 +93,6 @@ public class SagitariiInterface {
 		
 		String result = execute( sb.toString() );
 		
-		System.out.println( ">>> " + result );
-		
 		Gson gson = new Gson();
 		SagitariiFileData data = gson.fromJson( result, SagitariiFileData.class );
 		List<SagitariiFile> files = data.getData();

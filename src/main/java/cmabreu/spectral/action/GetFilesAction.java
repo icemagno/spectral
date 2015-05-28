@@ -45,8 +45,6 @@ public class GetFilesAction extends BasicActionClass {
 			File path = new File( cachePath );
 			path.mkdirs();
 
-			System.out.println( cachePath );
-			
 			List<SagitariiFile> files = si.getFiles( experiment );
 			if ( files.size() > 0 ) {
 				SagitariiFile file = files.get(0);
