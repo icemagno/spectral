@@ -1,6 +1,7 @@
 package cmabreu.sagitarii.spectral;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -9,7 +10,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.nfunk.jep.JEP;
+import br.cefetrj.parser.FormulaEvaluator;
+import br.cefetrj.parser.ParseException;
 
 
 public class Main {
@@ -86,12 +88,20 @@ public class Main {
 		optimizationFunction = optimizationFunction.replace( "}", ")" );
 		optimizationFunction = optimizationFunction.replace( "{", "(" );
 		
-		JEP myParser = new JEP();
-		myParser.parseExpression(optimizationFunction);
+		double result = 0.0;
+		ByteArrayInputStream inputStream = new ByteArrayInputStream( optimizationFunction.getBytes() );
+		FormulaEvaluator eval = new FormulaEvaluator(inputStream);
+
+		try {
+			result = eval.parse();
+		} catch (ParseException e) {
+			System.out.println("PARSE ERROR: " + e.getMessage() );
+			System.out.println(" > " + optimizationFunction );
+		}
 		
-		System.out.println("optimization function result: " + optimizationFunction + " = " + myParser.getValue() );
+		System.out.println("optimization function result: " + optimizationFunction + " = " + result );
 		
-		return myParser.getValue();
+		return result;
 		
 	}
 
