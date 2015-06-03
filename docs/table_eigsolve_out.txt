@@ -3,7 +3,7 @@ CREATE TABLE eigsolve_out
   index_id serial NOT NULL,
   id_experiment integer,
   id_activity integer,
-  id_pipeline integer,
+  id_instance integer,
   adjacency character varying(250),
   laplacian character varying(250),
   slaplacian character varying(250),
@@ -30,7 +30,7 @@ CREATE TABLE eigsolve_out
   CONSTRAINT eigsolve_out_fkex FOREIGN KEY (id_experiment)
       REFERENCES experiments (id_experiment) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT eigsolve_out_fkpi FOREIGN KEY (id_pipeline)
-      REFERENCES pipelines (id_pipeline) MATCH SIMPLE
+  CONSTRAINT eigsolve_out_fkpi FOREIGN KEY (id_instance)
+      REFERENCES pipelines (id_instance) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )

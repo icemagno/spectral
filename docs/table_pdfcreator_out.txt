@@ -4,7 +4,7 @@ CREATE TABLE pdfcreator_out
   index_id serial NOT NULL,
   id_experiment integer,
   id_activity integer,
-  id_pipeline integer,
+  id_instance integer,
   pdffile integer,
   CONSTRAINT pdfcreator_out_pkey PRIMARY KEY (index_id),
   CONSTRAINT pdfcreator_out_fkac FOREIGN KEY (id_activity)
@@ -13,8 +13,8 @@ CREATE TABLE pdfcreator_out
   CONSTRAINT pdfcreator_out_fkex FOREIGN KEY (id_experiment)
       REFERENCES experiments (id_experiment) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT pdfcreator_out_fkpi FOREIGN KEY (id_pipeline)
-      REFERENCES pipelines (id_pipeline) MATCH SIMPLE
+  CONSTRAINT pdfcreator_out_fkpi FOREIGN KEY (id_instance)
+      REFERENCES pipelines (id_instance) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT pdffile_fkfile FOREIGN KEY (pdffile)
       REFERENCES files (id_file) MATCH SIMPLE

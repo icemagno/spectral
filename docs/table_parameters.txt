@@ -3,7 +3,7 @@ CREATE TABLE spectral_parameters
   index_id serial NOT NULL,
   id_experiment integer,
   id_activity integer,
-  id_pipeline integer,
+  id_instance integer,
   adjacency character varying(250),
   laplacian character varying(250),
   slaplacian character varying(250),
@@ -23,7 +23,7 @@ CREATE TABLE spectral_parameters
   CONSTRAINT spectral_parameters_fkex FOREIGN KEY (id_experiment)
       REFERENCES experiments (id_experiment) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT spectral_parameters_fkpi FOREIGN KEY (id_pipeline)
-      REFERENCES pipelines (id_pipeline) MATCH SIMPLE
+  CONSTRAINT spectral_parameters_fkpi FOREIGN KEY (id_instance)
+      REFERENCES pipelines (id_instance) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )

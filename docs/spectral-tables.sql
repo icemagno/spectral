@@ -1,0 +1,10 @@
+INSERT INTO tables (id_table, description, name, schema) VALUES (55, 'Output of AWK Task', 'awk_out', '');
+INSERT INTO tables (id_table, description, name, schema) VALUES (59, 'Output of tEigSolve Task', 'eigsolve_out', '');
+INSERT INTO tables (id_table, description, name, schema) VALUES (23, 'Initial parameters of Spectral Portal', 'spectral_parameters', '');
+INSERT INTO tables (id_table, description, name, schema) VALUES (60, 'Output of SHOWG Task', 'showgraph_out', '');
+INSERT INTO tables (id_table, description, name, schema) VALUES (61, 'Output of TXT2DOT Task', 'txt2dot_out', '');
+INSERT INTO tables (id_table, description, name, schema) VALUES (62, 'Output of GraphViz Task', 'graphviz_out', '');
+INSERT INTO tables (id_table, description, name, schema) VALUES (52, 'Output of geng Task', 'gengraph_out', '');
+INSERT INTO tables (id_table, description, name, schema) VALUES (63, 'Output of Evaluate Task', 'evaluate_out', '');
+INSERT INTO tables (id_table, description, name, schema) VALUES (64, 'Output of PDFCreator Task', 'pdrcreator_out', '');
+INSERT INTO tables (id_table, description, name, schema) VALUES (64, 'Output of Union Task', 'union_out', '');
