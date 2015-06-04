@@ -14,7 +14,7 @@ CREATE TABLE pdfcreator_out
       REFERENCES experiments (id_experiment) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT pdfcreator_out_fkpi FOREIGN KEY (id_instance)
-      REFERENCES pipelines (id_instance) MATCH SIMPLE
+      REFERENCES instances (id_instance) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT pdffile_fkfile FOREIGN KEY (pdffile)
       REFERENCES files (id_file) MATCH SIMPLE

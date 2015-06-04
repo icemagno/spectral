@@ -4,6 +4,15 @@ public class Experiment {
 	private String tagExec;
 	private String status;
 	private String startDate;
+	private String elapsedTime;
+	
+	public String getElapsedTime() {
+		return elapsedTime;
+	}
+	
+	public void setElapsedTime(String elapsedTime) {
+		this.elapsedTime = elapsedTime;
+	}
 	
 	public String getStartDate() {
 		return startDate;

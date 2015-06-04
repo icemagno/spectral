@@ -23,6 +23,7 @@
 										<th>Experiment</th>
 										<th>Start Date/Time</th>
 										<th>Status</th>
+										<th>Elapsed Time</th>
 										<th>&nbsp;</th>
 									</tr>
 									</thead>
@@ -32,6 +33,7 @@
 											<td>${experiment.tagExec}</td>
 											<td>${experiment.startDate}</td>
 											<td>${experiment.status}</td>
+											<td>${experiment.elapsedTime}</td>
 											<td>
 												<c:if test="${experiment.status == 'FINISHED'}">
 													<img class="dicas" title="Download result" onclick="getFiles('${experiment.tagExec}')" src="img/save.png" style="margin:0px;cursor:pointer;height:24px;width:24px;">
@@ -79,8 +81,9 @@
 			"bAutoWidth": false,
 			"sPaginationType": "full_numbers",
 			"aoColumns": [ 
+						  { "sWidth": "25%" },
 						  { "sWidth": "30%" },
-						  { "sWidth": "30%" },
+						  { "sWidth": "20%" },
 						  { "sWidth": "30%" },
 						  { "sWidth": "10%" }]						
 		} ).fnSort( [[0,'desc']] );

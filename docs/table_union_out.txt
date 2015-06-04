@@ -6,6 +6,7 @@ CREATE TABLE union_out
   id_instance integer,
   gvfile integer,
   optifunc character varying(250),
+  caixa1 character varying(250),
   evaluatedvalue character varying(250),
   g6fileid character varying(250),
   maxresults character varying(250),
@@ -20,6 +21,6 @@ CONSTRAINT union_out_pkey PRIMARY KEY (index_id),
       REFERENCES experiments (id_experiment) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT union_out_fkpi FOREIGN KEY (id_instance)
-      REFERENCES pipelines (id_instance) MATCH SIMPLE
+      REFERENCES instances (id_instance) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )

@@ -32,6 +32,6 @@ CREATE TABLE txt2dot_out
       REFERENCES experiments (id_experiment) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT txt2dot_out_fkpi FOREIGN KEY (id_instance)
-      REFERENCES pipelines (id_instance) MATCH SIMPLE
+      REFERENCES instances (id_instance) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
