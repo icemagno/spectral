@@ -72,8 +72,6 @@ public class SagitariiInterface {
 		
 		String result = execute( sb.toString() );
 
-		System.out.println( result );
-		
 		Gson gson = new Gson();
 		ExperimentData data = gson.fromJson( result, ExperimentData.class );
 		List<Experiment> experiments = data.getData();
