@@ -1,12 +1,14 @@
 
 package cmabreu.spectral.action;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
+import br.cefetrj.parser.FormulaEvaluator;
 import cmabreu.spectral.services.SagitariiInterface;
 
 @Action (value = "doSubmitFunction", results = { @Result (location = "done.jsp", name = "ok") } ) 
@@ -34,6 +36,21 @@ public class SubmitFormAction extends BasicActionClass {
 	private List<String> log;
 	
 	public String execute () {
+		
+		if ( (optiFunc != null) && (!optiFunc.equals("")) ) {
+			try {
+				ByteArrayInputStream inputStream = new ByteArrayInputStream( optiFunc.getBytes() );
+				FormulaEvaluator eval = new FormulaEvaluator(inputStream);
+				eval.parse();
+			} catch ( Exception e ) {
+				setMessageText( "Error in Optimization Function validation" );
+				return "ok";
+			}
+		} else {
+			setMessageText( "You must provide an Optimization Function" );
+			return "ok";
+		}
+
 		if( caixa1 != null ) {
 			try {
 				SagitariiInterface si = new SagitariiInterface(sagitariiUrl, user, password);

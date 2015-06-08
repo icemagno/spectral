@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.cefetrj.parser.FormulaEvaluator;
-import br.cefetrj.parser.ParseException;
 
 
 public class Main {
@@ -88,16 +87,13 @@ public class Main {
 		optimizationFunction = optimizationFunction.replace( "}", ")" );
 		optimizationFunction = optimizationFunction.replace( "{", "(" );
 		
-		System.out.println("optimization function: " + optimizationFunction );
-		
 		double result = 0.0;
 		try {
 			ByteArrayInputStream inputStream = new ByteArrayInputStream( optimizationFunction.getBytes() );
 			FormulaEvaluator eval = new FormulaEvaluator(inputStream);
-			result = eval.parse();
+			result = eval.evaluate();
 		} catch ( Exception e ) {
-			System.out.println("PARSE ERROR: " + e.getMessage() );
-			System.out.println(" > " + optimizationFunction );
+			System.out.println("FUNCTION ERROR: " + e.getMessage() );
 		}
 		
 		System.out.println("optimization function result: " + optimizationFunction + " = " + result );

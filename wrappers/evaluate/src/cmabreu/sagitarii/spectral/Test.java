@@ -3,12 +3,11 @@ package cmabreu.sagitarii.spectral;
 import java.io.ByteArrayInputStream;
 
 import br.cefetrj.parser.FormulaEvaluator;
-import br.cefetrj.parser.ParseException;
 
 public class Test {
 
 	public static double evaluateOptimizationFunction( String optimizationFunction, 
-			Double[] valuesAdj, Double[] valuesLap, Double[] valuesSgnlap ) throws ParseException {
+			Double[] valuesAdj, Double[] valuesLap, Double[] valuesSgnlap ) throws Exception {
 		
 		for (int i = 0; i < valuesAdj.length; i++) {
 			String old = "q_" + Integer.toString(i + 1);
@@ -31,11 +30,11 @@ public class Test {
 		ByteArrayInputStream inputStream = new ByteArrayInputStream( optimizationFunction.getBytes() );
 		FormulaEvaluator eval = new FormulaEvaluator(inputStream);
 		
-		return eval.parse();
+		return eval.evaluate();
 		
 	}
 
-	public static void main(String[] args) throws ParseException {
+	public static void main(String[] args) throws Exception {
 		Double[] valuesAdj = {2.3,4.1,3.7,1.0};
 		Double[] valuesLap = {2.8,5.7,2.0,0.3};
 		Double[] valuesSgnlap = {8.0,2.0,5.2,1.1};
