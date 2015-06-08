@@ -88,13 +88,14 @@ public class Main {
 		optimizationFunction = optimizationFunction.replace( "}", ")" );
 		optimizationFunction = optimizationFunction.replace( "{", "(" );
 		
+		System.out.println("optimization function: " + optimizationFunction );
+		
 		double result = 0.0;
-		ByteArrayInputStream inputStream = new ByteArrayInputStream( optimizationFunction.getBytes() );
-		FormulaEvaluator eval = new FormulaEvaluator(inputStream);
-
 		try {
+			ByteArrayInputStream inputStream = new ByteArrayInputStream( optimizationFunction.getBytes() );
+			FormulaEvaluator eval = new FormulaEvaluator(inputStream);
 			result = eval.parse();
-		} catch (ParseException e) {
+		} catch ( Exception e ) {
 			System.out.println("PARSE ERROR: " + e.getMessage() );
 			System.out.println(" > " + optimizationFunction );
 		}
