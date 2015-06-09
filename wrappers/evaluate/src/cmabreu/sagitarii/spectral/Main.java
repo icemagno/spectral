@@ -92,7 +92,7 @@ public class Main {
 			ByteArrayInputStream inputStream = new ByteArrayInputStream( optimizationFunction.getBytes() );
 			FormulaEvaluator eval = new FormulaEvaluator(inputStream);
 			result = eval.evaluate();
-		} catch ( Exception e ) {
+		} catch ( Throwable e ) {
 			System.out.println("FUNCTION ERROR: " + e.getMessage() );
 		}
 		

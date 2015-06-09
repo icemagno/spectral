@@ -39,7 +39,17 @@ public class Test {
 		Double[] valuesLap = {2.8,5.7,2.0,0.3};
 		Double[] valuesSgnlap = {8.0,2.0,5.2,1.1};
 		
-		System.out.println( evaluateOptimizationFunction("\\frac{q_3}{q_4}+\\lambda_1",valuesAdj,valuesLap,valuesSgnlap) );
+		String function = "\\lambda_1 + fsdfdsfds";
+		
+		try {
+			ByteArrayInputStream inputStream = new ByteArrayInputStream( function.getBytes() );
+			FormulaEvaluator eval = new FormulaEvaluator(inputStream);
+			eval.parse();
+		} catch ( Throwable e ) {
+			e.printStackTrace();
+		}
+		
+		System.out.println( evaluateOptimizationFunction( function, valuesAdj,valuesLap,valuesSgnlap ) );
 	}
 
 }

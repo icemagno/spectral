@@ -42,8 +42,8 @@ public class SubmitFormAction extends BasicActionClass {
 				ByteArrayInputStream inputStream = new ByteArrayInputStream( optiFunc.getBytes() );
 				FormulaEvaluator eval = new FormulaEvaluator(inputStream);
 				eval.parse();
-			} catch ( Exception e ) {
-				setMessageText( "Error in Optimization Function validation" );
+			} catch ( Throwable e ) {
+				setMessageText( "Error in Optimization Function validation: " + e.getMessage() );
 				return "ok";
 			}
 		} else {
@@ -65,6 +65,7 @@ public class SubmitFormAction extends BasicActionClass {
 			setMessageText("Invalid arguments");
 		}
 		
+		setMessageText( "Certo" );
 		return "ok";
 	}
 
