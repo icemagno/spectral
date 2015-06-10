@@ -637,12 +637,11 @@ td input {
 }
 
 #topBar {
-	height : 60px;
-	background-color : #4D7A93;
+	height : 80px;
 	width : 100%;
-	box-shadow: 0px 4px 8px #888888;
 	position:relative; 
-	z-index:999
+	z-index:999;
+	border-bottom: 1px dotted #ADADAD;
 }
 
 #msgBar {

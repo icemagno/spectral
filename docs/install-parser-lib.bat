@@ -1,0 +1,1 @@
+mvn install:install-file -Dfile=formulaevaluator.jar -DgroupId=br.cefetrj.parser -DartifactId=formulaevaluator -Dversion=1.0 -Dpackaging=jar

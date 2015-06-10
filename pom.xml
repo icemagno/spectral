@@ -16,7 +16,13 @@
   
   
 	<dependencies>
- 
+
+		<dependency>
+			<groupId>br.cefetrj.parser</groupId>
+			<artifactId>formulaevaluator</artifactId>
+			<version>1.0</version>
+		</dependency> 		
+	
 		<dependency>
 			<groupId>org.apache.struts.xwork</groupId>
 			<artifactId>xwork-core</artifactId>

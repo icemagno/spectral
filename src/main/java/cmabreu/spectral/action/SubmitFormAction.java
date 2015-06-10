@@ -11,7 +11,8 @@ import org.apache.struts2.convention.annotation.Result;
 import br.cefetrj.parser.FormulaEvaluator;
 import cmabreu.spectral.services.SagitariiInterface;
 
-@Action (value = "doSubmitFunction", results = { @Result (location = "done.jsp", name = "ok") } ) 
+@Action (value = "doSubmitFunction", results = { @Result (location = "done.jsp", name = "ok"),
+		@Result(location="userForm", type="redirect", name="error") } ) 
 
 @ParentPackage("default")
 public class SubmitFormAction extends BasicActionClass {
@@ -44,11 +45,11 @@ public class SubmitFormAction extends BasicActionClass {
 				eval.parse();
 			} catch ( Throwable e ) {
 				setMessageText( "Error in Optimization Function validation: " + e.getMessage() );
-				return "ok";
+				return "error";
 			}
 		} else {
 			setMessageText( "You must provide an Optimization Function" );
-			return "ok";
+			return "error";
 		}
 
 		if( caixa1 != null ) {
@@ -58,14 +59,14 @@ public class SubmitFormAction extends BasicActionClass {
 						triangleFree, allowDiscGraphs, biptOnly, maxResults);
 				log = si.getLog();
 			} catch ( Exception e ) {
-				e.printStackTrace();
 				setMessageText( e.getMessage() );
+				return "error";
 			}
 		} else {
 			setMessageText("Invalid arguments");
+			return "error";
 		}
 		
-		setMessageText( "Certo" );
 		return "ok";
 	}
 
