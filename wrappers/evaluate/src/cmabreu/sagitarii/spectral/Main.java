@@ -1,7 +1,6 @@
 package cmabreu.sagitarii.spectral;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
@@ -23,14 +22,15 @@ public class Main {
 		return result;
 	}
 
-	private static List<Integer> convertToInteger(List<String> values)
-			throws Exception {
+	/*
+	private static List<Integer> convertToInteger(List<String> values)	throws Exception {
 		List<Integer> result = new ArrayList<Integer>();
 		for (String value : values) {
 			result.add(Integer.valueOf(value));
 		}
 		return result;
 	}
+	*/
 
 	public static double evaluateOptimizationFunction(EvaluationInfo evalInfo) {
 
@@ -39,107 +39,68 @@ public class Main {
 
 		String tmpStr;
 
-		for (int i = 0; i < evalInfo.valuesAdjs.length; i++) {
-			tmpStr = "d_" + Integer.toString(i + 1);
-			optimizationFunction = optimizationFunction.replace(tmpStr, ""
-					+ evalInfo.valuesDs[i]);
-		}
-
-		for (int i = 0; i < evalInfo.valuesAdjs.length; i++) {
-			tmpStr = "\\overline{q_" + Integer.toString(i + 1) + "}";
-			optimizationFunction = optimizationFunction.replace(tmpStr, ""
-					+ evalInfo.valuesSgnlapBars[i]);
-
-			tmpStr = "\\overline{\\mu_" + Integer.toString(i + 1) + "}";
-			optimizationFunction = optimizationFunction.replace(tmpStr, ""
-					+ evalInfo.valuesLapBars[i]);
-
-			tmpStr = "\\overline{\\lambda_" + Integer.toString(i + 1) + "}";
-			optimizationFunction = optimizationFunction.replace(tmpStr, ""
-					+ evalInfo.valuesAdjBars[i]);
-		}
-
 		tmpStr = "\\overline{\\chi}";
-		optimizationFunction = optimizationFunction.replace(tmpStr,
-				evalInfo.valueChiAdjBar.toString());
+		optimizationFunction = optimizationFunction.replace(tmpStr, evalInfo.valueChiAdjBar.toString());
 
 		tmpStr = "\\chi";
-		optimizationFunction = optimizationFunction.replace(tmpStr,
-				evalInfo.valueChiAdj.toString());
+		optimizationFunction = optimizationFunction.replace(tmpStr, evalInfo.valueChiAdj.toString());
 
 		tmpStr = "\\overline{\\omega}";
-		optimizationFunction = optimizationFunction.replace(tmpStr,
-				evalInfo.valueOmegaAdjBar.toString());
+		optimizationFunction = optimizationFunction.replace(tmpStr,	evalInfo.valueOmegaAdjBar.toString());
 
 		tmpStr = "\\omega";
-		optimizationFunction = optimizationFunction.replace(tmpStr,
-				evalInfo.valueOmegaAdj.toString());
+		optimizationFunction = optimizationFunction.replace(tmpStr, evalInfo.valueOmegaAdj.toString());
 
 		tmpStr = "n";
-		optimizationFunction = optimizationFunction.replace(tmpStr, ""
-				+ evalInfo.numVertices);
+		optimizationFunction = optimizationFunction.replace(tmpStr, "" + evalInfo.numVertices);
 
 		tmpStr = "m";
-		optimizationFunction = optimizationFunction.replace(tmpStr, ""
-				+ evalInfo.numEdges);
+		optimizationFunction = optimizationFunction.replace(tmpStr, "" + evalInfo.numEdges);
 
-		for (int i = 0; i < evalInfo.valuesAdjs.length; i++) {
-			tmpStr = "\\overline{q_" + Integer.toString(i + 1) + "}";
-			optimizationFunction = optimizationFunction.replace(tmpStr,
-					evalInfo.valuesSgnlapBars[i].toString());
-
-			tmpStr = "\\overline{\\mu_" + Integer.toString(i + 1) + "}";
-			optimizationFunction = optimizationFunction.replace(tmpStr,
-					evalInfo.valuesLapBars[i].toString());
-
-			tmpStr = "\\overline{\\lambda_" + Integer.toString(i + 1) + "}";
-			optimizationFunction = optimizationFunction.replace(tmpStr,
-					evalInfo.valuesAdjBars[i].toString());
-		}
-
-		boolean haveLap = false;
-		boolean haveSgnLap = false;
-		boolean haveAdj = false;
-		for (int i = 0; i < evalInfo.valuesAdjs.length; i++) {
-
-			int index = (evalInfo.valuesAdjs.length - 1) - i;
-
-			tmpStr = "q_" + Integer.toString(i + 1);
-			if (evalInfo.valuesSgnlaps.length > 0) {
-				optimizationFunction = optimizationFunction.replace(tmpStr, ""
-						+ evalInfo.valuesSgnlaps[index]);
-				haveSgnLap = true;
+		if ( evalInfo.valuesAdjs.length == 0 ) {
+			System.out.println("[ERROR] Adjacency Matrix Not Found");
+		} else {
+		
+			for (int i = 0; i < evalInfo.valuesAdjs.length; i++) {
+	
+				int index = (evalInfo.valuesAdjs.length - 1) - i;
+	
+				tmpStr = "d_" + Integer.toString(i + 1);
+				if (evalInfo.valuesDs.length > 0) {
+					optimizationFunction = optimizationFunction.replace(tmpStr, "" + evalInfo.valuesDs[index]);
+				}
+	
+				tmpStr = "\\overline{q_" + Integer.toString(i + 1) + "}";
+				if (evalInfo.valuesSgnlapBars.length > 0) {
+					optimizationFunction = optimizationFunction.replace(tmpStr,	evalInfo.valuesSgnlapBars[index].toString());
+				}
+	
+				tmpStr = "\\overline{\\mu_" + Integer.toString(i + 1) + "}";
+				if (evalInfo.valuesLapBars.length > 0) {
+					optimizationFunction = optimizationFunction.replace(tmpStr, evalInfo.valuesLapBars[index].toString());
+				}
+	
+				tmpStr = "\\overline{\\lambda_" + Integer.toString(i + 1) + "}";
+				if (evalInfo.valuesAdjBars.length > 0) {
+					optimizationFunction = optimizationFunction.replace(tmpStr,	evalInfo.valuesAdjBars[index].toString());			
+				}
+				
+				tmpStr = "q_" + Integer.toString(i + 1);
+				if (evalInfo.valuesSgnlaps.length > 0) {
+					optimizationFunction = optimizationFunction.replace(tmpStr, "" + evalInfo.valuesSgnlaps[index]);
+				}
+	
+				tmpStr = "\\mu_" + Integer.toString(i + 1);
+				if (evalInfo.valuesLaps.length > 0) {
+					optimizationFunction = optimizationFunction.replace(tmpStr, "" + evalInfo.valuesLaps[index]);
+				}
+	
+				tmpStr = "\\lambda_" + Integer.toString(i + 1);
+				if (evalInfo.valuesAdjs.length > 0) {
+					optimizationFunction = optimizationFunction.replace(tmpStr, "" + evalInfo.valuesAdjs[index]);
+				}
 			}
 
-			tmpStr = "\\mu_" + Integer.toString(i + 1);
-			if (evalInfo.valuesLaps.length > 0) {
-				optimizationFunction = optimizationFunction.replace(tmpStr, ""
-						+ evalInfo.valuesLaps[index]);
-				haveLap = true;
-			}
-
-			tmpStr = "\\lambda_" + Integer.toString(i + 1);
-			if (evalInfo.valuesAdjs.length > 0) {
-				optimizationFunction = optimizationFunction.replace(tmpStr, ""
-						+ evalInfo.valuesAdjs[index]);
-				haveAdj = true;
-			}
-		}
-
-		if (haveSgnLap) {
-			System.out.println("using signless Laplacian Matrix");
-		} else {
-			System.out.println("dont have signless Laplacian Matrix (Q)");
-		}
-		if (haveLap) {
-			System.out.println("using Laplacian Matrix");
-		} else {
-			System.out.println("dont have Laplacian Matrix (Mu)");
-		}
-		if (haveAdj) {
-			System.out.println("using Adjacency Matrix");
-		} else {
-			System.out.println("dont have Adjacency Matrix (Lambda)");
 		}
 
 		// optimizationFunction = optimizationFunction.replace("\\frac", "");
@@ -175,32 +136,27 @@ public class Main {
 		List<Integer> convertedGreatestDegrees = new ArrayList<Integer>();
 
 		if (job.isAdj()) {
-			String adjFile = workFolder + "/" + "inbox"
-					+ "/" + job.getAdjFile();
+			String adjFile = workFolder + "/" + "inbox"	+ "/" + job.getAdjFile();
 			convertedAdj = convertToDouble(CsvReader.readFile(adjFile));
 		}
 
 		if (job.isLap()) {
-			String lapFile = workFolder + "/" + "inbox"
-					+ "/" + job.getLapFile();
+			String lapFile = workFolder + "/" + "inbox"	+ "/" + job.getLapFile();
 			convertedLap = convertToDouble(CsvReader.readFile(lapFile));
 		}
 
 		if (job.isSgnLap()) {
-			String sgnlapFile = workFolder + "/" + "inbox"
-					+ "/" + job.getSgnLapFile();
+			String sgnlapFile = workFolder + "/" + "inbox" + "/" + job.getSgnLapFile();
 			convertedSgnLap = convertToDouble(CsvReader.readFile(sgnlapFile));
 		}
 
 		if (job.isAdjBar()) {
-			String adjBarFile = workFolder + "/" + "inbox"
-					+ "/" + job.getAdjBarFile();
+			String adjBarFile = workFolder + "/" + "inbox" + "/" + job.getAdjBarFile();
 			convertedAdjBar = convertToDouble(CsvReader.readFile(adjBarFile));
 		}
 
 		if (job.isLapBar()) {
-			String lapBarFile = workFolder + "/" + "inbox"
-					+ "/" + job.getLapBarFile();
+			String lapBarFile = workFolder + "/" + "inbox" + "/" + job.getLapBarFile();
 			convertedLapBar = convertToDouble(CsvReader.readFile(lapBarFile));
 		}
 
@@ -247,10 +203,10 @@ public class Main {
 						job.getOmega(), 
 						job.getOmegaBar() ) );
 
-		// Send back original data plus file name
+		
 		outputData.add("optifunc,g6fileid,evaluatedvalue,maxresults");
-		outputData.add(job.getOptimizationFunction() + "," + job.getG6fileid()
-				+ "," + evaluatedValue + "," + job.getMaxResults());
+		outputData.add(job.getOptimizationFunction() + "," + job.getG6fileid() + 
+				"," + evaluatedValue + "," + job.getMaxResults() );
 		saveOutput();
 
 	}
