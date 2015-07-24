@@ -37,12 +37,16 @@ public class Main {
 		String[] lineData = line.split(",");
 		String inputFile = lineData[ getIndex("g6file", header) ]; 
 		
+		System.out.println("will process file " + inputFile);
+		
 		String gengOutput = workFolder + "/inbox/" + inputFile;
 		String awkOutput = workFolder + "/sagi_output.txt";
 
 		String fileId = UUID.randomUUID().toString().toUpperCase().substring(0,8);
 		
 		String awk = "awk '{x=\""+fileId+"\"++i\".g6\";}{print>x}' " + gengOutput;
+
+		System.out.println("command line: " + awk );
 		runSystem( awk, workFolder + "/outbox/" );
 
 		List<String> awkResult = getAwkResult( workFolder + "/outbox/" );
@@ -57,19 +61,23 @@ public class Main {
 	}	
 	
 	
-	public static void main(String[] args) throws Exception{
+	public static void main(String[] args) {
 		workFolder = args[0];	
-
-		List<String> inputData = readFile( workFolder + "/sagi_input.txt" );
-		if( inputData.size() > 1 ) {
-
-			String header = inputData.get( 0 ); // Get the CSV header
-			String line = inputData.get( 1 ); // SPLIT MAP just one line
-			processLine( header, line );
 			
-			
-		} else {
-			System.out.println("Empty input data file.");
+		try {
+			List<String> inputData = readFile( workFolder + "/sagi_input.txt" );
+			if( inputData.size() > 1 ) {
+	
+				String header = inputData.get( 0 ); // Get the CSV header
+				String line = inputData.get( 1 ); // SPLIT MAP just one line
+				processLine( header, line );
+				
+				
+			} else {
+				System.out.println("Empty input data file.");
+			}
+		} catch ( Exception e ) {
+			System.out.println("Error: " + e.getMessage() );
 		}
 		
 	}

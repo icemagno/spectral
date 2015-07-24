@@ -39,24 +39,6 @@ public class Main {
 
 		String tmpStr;
 
-		tmpStr = "\\overline{\\chi}";
-		optimizationFunction = optimizationFunction.replace(tmpStr, evalInfo.valueChiAdjBar.toString());
-
-		tmpStr = "\\chi";
-		optimizationFunction = optimizationFunction.replace(tmpStr, evalInfo.valueChiAdj.toString());
-
-		tmpStr = "\\overline{\\omega}";
-		optimizationFunction = optimizationFunction.replace(tmpStr,	evalInfo.valueOmegaAdjBar.toString());
-
-		tmpStr = "\\omega";
-		optimizationFunction = optimizationFunction.replace(tmpStr, evalInfo.valueOmegaAdj.toString());
-
-		tmpStr = "n";
-		optimizationFunction = optimizationFunction.replace(tmpStr, "" + evalInfo.numVertices);
-
-		tmpStr = "m";
-		optimizationFunction = optimizationFunction.replace(tmpStr, "" + evalInfo.numEdges);
-
 		if ( evalInfo.valuesAdjs.length == 0 ) {
 			System.out.println("[ERROR] Adjacency Matrix Not Found");
 		} else {
@@ -96,10 +78,43 @@ public class Main {
 				}
 	
 				tmpStr = "\\lambda_" + Integer.toString(i + 1);
-				if (evalInfo.valuesAdjs.length > 0) {
+				if (evalInfo.valuesAdjs.length > 0) { 
 					optimizationFunction = optimizationFunction.replace(tmpStr, "" + evalInfo.valuesAdjs[index]);
 				}
 			}
+			
+			tmpStr = "\\overline{\\chi}";
+			try {
+				optimizationFunction = optimizationFunction.replace(tmpStr, evalInfo.valueChiAdjBar);
+			} catch ( Exception ignored ) { }
+
+			tmpStr = "\\chi";
+			try {
+				optimizationFunction = optimizationFunction.replace(tmpStr, evalInfo.valueChiAdj);
+			} catch ( Exception ignored ) { }
+
+			tmpStr = "\\overline{\\omega}";
+			try {
+				optimizationFunction = optimizationFunction.replace(tmpStr,	evalInfo.valueOmegaAdjBar);
+			} catch ( Exception ignored ) { }
+
+			tmpStr = "\\omega";
+			try {
+				optimizationFunction = optimizationFunction.replace(tmpStr, evalInfo.valueOmegaAdj);
+			} catch ( Exception ignored ) { }
+
+
+			tmpStr = "n";
+			try {
+				optimizationFunction = optimizationFunction.replace(tmpStr, "" + evalInfo.numVertices);
+			} catch ( Exception ignored ) { }
+
+
+			tmpStr = "m";
+			try {
+				optimizationFunction = optimizationFunction.replace(tmpStr, "" + evalInfo.numEdges);
+			} catch ( Exception ignored ) { }
+			
 
 		}
 
@@ -125,46 +140,48 @@ public class Main {
 	}
 
 	public static void processJob(JobUnity job) throws Exception {
-		List<Double> convertedAdj = new ArrayList<Double>();
-		List<Double> convertedLap = new ArrayList<Double>();
-		List<Double> convertedSgnLap = new ArrayList<Double>();
+		List<String> convertedAdj = new ArrayList<String>();
+		List<String> convertedLap = new ArrayList<String>();
+		List<String> convertedSgnLap = new ArrayList<String>();
 
-		List<Double> convertedAdjBar = new ArrayList<Double>();
-		List<Double> convertedLapBar = new ArrayList<Double>();
-		List<Double> convertedSgnLapBar = new ArrayList<Double>();
+		List<String> convertedAdjBar = new ArrayList<String>();
+		List<String> convertedLapBar = new ArrayList<String>();
+		List<String> convertedSgnLapBar = new ArrayList<String>();
 
 		List<Integer> convertedGreatestDegrees = new ArrayList<Integer>();
 
 		if (job.isAdj()) {
 			String adjFile = workFolder + "/" + "inbox"	+ "/" + job.getAdjFile();
-			convertedAdj = convertToDouble(CsvReader.readFile(adjFile));
+			convertedAdj = CsvReader.readFile(adjFile);
+			System.out.println( "Adj size: " + convertedAdj.size() );
 		}
 
 		if (job.isLap()) {
 			String lapFile = workFolder + "/" + "inbox"	+ "/" + job.getLapFile();
-			convertedLap = convertToDouble(CsvReader.readFile(lapFile));
+			convertedLap = CsvReader.readFile(lapFile);
 		}
 
 		if (job.isSgnLap()) {
 			String sgnlapFile = workFolder + "/" + "inbox" + "/" + job.getSgnLapFile();
-			convertedSgnLap = convertToDouble(CsvReader.readFile(sgnlapFile));
+			convertedSgnLap = CsvReader.readFile(sgnlapFile);
 		}
 
 		if (job.isAdjBar()) {
 			String adjBarFile = workFolder + "/" + "inbox" + "/" + job.getAdjBarFile();
-			convertedAdjBar = convertToDouble(CsvReader.readFile(adjBarFile));
+			convertedAdjBar = CsvReader.readFile(adjBarFile);
 		}
 
 		if (job.isLapBar()) {
 			String lapBarFile = workFolder + "/" + "inbox" + "/" + job.getLapBarFile();
-			convertedLapBar = convertToDouble(CsvReader.readFile(lapBarFile));
+			convertedLapBar = CsvReader.readFile(lapBarFile);
 		}
 
 		if (job.isSgnLapBar()) {
 			String sgnlapBarFile = workFolder + "/inbox" + "/" + job.getSgnLapBarFile();
-			convertedSgnLapBar = convertToDouble(CsvReader.readFile(sgnlapBarFile));
+			convertedSgnLapBar = CsvReader.readFile(sgnlapBarFile);
 		}
 
+		
 		String[] valuesAdj = new String[convertedAdj.size()];
 		valuesAdj = convertedAdj.toArray(valuesAdj);
 
@@ -270,25 +287,32 @@ public class Main {
 				job.setMaxResults(maxResults);
 
 				if (inputFile.contains(".lap")) {
+					System.out.println("found lap file " + inputFile );
 					job.setLapFile(inputFile);
 				}
 				if (inputFile.contains(".adj")) {
+					System.out.println("found adj file " + inputFile );
 					job.setAdjFile(inputFile);
 				}
 				if (inputFile.contains(".sgnlap")) {
+					System.out.println("found sgnlap file " + inputFile );
 					job.setSgnLapFile(inputFile);
 				}
 
 				if (inputFile.contains(".lapb")) {
+					System.out.println("found lapb file " + inputFile );
 					job.setLapBarFile(inputFile);
 				}
 				if (inputFile.contains(".adjb")) {
+					System.out.println("found adjb file " + inputFile );
 					job.setAdjBarFile(inputFile);
 				}
 				if (inputFile.contains(".sgnlapb")) {
+					System.out.println("found sgnlapb file " + inputFile );
 					job.setSgnLapBarFile(inputFile);
 				}
 				if (inputFile.contains(".inv")) {
+					System.out.println("found inv file " + inputFile );
 					job.setInvariantsFile(workFolder, inputFile);
 				}
 

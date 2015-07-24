@@ -16,6 +16,8 @@ import java.util.List;
 
 public class Main {
 	private static String workFolder; // args[0]
+	private static String wrappersFolder; // args[1]
+	
 	private static List<String> outputData = new ArrayList<String>();
 	
 	private static int getIndex( String key, String header) {
@@ -85,7 +87,8 @@ public class Main {
     }
 	
 	public static void main(String[] args) throws Exception{
-		workFolder = args[0];	
+		workFolder 		= args[0];	
+		wrappersFolder 	= args[1];
 
 		List<String> inputData = readFile( workFolder + "/sagi_input.txt" );
 		if( inputData.size() > 1 ) {
@@ -104,7 +107,7 @@ public class Main {
 	
 	private static String readLibraryDirectory() {
 		String line = "";
-		try (BufferedReader br = new BufferedReader( new FileReader( "spectral.config" ) ) ) {
+		try (BufferedReader br = new BufferedReader( new FileReader(  wrappersFolder + "spectral.config" ) ) ) {
 		    line = br.readLine(); 
 		} catch ( Exception e ) {
 			

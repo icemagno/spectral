@@ -52,7 +52,7 @@ public class Processor implements IWrapperProcessor {
 			
 			String fileName = UUID.randomUUID().toString().toUpperCase().substring(0,8) + "_" + order + ".g6";
 
-			String gengOutput = helper.getWorkFolder() + fileName;
+			String gengOutput = helper.getOutboxFolder() + fileName;
 			String geng = libraryDirectory + "/geng " + degreeOptions + " -g -q " + gengOptions + " " + order + " " + gengOutput;
 
 			helper.runExternal(geng);

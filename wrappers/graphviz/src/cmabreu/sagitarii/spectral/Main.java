@@ -42,22 +42,26 @@ public class Main {
 
 		String inputFile = lineData[ getIndex("dotfile", header) ]; 
 		
-		String dotOutput = workFolder + File.separator + "inbox" + File.separator + inputFile;
+		String dotInput = workFolder + File.separator + "inbox" + File.separator + inputFile;
 		String outbox = workFolder + File.separator + "outbox" + File.separator ;	
 		String inbox = workFolder + File.separator + "inbox" + File.separator ;	
 		String gvOutput = workFolder + File.separator + "sagi_output.txt";
+		
+		
+		System.out.println("process: " + dotInput);
 
 		// 0         1        2        3         4            5              6      7               8      9          10             11         
 		// maxdegree,biptonly,optifunc,mindegree,trianglefree,eigsolveoption,gorder,allowdiscgraphs,caixa1,g6file,    showgfile,     dotFile
 		// 16,       off,     lambda,  4,        off,         L,             9,     on,             min,   saida_9.g6,saida_9.g6.txt,saida_9.g6.txt.dot
 		
-		String graphviz = "dot -Tgif -O " + dotOutput;
+		String graphviz = "dot -Tgif -O " + dotInput;
 
 		runSystem( graphviz, outbox );
 		getFolderContent( inbox );
 		
 		outputCsv.add( header + ",gvfile" );
 		for ( String gvFile : folderContent ) {
+			System.out.println("Result file: " + gvFile );
 			moveFile( inbox + gvFile, outbox + gvFile);
 			outputCsv.add( line + "," + gvFile );
 		}
@@ -102,6 +106,9 @@ public class Main {
 	}
 	
 	private static int runSystem( String command, String directoryContext ) {
+		
+		System.out.println("will run " + command);
+		
 		List<String> commands = new ArrayList<String>();
 		int result = 0;
 		File folder = null;
