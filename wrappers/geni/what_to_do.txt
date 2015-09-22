@@ -1,0 +1,24 @@
+O script a invocar é "geni.py". Esse script deve ser invocado como argumento para o 
+programa SAGE. Para instalar o SAGE, siga os passos a seguir:
+
+sudo su
+apt-add-repository -y ppa:aims/sagemath
+apt-get update
+apt-get install sagemath-upstream-binary
+
+Após instalar o SAGE, é possível executar o script geni.py. Um exemplo de execução desse 
+script é o seguinte:
+
+sage -c 'load("geni.py");geni("teste.txt","-a -b -c -d")'
+
+Quando for montar o comando acima a partir do Sagitarii:
+troque "teste.txt" pelo nome do arquivo gerado pelo programa geng e que contém a matriz de 
+adjacências. Como exemplo, veja o arquivo teste.txt que vai em anexo.
+troque "-a -b -c -d" pelas opções correspondentes aos valores que devem ser produzidos 
+pelo script. Para saber o que significa cada opção, veja a documentação que adicionamos no
+ cabeçalho do script geni.py.
+Repare que o script geni.py invoca funções definidas em diversos scripts em Python, que 
+também vão em anexo. Deposite todos esses arquivos em uma mesma pasta.
+
+A saída da execução é um arquivo em forma CSV. Um exemplo desse arquivo de saída é o 
+arquivo "saida.csv", que também vai em anexo.
