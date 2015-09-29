@@ -4,12 +4,12 @@
 ## arquivo:  arquivo texto com a matriz de adjacência gerada pelo geng
 ## args: string contendo os caracteres correspondentes 
 ## das funções a serem geradas
-##        -a   : número cromatico
-##        -b   : número cromatico do grafo complementar
-##        -c   : tamanho da maior clique
-##        -d   : tamanho da maior clique do grafo complementar
-##        -e k : k-ésimo maior grau do grafo
-##        -f k : k-ésimo maior grau do grafo complementar
+##        -a   : número cromatico ( \chi )
+##        -b   : número cromatico do grafo complementar ( \overline{\chi} )
+##        -c   : tamanho da maior clique ( \omega )
+##        -d   : tamanho da maior clique do grafo complementar ( \overline{\omega} ) 
+##        -e k : k-ésimo maior grau do grafo ( d_{k} )
+##       IGNORAR ESSE PARAMETRO -f k : k-ésimo maior grau do grafo complementar ( \overline{d}_{k} = n-1-d_{k})   )
 ##
 import getopt
 import csv
@@ -17,7 +17,7 @@ import mathchem
 
 from sage.graphs.graph_coloring import chromatic_number
 
-def geni(arquivo, args):
+def geni(outputdir, arquivo, args):
 	##f = open(arquivo,'r') #leitura do arquivo
 	## l = Matrix ([ map(int,line.split(' ')) for line in f ]) ## matrix de adjacência do grafo
 	mols = mathchem.read_from_g6(arquivo)
@@ -92,7 +92,8 @@ def geni(arquivo, args):
 	else:
 		lista[5] = -1
 	### abertura do arquivo de saída	
-	f = open('saida.csv','wb')
+	
+	f = open(outputdir + '/saida.csv','wb')
 	z = csv.writer(f)
 	z.writerow(["ChromaticNumber","ChromaticNumberComplement","LargestCliqueSize","LargestCliqueSizeComplement","kLargestDegree","kLargestDegreeComplement"])
 	z.writerow(lista)
