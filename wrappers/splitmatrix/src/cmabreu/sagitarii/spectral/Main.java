@@ -52,9 +52,11 @@ public class Main {
 		List<String> awkResult = getAwkResult( workFolder + "/outbox/" );
 		
 		outputCsv.add( header + ",g6splitedfile,g6fileid" );
+		System.out.println( header );
 		for ( String awkFile : awkResult ) {
 	        String fileIdIndexed = UUID.randomUUID().toString().toUpperCase().substring(0,8);
 			outputCsv.add( line + "," + awkFile + "," + fileIdIndexed );
+			System.out.println( line );
 		}
 
 		saveFile( awkOutput );
