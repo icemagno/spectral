@@ -1,10 +1,19 @@
 O script a invocar é "geni.py". Esse script deve ser invocado como argumento para o 
 programa SAGE. Para instalar o SAGE, siga os passos a seguir:
 
-sudo su
-apt-add-repository -y ppa:aims/sagemath
-apt-get update
-apt-get install sagemath-upstream-binary
+cd /home/sagitarii/
+wget http://sagemath.c3sl.ufpr.br/linux/64bit/Ubuntu_14.04_LTS_sage-6.8-x86_64-Linux.tar.lrz
+apt-get install lrzip
+apt-get remove sagemath-upstream-binary
+lrzuntar Ubuntu_14.04_LTS_sage-6.8-x86_64-Linux.tar.lrz 
+ln -s /home/sagitarii/sage-6.8-x86_64-Linux/sage /usr/local/bin/sage
+sage -f mathchem-1.1.3.spkg
+chown -R sagitarii:sagitarii sage-6.8-x86_64-Linux/
+
+exit
+
+/home/sagitarii/cd sage-6.8-x86_64-Linux/
+make
 
 Após instalar o SAGE, é possível executar o script geni.py. Um exemplo de execução desse 
 script é o seguinte:
