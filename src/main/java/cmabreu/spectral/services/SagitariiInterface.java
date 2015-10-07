@@ -20,7 +20,7 @@ import cmabreu.spectral.entity.SagitariiFile;
 import cmabreu.spectral.entity.SagitariiFileData;
 
 import com.google.gson.Gson;
-
+ 
 /**
  * Interface to Sagitarii API
  * 
@@ -111,13 +111,16 @@ public class SagitariiInterface {
 		return execute( sb.toString() );
 	}
 	
-	public String getData(String adjacency, String laplacian, String slaplacian, String optiFunc, String caixa1, 
+	public String getData(String adjacency, String laplacian, String slaplacian, String adjacencyB, String laplacianB, String slaplacianB, String optiFunc, String caixa1, 
 			int order, String minDegree, String maxDegree, String triangleFree, String allowDiscGraphs, String biptOnly, String maxResults ) {
 		StringBuilder data = new StringBuilder();
 		data.append("{");
 		data.append( generateJsonPair("adjacency", adjacency) + "," );
 		data.append( generateJsonPair("laplacian", laplacian) + "," );
 		data.append( generateJsonPair("slaplacian", slaplacian) + "," );
+		data.append( generateJsonPair("adjacencyB", adjacencyB) + "," );
+		data.append( generateJsonPair("laplacianB", laplacianB) + "," );
+		data.append( generateJsonPair("slaplacianB", slaplacianB) + "," );
 		data.append( generateJsonPair("optifunc", optiFunc) + "," );
 		data.append( generateJsonPair("caixa1", caixa1) + "," );
 		data.append( generateJsonPair("gorder", String.valueOf( order ) ) + "," );
@@ -131,7 +134,7 @@ public class SagitariiInterface {
 		return data.toString();
 	}
 	
-	public void submit( String adjacency, String laplacian, String slaplacian, String optiFunc, String caixa1, String ordermin,
+	public void submit( String adjacency, String laplacian, String slaplacian, String adjacencyB, String laplacianB, String slaplacianB, String optiFunc, String caixa1, String ordermin,
 			String ordermax, String minDegree, String maxDegree, String triangleFree, String allowDiscGraphs, String biptOnly, String maxResults ) {
 
 		
@@ -158,7 +161,7 @@ public class SagitariiInterface {
 		
 		for ( int x = orderMin; x <= orderMax; x++ ) {
 			data.append( dataPrefix );
-			data.append( getData(adjacency, laplacian, slaplacian, optiFunc, caixa1, x, minDegree, maxDegree, 
+			data.append( getData(adjacency, laplacian, slaplacian, adjacencyB, laplacianB, slaplacianB, optiFunc, caixa1, x, minDegree, maxDegree, 
 					triangleFree, allowDiscGraphs, biptOnly, maxResults ) );
 			dataPrefix = ",";
 		}
