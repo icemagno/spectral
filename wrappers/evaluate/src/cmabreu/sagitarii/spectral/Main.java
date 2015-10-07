@@ -13,29 +13,10 @@ public class Main {
 	private static String workFolder; // args[0]
 	private static List<String> outputData = new ArrayList<String>();
 
-	private static List<Double> convertToDouble(List<String> values)
-			throws Exception {
-		List<Double> result = new ArrayList<Double>();
-		for (String value : values) {
-			result.add(Double.valueOf(value));
-		}
-		return result;
-	}
-
-	/*
-	private static List<Integer> convertToInteger(List<String> values)	throws Exception {
-		List<Integer> result = new ArrayList<Integer>();
-		for (String value : values) {
-			result.add(Integer.valueOf(value));
-		}
-		return result;
-	}
-	*/
-
 	public static double evaluateOptimizationFunction(EvaluationInfo evalInfo) {
 
 		String optimizationFunction = evalInfo.optimizationFunction;
-		System.out.println("original optimization function: " + optimizationFunction);
+		System.out.println("Original optimization function: " + optimizationFunction);
 
 		String tmpStr;
 

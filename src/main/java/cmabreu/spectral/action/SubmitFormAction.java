@@ -19,6 +19,9 @@ public class SubmitFormAction extends BasicActionClass {
 	private String adjacency;
 	private String laplacian;
 	private String slaplacian;
+	private String adjacencyB;
+	private String laplacianB;
+	private String slaplacianB;
 	private String optiFunc;
 	private String caixa1;
 	private String ordermin;
@@ -55,7 +58,7 @@ public class SubmitFormAction extends BasicActionClass {
 		if( caixa1 != null ) {
 			try {
 				SagitariiInterface si = new SagitariiInterface(sagitariiUrl, user, password);
-				si.submit(adjacency, laplacian, slaplacian, optiFunc, caixa1, ordermin, ordermax, minDegree, maxDegree, 
+				si.submit(adjacency, laplacian, slaplacian, adjacencyB, laplacianB, slaplacianB, optiFunc, caixa1, ordermin, ordermax, minDegree, maxDegree, 
 						triangleFree, allowDiscGraphs, biptOnly, maxResults);
 				log = si.getLog();
 			} catch ( Exception e ) {
@@ -137,4 +140,18 @@ public class SubmitFormAction extends BasicActionClass {
 	public void setMaxResults(String maxResults) {
 		this.maxResults = maxResults;
 	}
+
+	public void setAdjacencyB(String adjacencyB) {
+		this.adjacencyB = adjacencyB;
+	}
+
+	public void setLaplacianB(String laplacianB) {
+		this.laplacianB = laplacianB;
+	}
+
+	public void setSlaplacianB(String slaplacianB) {
+		this.slaplacianB = slaplacianB;
+	}
+	
+	
 }

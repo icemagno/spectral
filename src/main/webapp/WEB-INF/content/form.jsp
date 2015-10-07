@@ -32,6 +32,22 @@
 											<td>Signless Laplacian (Q)</td>
 											<td><input style="width:15px" type="checkbox" name="slaplacian" id="slaplacian" /></td>
 										</tr>
+
+
+										<tr style="display:none">
+											<td style="width:60%">AdjacencyB (Ab)</td>
+											<td><input style="width:15px" type="checkbox" name="adjacencyB"  id="adjacencyB" /></td>
+										</tr>
+										<tr style="display:none">
+											<td >LaplacianB (Lb)</td>
+											<td><input style="width:15px" type="checkbox" name="laplacianB" id="laplacianB" /></td>
+										</tr>
+										<tr style="display:none">
+											<td>Signless LaplacianB (Qb)</td>
+											<td><input style="width:15px" type="checkbox" name="slaplacianB" id="slaplacianB" /></td>
+										</tr>
+
+
 										<tr>
 											<td >Optimization Function</td>
 											<td><input type="text" value="\frac{q_3}{q_4} + \lambda_1" name="optiFunc" id="optiFunc"></td>
@@ -172,21 +188,42 @@
 
 	
 	function checkOptions( funct ) {
+		
 		$("#adjacency").prop('checked', false);
 		$("#laplacian").prop('checked', false);
 		$("#slaplacian").prop('checked', false);
+
+		$("#adjacencyB").prop('checked', false);
+		$("#laplacianB").prop('checked', false);
+		$("#slaplacianB").prop('checked', false);
 		
-		if ( funct.indexOf("lambda") > -1 ) {
+		
+		if ( funct.indexOf("\\lambda") > -1 ) {
 			$("#adjacency").prop('checked', true);
 		}
 		
-		if ( funct.indexOf("mu") > -1 ) {
+		if ( funct.indexOf("\\mu") > -1 ) {
 			$("#laplacian").prop('checked', true);
 		}
 
 		if ( funct.indexOf("q_") > -1 ) {
 			$("#slaplacian").prop('checked', true);
 		}
+		
+		// ===================		
+		
+		if ( funct.indexOf("overline{\\lambda") > -1 ) {
+			$("#adjacencyB").prop('checked', true);
+		}
+		
+		if ( funct.indexOf("overline{\\mu") > -1 ) {
+			$("#laplacianB").prop('checked', true);
+		}
+
+		if ( funct.indexOf("overline{q_") > -1 ) {
+			$("#slaplacianB").prop('checked', true);
+		}
+		
 	}
 	
 	function showFunctionImage() {

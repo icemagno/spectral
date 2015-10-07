@@ -133,11 +133,9 @@ public class JobUnity {
 		return this.omega != null;
 	}
 
-	public void setInvariantsFile(String workFolder, String inputFile)
-			throws Exception {
+	public void setInvariantsFile(String workFolder, String inputFile) throws Exception {
 		this.invariantsFile = inputFile;
-		List<String> inputData = CsvReader.readFile(workFolder + File.separator
-				+ "geni.inv");
+		List<String> inputData = CsvReader.readFile(workFolder + File.separator	+ "geni.inv");
 		if (inputData.size() > 1) {
 			String header = inputData.get(0); // Get the CSV header
 

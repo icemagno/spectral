@@ -47,6 +47,11 @@ public class Main {
 		String adjacency = lineData[getIndex("adjacency", header)]; 
 		String laplacian = lineData[getIndex("laplacian", header)]; 
 		String slaplacian = lineData[getIndex("slaplacian", header)]; 
+
+		String adjacencyB = lineData[getIndex("adjacencyB", header)]; 
+		String laplacianB = lineData[getIndex("laplacianB", header)]; 
+		String slaplacianB = lineData[getIndex("slaplacianB", header)]; 
+		
 		
 		String libraryDirectory = readLibraryDirectory();
 		if( !libraryDirectory.equals("")  ) {
@@ -54,9 +59,23 @@ public class Main {
 			String awkOutput = workFolder + "/inbox/" + inputFile;
 			String eigsolveOutput = workFolder + "/sagi_output.txt";
 	
-			System.out.println("User Options: (A): " + adjacency + " (Q): "+ slaplacian + " (L): " + laplacian);
+			System.out.println("User Options: (A): " + adjacency + " (Q): "+ slaplacian + " (L): " + laplacian + 
+					" (Ab): " + adjacencyB + " (Qb): "+ slaplacianB + " (Lb): " + laplacianB );
 			
 			outputCsv.add( header + ",eigsolve" );
+			
+			
+			if( laplacianB.equals("on")  ) {
+				System.out.println("FILE .lapb NOT FOUND");
+			}
+			if( adjacencyB.equals("on")  ) {
+				System.out.println("FILE .adjb NOT FOUND");
+			}
+			if( slaplacianB.equals("on")  ) {
+				System.out.println("FILE .sgnlapb NOT FOUND");
+			}
+			
+			
 			if( laplacian.equals("on")  ) {
 				String generatedFile = "";
 				String eigCommand = libraryDirectory + "/tEigSolve -l -f " + awkOutput;
