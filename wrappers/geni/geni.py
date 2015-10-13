@@ -9,7 +9,7 @@
 ##        -c   : tamanho da maior clique ( \omega )
 ##        -d   : tamanho da maior clique do grafo complementar ( \overline{\omega} ) 
 ##        -e k : k-ésimo maior grau do grafo ( d_{k} )
-##       IGNORAR ESSE PARAMETRO -f k : k-ésimo maior grau do grafo complementar ( \overline{d}_{k} = n-1-d_{k})   )
+##        -g   : number of edges ( m )
 ##
 import getopt
 import csv
@@ -24,15 +24,16 @@ def geni(outputdir, arquivo, args):
 	l = mols[0].adjacency_matrix()
 	l = Matrix(l)
 	G = Graph(l)
+	G.show()
 	##f.close()
 	args = args.split()
-	optlist, args = getopt.getopt(args, 'abcde:f:')
+	optlist, args = getopt.getopt(args, 'abcde:g')
 	ChromaticNumberNeeded = False
 	ChromaticNumberComplementNeeded = False
 	LargestCliqueSizeNeeded = False
 	LargestCliqueSizeComplementNeeded = False
 	kLargestDegree = False
-	kLargestDegreeComplement = False
+	NumberofEdges = False
 	
 	for o, a in optlist:
 		if o == "-a":
@@ -47,9 +48,8 @@ def geni(outputdir, arquivo, args):
 		elif o == "-e":
 			kLargestDegree = True
 			ParamkLargestDegree = a
-		elif o == "-f":
-			kLargestDegreeComplement = True
-			ParamkLargestDegreeComplement = a
+		elif o == "-g":
+			NumberofEdges = True		    
 		else:
 			assert False, "unhandled option"
 	
@@ -86,15 +86,19 @@ def geni(outputdir, arquivo, args):
 		lista[4] = LD
 	else:
 		lista[4] = -1
-	if kLargestDegreeComplement == True:
-		LDC = Degree(G,int(ParamkLargestDegreeComplement))
-		lista[5] = LDC
-	else:
+	if NumberofEdges == True:
+		soma = 0
+		for i in range(l.nrows()):
+			for j in range(i+1, l.nrows() ):
+				soma = soma + l[i,j]
+ 		NE = soma
+		lista[5] = NE
+	else:	
 		lista[5] = -1
 	### abertura do arquivo de saída	
 	
 	f = open(outputdir + '/saida.csv','wb')
 	z = csv.writer(f)
-	z.writerow(["ChromaticNumber","ChromaticNumberComplement","LargestCliqueSize","LargestCliqueSizeComplement","kLargestDegree","kLargestDegreeComplement"])
+	z.writerow(["ChromaticNumber","ChromaticNumberComplement","LargestCliqueSize","LargestCliqueSizeComplement","kLargestDegree","NumberofEdges"])
 	z.writerow(lista)
 	f.close()

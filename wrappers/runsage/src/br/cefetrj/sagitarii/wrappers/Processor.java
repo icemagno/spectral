@@ -32,8 +32,49 @@ public class Processor implements IWrapperProcessor {
 		String function = ld.getData("optfunc"); 
 		String geniFile = helper.getWrapperFolder() +  "/geni.py";
 		
+		String g6File = ld.getData("g6splitedfile");
+		String parameters = "";
+		
+		String output = helper.getOutboxFolder() + "/";
+		
+		String chromatic = ld.getData("chromatic");
+		String chromaticB = ld.getData("chromaticb");
+		String click = ld.getData("click");
+		String clickB = ld.getData("clickb");
+		String largestDegree = ld.getData("largestdegree");
+		String numEdges = ld.getData("numedges");
+		
+		if( chromatic.equals("on")  ) {
+			parameters = parameters + " -a" ;
+		}
+
+		if( chromaticB.equals("on")  ) {
+			parameters = parameters + " -b";
+		}
+
+		if( click.equals("on")  ) {
+			parameters = parameters + " -c";
+		}
+		
+		if( clickB.equals("on")  ) {
+			parameters = parameters + " -d";
+		}
+		
+		if( largestDegree.equals("on")  ) {
+			int position = function.indexOf("d_");
+			String largD =  function.substring(position+2, position+4).trim();
+			parameters = parameters + " -e " + largD;
+		}
+		
+		if( numEdges.equals("on")  ) {
+			parameters = parameters + " -g";
+		}
+		
 		System.out.println("Function: " + function );
-		String runFile = "sage -c 'load(\""+geniFile+"\");geni(\"teste.txt\",\"-a -b -c -d\")'";
+		System.out.println("Parameters: " + parameters);
+		System.out.println("File: " + g6File);
+		System.out.println("Output: " + output);
+		String runFile = "sage -c 'load(\""+geniFile+"\");geni(\""+g6File+"\",\""+parameters.trim()+"\")'";
 
 		System.out.println( runFile );
 		

@@ -33,6 +33,13 @@ public class SubmitFormAction extends BasicActionClass {
 	private String biptOnly;
 	private String maxResults;
 	
+	private String chromatic;
+	private String chromaticB;
+	private String click;
+	private String clickB;
+	private String largestDegree;
+	private String numEdges;
+	
 	private String user;
 	private String password;
 	private String sagitariiUrl;
@@ -59,7 +66,8 @@ public class SubmitFormAction extends BasicActionClass {
 			try {
 				SagitariiInterface si = new SagitariiInterface(sagitariiUrl, user, password);
 				si.submit(adjacency, laplacian, slaplacian, adjacencyB, laplacianB, slaplacianB, optiFunc, caixa1, ordermin, ordermax, minDegree, maxDegree, 
-						triangleFree, allowDiscGraphs, biptOnly, maxResults);
+						triangleFree, allowDiscGraphs, biptOnly, maxResults, chromatic, chromaticB,
+						click, clickB, largestDegree, numEdges );
 				log = si.getLog();
 			} catch ( Exception e ) {
 				setMessageText( e.getMessage() );
@@ -153,5 +161,28 @@ public class SubmitFormAction extends BasicActionClass {
 		this.slaplacianB = slaplacianB;
 	}
 	
+	public void setChromatic(String chromatic) {
+		this.chromatic = chromatic;
+	}
+	
+	public void setChromaticB(String chromaticB) {
+		this.chromaticB = chromaticB;
+	}
+	
+	public void setClick(String click) {
+		this.click = click;
+	}
+	
+	public void setClickB(String clickB) {
+		this.clickB = clickB;
+	}
+	
+	public void setLargestDegree(String largestDegree) {
+		this.largestDegree = largestDegree;
+	}
+	
+	public void setNumEdges(String numEdges) {
+		this.numEdges = numEdges;
+	}
 	
 }

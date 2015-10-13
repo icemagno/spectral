@@ -48,6 +48,36 @@
 										</tr>
 
 
+
+
+
+
+
+										<tr style="display:none">
+											<td style="width:60%">Chromatic (Chi)</td>
+											<td><input style="width:15px" type="checkbox" name="chromatic"  id="chromatic" /></td>
+										</tr>
+										<tr style="display:none">
+											<td >Chromatic Compl. (OverChi)</td>
+											<td><input style="width:15px" type="checkbox" name="chromaticB" id="chromaticB" /></td>
+										</tr>
+										<tr style="display:none">
+											<td>Largest Click (Omega)</td>
+											<td><input style="width:15px" type="checkbox" name="click" id="click" /></td>
+										</tr>
+										<tr style="display:none">
+											<td>Largest Click Compl.(OverOmega)</td>
+											<td><input style="width:15px" type="checkbox" name="clickB" id="clickB" /></td>
+										</tr>
+										<tr style="display:none">
+											<td>Largest Degree.(Dk)</td>
+											<td><input style="width:15px" type="checkbox" name="largestDegree" id="largestDegree" /></td>
+										</tr>
+										<tr style="display:none">
+											<td>Num of Edges.(M)</td>
+											<td><input style="width:15px" type="checkbox" name="numEdges" id="numEdges" /></td>
+										</tr>
+
 										<tr>
 											<td >Optimization Function</td>
 											<td><input type="text" value="\frac{q_3}{q_4} + \lambda_1" name="optiFunc" id="optiFunc"></td>
@@ -197,6 +227,37 @@
 		$("#laplacianB").prop('checked', false);
 		$("#slaplacianB").prop('checked', false);
 		
+		$("#chromatic").prop('checked', false);
+		$("#chromaticB").prop('checked', false);
+		$("#click").prop('checked', false);
+		$("#clickB").prop('checked', false);
+		$("#largestDegree").prop('checked', false);
+		$("#numEdges").prop('checked', false);
+
+		
+		if ( funct.indexOf("SIZE") > -1 ) {
+			$("#numEdges").prop('checked', true);
+		}
+
+		if ( funct.indexOf("d_") > -1 ) {
+			$("#largestDegree").prop('checked', true);
+		}
+
+		if ( funct.indexOf("overline{\\omega") > -1 ) {
+			$("#clickB").prop('checked', true);
+		}
+
+		if ( funct.indexOf("\\omega") > -1 ) {
+			$("#click").prop('checked', true);
+		}
+		
+		if ( funct.indexOf("\\chi") > -1 ) {
+			$("#chromatic").prop('checked', true);
+		}
+		
+		if ( funct.indexOf("overline{\\chi") > -1 ) {
+			$("#chromaticB").prop('checked', true);
+		}
 		
 		if ( funct.indexOf("\\lambda") > -1 ) {
 			$("#adjacency").prop('checked', true);

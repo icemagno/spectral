@@ -111,8 +111,11 @@ public class SagitariiInterface {
 		return execute( sb.toString() );
 	}
 	
-	public String getData(String adjacency, String laplacian, String slaplacian, String adjacencyB, String laplacianB, String slaplacianB, String optiFunc, String caixa1, 
-			int order, String minDegree, String maxDegree, String triangleFree, String allowDiscGraphs, String biptOnly, String maxResults ) {
+	public String getData(String adjacency, String laplacian, String slaplacian, String adjacencyB, 
+			String laplacianB, String slaplacianB, String optiFunc, String caixa1, 
+			int order, String minDegree, String maxDegree, String triangleFree, String allowDiscGraphs, 
+			String biptOnly, String maxResults, String chromatic, String chromaticB,
+			String click, String clickB, String largestDegree, String numEdges ) {
 		StringBuilder data = new StringBuilder();
 		data.append("{");
 		data.append( generateJsonPair("adjacency", adjacency) + "," );
@@ -129,13 +132,24 @@ public class SagitariiInterface {
 		data.append( generateJsonPair("trianglefree", triangleFree) + "," );
 		data.append( generateJsonPair("allowdiscgraphs", allowDiscGraphs) + "," );
 		data.append( generateJsonPair("biptonly", biptOnly) + "," );
+
+		data.append( generateJsonPair("chromatic", chromatic) + "," );
+		data.append( generateJsonPair("chromaticB", chromaticB) + "," );
+		data.append( generateJsonPair("click", click) + "," );
+		data.append( generateJsonPair("clickB", clickB) + "," );
+		data.append( generateJsonPair("largestDegree", largestDegree) + "," );
+		data.append( generateJsonPair("numEdges", numEdges) + "," );
+		
 		data.append( generateJsonPair("maxresults", maxResults) );
 		data.append("}");
 		return data.toString();
 	}
 	
-	public void submit( String adjacency, String laplacian, String slaplacian, String adjacencyB, String laplacianB, String slaplacianB, String optiFunc, String caixa1, String ordermin,
-			String ordermax, String minDegree, String maxDegree, String triangleFree, String allowDiscGraphs, String biptOnly, String maxResults ) {
+	public void submit( String adjacency, String laplacian, String slaplacian, String adjacencyB, 
+			String laplacianB, String slaplacianB, String optiFunc, String caixa1, String ordermin,
+			String ordermax, String minDegree, String maxDegree, String triangleFree, String allowDiscGraphs, 
+			String biptOnly, String maxResults, String chromatic, String chromaticB,
+			String click, String clickB, String largestDegree, String numEdges ) {
 
 		
 		String experimentSerial = createNewExperiment( securityToken );
@@ -162,7 +176,8 @@ public class SagitariiInterface {
 		for ( int x = orderMin; x <= orderMax; x++ ) {
 			data.append( dataPrefix );
 			data.append( getData(adjacency, laplacian, slaplacian, adjacencyB, laplacianB, slaplacianB, optiFunc, caixa1, x, minDegree, maxDegree, 
-					triangleFree, allowDiscGraphs, biptOnly, maxResults ) );
+					triangleFree, allowDiscGraphs, biptOnly, maxResults,chromatic, chromaticB,
+					click, clickB, largestDegree, numEdges ) );
 			dataPrefix = ",";
 		}
 		
