@@ -193,6 +193,8 @@ public class SagitariiInterface {
 		String start = startExperiment( securityToken, experimentSerial );
 		log( "Response to Start Experiment call : " + start );
 		
+		log("Data sent: " + sb.toString() );
+		
 	}
 	
 	

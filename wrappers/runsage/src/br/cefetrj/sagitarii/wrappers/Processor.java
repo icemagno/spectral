@@ -30,12 +30,12 @@ public class Processor implements IWrapperProcessor {
 		
 		// How to get data from the input CSV
 		String function = ld.getData("optfunc"); 
-		String geniFile = helper.getWrapperFolder() +  "/geni.py";
+		String geniFile = helper.getWrapperFolder() + "geni.py";
 		
 		String g6File = ld.getData("g6splitedfile");
 		String parameters = "";
 		
-		String output = helper.getOutboxFolder() + "/";
+		String output = helper.getOutboxFolder();
 		
 		String chromatic = ld.getData("chromatic");
 		String chromaticB = ld.getData("chromaticb");
@@ -70,6 +70,8 @@ public class Processor implements IWrapperProcessor {
 			parameters = parameters + " -g";
 		}
 		
+		parameters = parameters + " -f " + output;
+		
 		System.out.println("Function: " + function );
 		System.out.println("Parameters: " + parameters);
 		System.out.println("File: " + g6File);
@@ -81,6 +83,8 @@ public class Processor implements IWrapperProcessor {
 		// How to run external applications 
 		helper.runExternal( runFile );
 		
+		ld.addValue("sagefile", "saida.csv");		
+		csvLines.add( ld );
 	}
 
 	

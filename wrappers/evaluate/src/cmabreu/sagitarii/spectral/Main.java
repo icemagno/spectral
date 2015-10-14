@@ -292,7 +292,7 @@ public class Main {
 					System.out.println("found sgnlapb file " + inputFile );
 					job.setSgnLapBarFile(inputFile);
 				}
-				if (inputFile.contains(".inv")) {
+				if (inputFile.contains(".csv")) {
 					System.out.println("found inv file " + inputFile );
 					job.setInvariantsFile(workFolder, inputFile);
 				}
