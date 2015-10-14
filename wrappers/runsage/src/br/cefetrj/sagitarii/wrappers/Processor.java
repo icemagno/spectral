@@ -2,7 +2,6 @@ package br.cefetrj.sagitarii.wrappers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import cmabreu.sagitarii.sdk.IWrapperProcessor;
 import cmabreu.sagitarii.sdk.LineData;
@@ -31,7 +30,7 @@ public class Processor implements IWrapperProcessor {
 		// How to get data from the input CSV
 		String function = ld.getData("optfunc"); 
 		String geniFile = helper.getWrapperFolder() + "geni.py";
-		
+		String inboxFolder = helper.getInboxFolder();
 		String g6File = ld.getData("g6splitedfile");
 		String parameters = "";
 		
@@ -70,16 +69,12 @@ public class Processor implements IWrapperProcessor {
 			parameters = parameters + " -g";
 		}
 		
-		parameters = parameters + " -f " + output;
-		
 		System.out.println("Function: " + function );
 		System.out.println("Parameters: " + parameters);
 		System.out.println("File: " + g6File);
-		System.out.println("Output: " + output);
-		String runFile = "sage -c 'load(\""+geniFile+"\");geni(\""+g6File+"\",\""+parameters.trim()+"\")'";
+		String inputFile = inboxFolder + g6File;
+		String runFile = "/home/sagitarii/sage-6.8-x86_64-Linux/sage -c 'load(\""+geniFile+"\");geni(\""+output+"\",\""+inputFile+"\",\""+parameters.trim()+"\")'";
 
-		System.out.println( runFile );
-		
 		// How to run external applications 
 		helper.runExternal( runFile );
 		
@@ -90,9 +85,6 @@ public class Processor implements IWrapperProcessor {
 	
 	@Override
 	public void onProcessFinish() {
-		
-		System.out.println("done.");
-
 		
 		// Get the first data just to create the header. Can be anyone since 
 		// the header is present in all items

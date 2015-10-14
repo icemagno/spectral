@@ -1,9 +1,9 @@
 ## geni = invariants generator
-## função que calcula os valores dos invariantes de grafos
-## Parâmetros: 
+## funÃ§Ã£o que calcula os valores dos invariantes de grafos
+## ParÃ¢metros: 
 ## arquivo:  arquivo texto com a matriz de adjacência gerada pelo geng
 ## args: string contendo os caracteres correspondentes 
-## das funções a serem geradas
+## das funÃ§Ãµes a serem geradas
 ##        -a   : número cromatico ( \chi )
 ##        -b   : número cromatico do grafo complementar ( \overline{\chi} )
 ##        -c   : tamanho da maior clique ( \omega )
@@ -56,7 +56,7 @@ def geni(outputdir, arquivo, args):
 	if ChromaticNumberComplementNeeded or LargestCliqueSizeComplementNeeded or kLargestDegreeComplement:
 	   GC = G.complement()
 	## lc = G.complement().adjacency_matrix()
-	## lista de saída dos parâmetros
+	## lista de saída dos parÃ¢metros
 	## lista.array('i',[0,0,0,0,0,0])
 	lista = vector([0,0,0,0,0,0])
 	## print lista[0]
