@@ -35,10 +35,6 @@ public class Main {
 
 	public static void processLine( String header, String line ) throws Exception {
 		
-		System.out.println("INPUT:");
-		System.out.println( header );
-		System.out.println( line );
-		
 		String[] lineData = line.split(",");
 		
 		int fileIndex = getIndex("g6splitedfile", header);
@@ -196,10 +192,6 @@ public class Main {
 	    	result = 1;
 	    }
 
-	    System.out.println("");
-	    System.out.println( command );
-	    System.out.println("");
-	    
 	    return result;
 	}
 	
