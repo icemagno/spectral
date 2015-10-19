@@ -20,10 +20,8 @@ public class Main {
 
 		String tmpStr;
 
-		if ( evalInfo.valuesAdjs.length == 0 ) {
-			System.out.println("[ERROR] Adjacency Matrix Not Found");
-		} else {
 		
+		if ( evalInfo.valuesAdjs.length == 0 ) {		
 			for (int i = 0; i < evalInfo.valuesAdjs.length; i++) {
 	
 				int index = (evalInfo.valuesAdjs.length - 1) - i;
@@ -63,47 +61,45 @@ public class Main {
 					optimizationFunction = optimizationFunction.replace(tmpStr, "" + evalInfo.valuesAdjs[index]);
 				}
 			}
-			
-			tmpStr = "\\overline{\\chi}";
-			try {
-				optimizationFunction = optimizationFunction.replace(tmpStr, evalInfo.valueChiAdjBar);
-			} catch ( Exception ignored ) { }
-
-			tmpStr = "\\chi";
-			try {
-				optimizationFunction = optimizationFunction.replace(tmpStr, evalInfo.valueChiAdj);
-			} catch ( Exception ignored ) { }
-
-			tmpStr = "\\overline{\\omega}";
-			try {
-				optimizationFunction = optimizationFunction.replace(tmpStr,	evalInfo.valueOmegaAdjBar);
-			} catch ( Exception ignored ) { }
-
-			tmpStr = "\\omega";
-			try {
-				optimizationFunction = optimizationFunction.replace(tmpStr, evalInfo.valueOmegaAdj);
-			} catch ( Exception ignored ) { }
-
-
-			tmpStr = "n";
-			try {
-				optimizationFunction = optimizationFunction.replace(tmpStr, "" + evalInfo.numVertices);
-			} catch ( Exception ignored ) { }
-
-
-			tmpStr = "m";
-			try {
-				optimizationFunction = optimizationFunction.replace(tmpStr, "" + evalInfo.numEdges);
-			} catch ( Exception ignored ) { }
-			
-
 		}
+		tmpStr = "\\overline{\\chi}";
+		try {
+			optimizationFunction = optimizationFunction.replace(tmpStr, evalInfo.valueChiAdjBar);
+		} catch ( Exception ignored ) { }
 
-		// optimizationFunction = optimizationFunction.replace("\\frac", "");
-		// optimizationFunction = optimizationFunction.replaceAll(
-		// "[}]{1,1}+[\\s]*+[{]{1,1}", ")/(");
-		// optimizationFunction = optimizationFunction.replace("}", ")");
-		// optimizationFunction = optimizationFunction.replace("{", "(");
+		tmpStr = "\\chi";
+		try {
+			optimizationFunction = optimizationFunction.replace(tmpStr, evalInfo.valueChiAdj);
+		} catch ( Exception ignored ) { }
+
+		tmpStr = "\\overline{\\omega}";
+		try {
+			optimizationFunction = optimizationFunction.replace(tmpStr,	evalInfo.valueOmegaAdjBar);
+		} catch ( Exception ignored ) { }
+
+		tmpStr = "\\omega";
+		try {
+			optimizationFunction = optimizationFunction.replace(tmpStr, evalInfo.valueOmegaAdj);
+		} catch ( Exception ignored ) { }
+
+
+		tmpStr = "n";
+		try {
+			optimizationFunction = optimizationFunction.replace(tmpStr, "" + evalInfo.gorder);
+		} catch ( Exception ignored ) { }
+		
+		tmpStr = "d_";
+		try {
+			//optimizationFunction = optimizationFunction.replace(tmpStr, "" + evalInfo.kLargestDegree);
+		} catch ( Exception ignored ) { }
+
+
+		tmpStr = "m";
+		try {
+			optimizationFunction = optimizationFunction.replace(tmpStr, "" + evalInfo.numEdges);
+		} catch ( Exception ignored ) { }
+			
+		System.out.println("optimization function: " + optimizationFunction);
 
 		double result = 0.0;
 		try {
@@ -111,10 +107,10 @@ public class Main {
 			FormulaEvaluator eval = new FormulaEvaluator(inputStream);
 			result = eval.evaluate();
 		} catch (Throwable e) {
-			System.out.println("FUNCTION ERROR: " + e.getMessage());
+			System.out.println("FUNCTION ERROR: " + e.getMessage() );
 		}
 
-		System.out.println("optimization function result: "	+ optimizationFunction + " = " + result);
+		System.out.println("optimization function result: "	+ result);
 
 		return result;
 
@@ -190,7 +186,7 @@ public class Main {
 						valuesAdj, 
 						valuesLap,
 						valuesSgnLap, 
-						job.getNumVertices(), 
+						job.getKLargestDegree(), 
 						job.getNumEdges(), 
 						valuesD, 
 						valuesAdjBar,
@@ -199,12 +195,13 @@ public class Main {
 						job.getChi(), 
 						job.getChiBar(),
 						job.getOmega(), 
-						job.getOmegaBar() ) );
+						job.getOmegaBar(),
+						job.getGorder() ) );
 
 		
-		outputData.add("optifunc,g6fileid,evaluatedvalue,maxresults");
+		outputData.add("optifunc,g6fileid,evaluatedvalue,maxresults,caixa1");
 		outputData.add(job.getOptimizationFunction() + "," + job.getG6fileid() + 
-				"," + evaluatedValue + "," + job.getMaxResults() );
+				"," + evaluatedValue + "," + job.getMaxResults() + "," + job.getCaixa1() );
 		saveOutput();
 
 	}
@@ -261,11 +258,15 @@ public class Main {
 				 * Get maximum results to show
 				 */
 				String maxResults = lineData[CsvReader.getIndex("maxresults", header)];
+				String caixa1 = lineData[CsvReader.getIndex("caixa1", header)];
+				String gorder = lineData[CsvReader.getIndex("gorder", header)];
 
 				job.setOptimizationFunction(optimizationFunction);
 				job.setHeader(header);
 				job.setG6fileid(g6fileid);
 				job.setMaxResults(maxResults);
+				job.setCaixa1(caixa1);
+				job.setGorder(gorder);
 
 				if (inputFile.contains(".lap")) {
 					System.out.println("found lap file " + inputFile );

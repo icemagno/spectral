@@ -121,9 +121,9 @@ public class SagitariiInterface {
 		data.append( generateJsonPair("adjacency", adjacency) + "," );
 		data.append( generateJsonPair("laplacian", laplacian) + "," );
 		data.append( generateJsonPair("slaplacian", slaplacian) + "," );
-		data.append( generateJsonPair("adjacencyB", adjacencyB) + "," );
-		data.append( generateJsonPair("laplacianB", laplacianB) + "," );
-		data.append( generateJsonPair("slaplacianB", slaplacianB) + "," );
+		data.append( generateJsonPair("adjacencyb", adjacencyB) + "," );
+		data.append( generateJsonPair("laplacianb", laplacianB) + "," );
+		data.append( generateJsonPair("slaplacianb", slaplacianB) + "," );
 		data.append( generateJsonPair("optifunc", optiFunc) + "," );
 		data.append( generateJsonPair("caixa1", caixa1) + "," );
 		data.append( generateJsonPair("gorder", String.valueOf( order ) ) + "," );
@@ -134,11 +134,11 @@ public class SagitariiInterface {
 		data.append( generateJsonPair("biptonly", biptOnly) + "," );
 
 		data.append( generateJsonPair("chromatic", chromatic) + "," );
-		data.append( generateJsonPair("chromaticB", chromaticB) + "," );
+		data.append( generateJsonPair("chromaticb", chromaticB) + "," );
 		data.append( generateJsonPair("click", click) + "," );
-		data.append( generateJsonPair("clickB", clickB) + "," );
-		data.append( generateJsonPair("largestDegree", largestDegree) + "," );
-		data.append( generateJsonPair("numEdges", numEdges) + "," );
+		data.append( generateJsonPair("clickb", clickB) + "," );
+		data.append( generateJsonPair("largestdegree", largestDegree) + "," );
+		data.append( generateJsonPair("numedges", numEdges) + "," );
 		
 		data.append( generateJsonPair("maxresults", maxResults) );
 		data.append("}");

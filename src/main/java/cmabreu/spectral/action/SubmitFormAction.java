@@ -16,29 +16,29 @@ import cmabreu.spectral.services.SagitariiInterface;
 
 @ParentPackage("default")
 public class SubmitFormAction extends BasicActionClass {
-	private String adjacency;
-	private String laplacian;
-	private String slaplacian;
-	private String adjacencyB;
-	private String laplacianB;
-	private String slaplacianB;
+	private String adjacency = "off";
+	private String laplacian = "off";
+	private String slaplacian= "off";
+	private String adjacencyB = "off";
+	private String laplacianB = "off";
+	private String slaplacianB = "off";
 	private String optiFunc;
 	private String caixa1;
 	private String ordermin;
 	private String ordermax;
 	private String minDegree;
 	private String maxDegree;
-	private String triangleFree;
-	private String allowDiscGraphs;
-	private String biptOnly;
+	private String triangleFree = "off";
+	private String allowDiscGraphs = "off";
+	private String biptOnly = "off";
 	private String maxResults;
 	
-	private String chromatic;
-	private String chromaticB;
-	private String click;
-	private String clickB;
-	private String largestDegree;
-	private String numEdges;
+	private String chromatic = "off";
+	private String chromaticB = "off";
+	private String click = "off";
+	private String clickB = "off";
+	private String largestDegree = "off";
+	private String numEdges = "off";
 	
 	private String user;
 	private String password;

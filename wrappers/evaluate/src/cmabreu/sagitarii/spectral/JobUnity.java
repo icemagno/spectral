@@ -1,6 +1,5 @@
 package cmabreu.sagitarii.spectral;
 
-import java.io.File;
 import java.util.List;
 
 public class JobUnity {
@@ -16,17 +15,35 @@ public class JobUnity {
 	private String optimizationFunction;
 	private String g6fileid;
 	private String maxResults;
+	private String caixa1;
+	private String gorder;
 
 	private String invariantsFile;
 	private String chi;
 	private String chiBar;
 	private String omega;
 	private String omegaBar;
-	private String numVertices;
+	private String kLargestDegree;
 	private String numEdges;
 
 	public void setMaxResults(String maxResults) {
 		this.maxResults = maxResults;
+	}
+	
+	public void setGorder(String gorder) {
+		this.gorder = gorder;
+	}
+	
+	public String getGorder() {
+		return gorder;
+	}
+	
+	public void setCaixa1(String caixa1) {
+		this.caixa1 = caixa1;
+	}
+	
+	public String getCaixa1() {
+		return caixa1;
 	}
 
 	public String getMaxResults() {
@@ -51,6 +68,10 @@ public class JobUnity {
 
 	public boolean isSgnLap() {
 		return (sgnLapFile != null) && (!sgnLapFile.equals(""));
+	}
+
+	public boolean isInvariant() {
+		return (invariantsFile != null) && (!invariantsFile.equals(""));
 	}
 
 	public void setLapFile(String lapFile) {
@@ -135,7 +156,7 @@ public class JobUnity {
 
 	public void setInvariantsFile(String workFolder, String inputFile) throws Exception {
 		this.invariantsFile = inputFile;
-		List<String> inputData = CsvReader.readFile(workFolder + File.separator	+ "geni.inv");
+		List<String> inputData = CsvReader.readFile(workFolder + "/inbox/saida.csv");
 		if (inputData.size() > 1) {
 			String header = inputData.get(0); // Get the CSV header
 
@@ -163,12 +184,12 @@ public class JobUnity {
 					this.omegaBar = lineData[index];
 				}
 
-				index = CsvReader.getIndex("numVertices", header);
+				index = CsvReader.getIndex("kLargestDegree", header);
 				if (index >= 0) {
-					this.numVertices = lineData[index];
+					this.kLargestDegree = lineData[index];
 				}
 
-				index = CsvReader.getIndex("numEdges", header);
+				index = CsvReader.getIndex("NumberofEdges", header);
 				if (index >= 0) {
 					this.numEdges = lineData[index];
 				}
@@ -180,8 +201,8 @@ public class JobUnity {
 		return invariantsFile;
 	}
 
-	public String getNumVertices() {
-		return numVertices;
+	public String getKLargestDegree() {
+		return kLargestDegree;
 	}
 
 	public String getNumEdges() {

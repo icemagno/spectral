@@ -5,7 +5,7 @@ public class EvaluationInfo {
 	public String[] valuesAdjs;
 	public String[] valuesLaps;
 	public String[] valuesSgnlaps;
-	public String numVertices;
+	public String kLargestDegree;
 	public String numEdges;
 	public String[] valuesDs;
 	public String[] valuesAdjBars;
@@ -15,13 +15,14 @@ public class EvaluationInfo {
 	public String valueChiAdjBar;
 	public String valueOmegaAdj;
 	public String valueOmegaAdjBar;
+	public String gorder;
 
 	public EvaluationInfo(
 			String optimizationFunction, 
 			String[] valuesAdjs,
 			String[] valuesLaps, 
 			String[] valuesSgnlaps, 
-			String numVertices,
+			String kLargestDegree,
 			String numEdges, 
 			String[] valuesDs, 
 			String[] valuesAdjBars,
@@ -30,13 +31,15 @@ public class EvaluationInfo {
 			String valueChiAdj, 
 			String valueChiAdjBar, 
 			String valueOmegaAdj,
-			String valueOmegaAdjBar) {
+			String valueOmegaAdjBar,
+			String gorder) {
 		this.optimizationFunction = optimizationFunction;
 		this.valuesAdjs = valuesAdjs;
 		this.valuesLaps = valuesLaps;
 		this.valuesSgnlaps = valuesSgnlaps;
-		this.numVertices = numVertices;
+		this.kLargestDegree = kLargestDegree;
 		this.numEdges = numEdges;
+		this.gorder = gorder;
 		this.valuesDs = valuesDs;
 		this.valuesAdjBars = valuesAdjBars;
 		this.valuesLapBars = valuesLapBars;
