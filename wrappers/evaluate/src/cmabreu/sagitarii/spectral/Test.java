@@ -39,6 +39,12 @@ public class Test {
 		Double[] valuesLap = {2.8,5.7,2.0,0.3};
 		Double[] valuesSgnlap = {8.0,2.0,5.2,1.1};
 		
+		String tt = "teste d_6 bla bla";
+		String t2 = tt.replaceAll("d_.", "34");
+		
+		System.out.println( t2 );
+		
+		/*
 		String function = "\\lambda_1 + fsdfdsfds";
 		
 		try {
@@ -50,6 +56,7 @@ public class Test {
 		}
 		
 		System.out.println( evaluateOptimizationFunction( function, valuesAdj,valuesLap,valuesSgnlap ) );
+		*/
 	}
 
 }

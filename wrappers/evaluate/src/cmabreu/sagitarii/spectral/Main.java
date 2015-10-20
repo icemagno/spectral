@@ -20,7 +20,6 @@ public class Main {
 
 		String tmpStr;
 
-		
 		if ( evalInfo.valuesAdjs.length == 0 ) {		
 			for (int i = 0; i < evalInfo.valuesAdjs.length; i++) {
 	
@@ -28,75 +27,75 @@ public class Main {
 	
 				tmpStr = "d_" + Integer.toString(i + 1);
 				if (evalInfo.valuesDs.length > 0) {
-					optimizationFunction = optimizationFunction.replace(tmpStr, "" + evalInfo.valuesDs[index]);
+					optimizationFunction = optimizationFunction.replaceAll(tmpStr, "" + evalInfo.valuesDs[index]);
 				}
 	
 				tmpStr = "\\overline{q_" + Integer.toString(i + 1) + "}";
 				if (evalInfo.valuesSgnlapBars.length > 0) {
-					optimizationFunction = optimizationFunction.replace(tmpStr,	evalInfo.valuesSgnlapBars[index].toString());
+					optimizationFunction = optimizationFunction.replaceAll(tmpStr,	evalInfo.valuesSgnlapBars[index].toString());
 				}
 	
 				tmpStr = "\\overline{\\mu_" + Integer.toString(i + 1) + "}";
 				if (evalInfo.valuesLapBars.length > 0) {
-					optimizationFunction = optimizationFunction.replace(tmpStr, evalInfo.valuesLapBars[index].toString());
+					optimizationFunction = optimizationFunction.replaceAll(tmpStr, evalInfo.valuesLapBars[index].toString());
 				}
 	
 				tmpStr = "\\overline{\\lambda_" + Integer.toString(i + 1) + "}";
 				if (evalInfo.valuesAdjBars.length > 0) {
-					optimizationFunction = optimizationFunction.replace(tmpStr,	evalInfo.valuesAdjBars[index].toString());			
+					optimizationFunction = optimizationFunction.replaceAll(tmpStr,	evalInfo.valuesAdjBars[index].toString());			
 				}
 				
 				tmpStr = "q_" + Integer.toString(i + 1);
 				if (evalInfo.valuesSgnlaps.length > 0) {
-					optimizationFunction = optimizationFunction.replace(tmpStr, "" + evalInfo.valuesSgnlaps[index]);
+					optimizationFunction = optimizationFunction.replaceAll(tmpStr, "" + evalInfo.valuesSgnlaps[index]);
 				}
 	
 				tmpStr = "\\mu_" + Integer.toString(i + 1);
 				if (evalInfo.valuesLaps.length > 0) {
-					optimizationFunction = optimizationFunction.replace(tmpStr, "" + evalInfo.valuesLaps[index]);
+					optimizationFunction = optimizationFunction.replaceAll(tmpStr, "" + evalInfo.valuesLaps[index]);
 				}
 	
 				tmpStr = "\\lambda_" + Integer.toString(i + 1);
 				if (evalInfo.valuesAdjs.length > 0) { 
-					optimizationFunction = optimizationFunction.replace(tmpStr, "" + evalInfo.valuesAdjs[index]);
+					optimizationFunction = optimizationFunction.replaceAll(tmpStr, "" + evalInfo.valuesAdjs[index]);
 				}
 			}
 		}
 		tmpStr = "\\overline{\\chi}";
 		try {
-			optimizationFunction = optimizationFunction.replace(tmpStr, evalInfo.valueChiAdjBar);
+			optimizationFunction = optimizationFunction.replaceAll(tmpStr, evalInfo.valueChiAdjBar);
 		} catch ( Exception ignored ) { }
 
 		tmpStr = "\\chi";
 		try {
-			optimizationFunction = optimizationFunction.replace(tmpStr, evalInfo.valueChiAdj);
+			optimizationFunction = optimizationFunction.replaceAll(tmpStr, evalInfo.valueChiAdj);
 		} catch ( Exception ignored ) { }
 
 		tmpStr = "\\overline{\\omega}";
 		try {
-			optimizationFunction = optimizationFunction.replace(tmpStr,	evalInfo.valueOmegaAdjBar);
+			optimizationFunction = optimizationFunction.replaceAll(tmpStr,	evalInfo.valueOmegaAdjBar);
 		} catch ( Exception ignored ) { }
 
 		tmpStr = "\\omega";
 		try {
-			optimizationFunction = optimizationFunction.replace(tmpStr, evalInfo.valueOmegaAdj);
+			optimizationFunction = optimizationFunction.replaceAll(tmpStr, evalInfo.valueOmegaAdj);
 		} catch ( Exception ignored ) { }
 
 
-		tmpStr = "n";
+		tmpStr = "ORDER";
 		try {
-			optimizationFunction = optimizationFunction.replace(tmpStr, "" + evalInfo.gorder);
+			optimizationFunction = optimizationFunction.replaceAll(tmpStr, "" + evalInfo.gorder);
 		} catch ( Exception ignored ) { }
 		
-		tmpStr = "d_";
+		tmpStr = "d_.";
 		try {
-			//optimizationFunction = optimizationFunction.replace(tmpStr, "" + evalInfo.kLargestDegree);
+			optimizationFunction = optimizationFunction.replaceAll(tmpStr, "" + evalInfo.kLargestDegree);
 		} catch ( Exception ignored ) { }
 
 
-		tmpStr = "m";
+		tmpStr = "SIZE";
 		try {
-			optimizationFunction = optimizationFunction.replace(tmpStr, "" + evalInfo.numEdges);
+			optimizationFunction = optimizationFunction.replaceAll(tmpStr, "" + evalInfo.numEdges);
 		} catch ( Exception ignored ) { }
 			
 		System.out.println("optimization function: " + optimizationFunction);
@@ -199,9 +198,9 @@ public class Main {
 						job.getGorder() ) );
 
 		
-		outputData.add("optifunc,g6fileid,evaluatedvalue,maxresults,caixa1");
+		outputData.add("optifunc,g6fileid,evaluatedvalue,maxresults,caixa1,gorder");
 		outputData.add(job.getOptimizationFunction() + "," + job.getG6fileid() + 
-				"," + evaluatedValue + "," + job.getMaxResults() + "," + job.getCaixa1() );
+				"," + evaluatedValue + "," + job.getMaxResults() + "," + job.getCaixa1() + "," + job.getGorder() );
 		saveOutput();
 
 	}
@@ -234,6 +233,7 @@ public class Main {
 
 			JobUnity job = new JobUnity();
 
+			System.out.println("Input files: ");
 			for (int x = 1; x < inputData.size(); x++) { // REDUCE read all
 				// lines
 				String line = inputData.get(x);
@@ -242,7 +242,7 @@ public class Main {
 				/*
 				 * Get tEigSolve file
 				 */
-				String inputFile = lineData[CsvReader.getIndex("eigsolve",	header)];
+				String inputFile = lineData[CsvReader.getIndex("workfile",	header)];
 
 				/*
 				 * Get function expression
@@ -268,6 +268,8 @@ public class Main {
 				job.setCaixa1(caixa1);
 				job.setGorder(gorder);
 
+				System.out.println(" > " + inputFile);
+				
 				if (inputFile.contains(".lap")) {
 					System.out.println("found lap file " + inputFile );
 					job.setLapFile(inputFile);
