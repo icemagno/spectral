@@ -14,11 +14,11 @@
 							<img id="functionImage" style="margin: 0 auto;display:block" src="">
 						</div>
 
+						<form action="doSubmitFunction" method="post" name="formFunction" id="formFunction">
 						<div style="width:750px;margin:0 auto">				
 							<div class="userBoard" style="margin-top:10px;width: 400px;float:left;height:330px;margin-right:5px;">
 								<div class="userBoardT1" style="text-align:center;width:95%">Workflow Submission</div>
 								<div class="userBoardT2" style="text-align:center;width:95%">
-									<form action="doSubmitFunction" method="post" name="formFunction" id="formFunction">
 										<table>
 											<tr>
 												<td >Optimization Function</td>
@@ -87,70 +87,68 @@
 												<td style="width:50%">&nbsp;</td><td><div style="margin-right: 7px;margin-top: 0px;" class="basicButton" onclick="doSubmit()">Submit Job</div></td>
 											</tr>
 										</table>
-										
-										
-									</form>
 								</div>
 							</div>
 						
 							<div class="userBoard" style="margin-top:10px;width: 300px;float:left;height:330px;">
 								<div class="userBoardT1" style="text-align:center;width:95%">Function Parameters</div>
-								<div class="userBoardT2" style="text-align:center;width:95%">
+								<div class="userBoardT2" id="checks" style="text-align:center;width:95%">
 									<table>
 										<tr  >
 											<td style="width:80%">Adjacency (A)</td>
-											<td><input style="width:15px" type="checkbox" disabled  name="adjacency"  id="adjacency" /></td>
+											<td><input style="width:15px" type="checkbox"   name="adjacency"  id="adjacency" /></td>
 										</tr>
 										<tr  >
 											<td >Laplacian (L)</td>
-											<td><input style="width:15px" type="checkbox" disabled  name="laplacian" id="laplacian" /></td>
+											<td><input style="width:15px" type="checkbox"   name="laplacian" id="laplacian" /></td>
 										</tr>
 										<tr  >
 											<td>Signless Laplacian (Q)</td>
-											<td><input style="width:15px" type="checkbox" disabled  name="slaplacian" id="slaplacian" /></td>
+											<td><input style="width:15px" type="checkbox"   name="slaplacian" id="slaplacian" /></td>
 										</tr>
 	
 										<tr  >
 											<td >AdjacencyB (Ab)</td>
-											<td><input style="width:15px" type="checkbox" disabled  name="adjacencyB"  id="adjacencyB" /></td>
+											<td><input style="width:15px" type="checkbox"   name="adjacencyB"  id="adjacencyB" /></td>
 										</tr>
 										<tr  >
 											<td >LaplacianB (Lb)</td>
-											<td><input style="width:15px" type="checkbox" disabled  name="laplacianB" id="laplacianB" /></td>
+											<td><input style="width:15px" type="checkbox"   name="laplacianB" id="laplacianB" /></td>
 										</tr>
 										<tr  >
 											<td>Signless LaplacianB (Qb)</td>
-											<td><input style="width:15px" type="checkbox" disabled  name="slaplacianB" id="slaplacianB" /></td>
+											<td><input style="width:15px" type="checkbox"   name="slaplacianB" id="slaplacianB" /></td>
 										</tr>
 	
 										<tr  >
 											<td >Chromatic (Chi)</td>
-											<td><input style="width:15px" type="checkbox" disabled  name="chromatic"  id="chromatic" /></td>
+											<td><input style="width:15px" type="checkbox"   name="chromatic"  id="chromatic" /></td>
 										</tr>
 										<tr  >
 											<td >Chromatic Compl. (OverChi)</td>
-											<td><input style="width:15px" type="checkbox" disabled  name="chromaticB" id="chromaticB" /></td>
+											<td><input style="width:15px" type="checkbox"   name="chromaticB" id="chromaticB" /></td>
 										</tr>
 										<tr  >
 											<td>Largest Click (Omega)</td>
-											<td><input style="width:15px" type="checkbox" disabled  name="click" id="click" /></td>
+											<td><input style="width:15px" type="checkbox"   name="click" id="click" /></td>
 										</tr>
 										<tr  >
 											<td>Largest Click Compl.(OverOmega)</td>
-											<td><input style="width:15px" type="checkbox" disabled  name="clickB" id="clickB" /></td>
+											<td><input style="width:15px" type="checkbox"   name="clickB" id="clickB" /></td>
 										</tr>
 										<tr  >
 											<td>Largest Degree.(Dk)</td>
-											<td><input style="width:15px" type="checkbox" disabled  name="largestDegree" id="largestDegree" /></td>
+											<td><input style="width:15px" type="checkbox"   name="largestDegree" id="largestDegree" /></td>
 										</tr>
 										<tr  >
 											<td>Num of Edges.(M)</td>
-											<td><input style="width:15px" type="checkbox" disabled  name="numEdges" id="numEdges" /></td>
+											<td><input style="width:15px" type="checkbox"   name="numEdges" id="numEdges" /></td>
 										</tr>
 									</table>
 								</div>
 							</div>					
 						</div>					
+						</form>
 					
 					</div>
 										
@@ -324,6 +322,9 @@
 	
 	$(document).ready(function() {
 		$("#adjacency").focus();
+		
+		
+		$("#checks").children().bind('click', function(){ return false; });
 		
 		$("#optiFunc").keyup(function(event) {
 			showFunctionImage();

@@ -30,7 +30,7 @@ public class Processor implements IWrapperProcessor {
 	public void processLine( LineData ld, WrapperHelper helper ) throws Exception {
 		
 		// How to get data from the input CSV
-		String function = ld.getData("optfunc"); 
+		String function = ld.getData("optifunc"); 
 		String geniFile = helper.getWrapperFolder() + "geni.py";
 		String inboxFolder = helper.getInboxFolder();
 		String g6File = ld.getData("g6splitedfile");
@@ -63,7 +63,10 @@ public class Processor implements IWrapperProcessor {
 		
 		if( largestDegree.equals("on")  ) {
 			int position = function.indexOf("d_");
-			String largD =  function.substring(position+2, position+4).trim();
+			String largD =  function.substring(position+2, position+4).replace("}", "").trim();
+			
+			System.out.println("AAAAA " + largD);
+			
 			parameters = parameters + " -e " + largD;
 		}
 		
