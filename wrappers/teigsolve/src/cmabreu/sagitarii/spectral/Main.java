@@ -60,35 +60,38 @@ public class Main {
 			
 			outputCsv.add( header + ",eigsolve" );
 			
-			
 			if( laplacianB.equals("on")  ) {
 				System.out.println("LAPB file requested. Will create.");
 				String generatedFile = "";
-				String eigCommand = libraryDirectory + "/tEigSolve -y -f " + awkOutput;
-				runSystem( eigCommand, workFolder + "/outbox/" );
 				generatedFile = inputFile + ".lapb";
+				String eigCommand = libraryDirectory + "/tEigSolve -y -f " + awkOutput + " -d " + workFolder + "/outbox/" + generatedFile;
+				runSystem( eigCommand, workFolder + "/outbox/" );
+
 				// tEigSolve produces on same folder of input file.. Lets move it to outbox!
-				moveFile( workFolder + "/inbox/" + generatedFile, workFolder + "/outbox/" + generatedFile );
+				//moveFile( workFolder + "/inbox/" + generatedFile, workFolder + "/outbox/" + generatedFile );
+				System.out.println("command: " + eigCommand );
 				outputCsv.add( line + "," + generatedFile );
 			}
 			if( adjacencyB.equals("on")  ) {
 				System.out.println("ADJB file requested. Will create.");
 				String generatedFile = "";
-				String eigCommand = libraryDirectory + "/tEigSolve -x -f " + awkOutput;
-				runSystem( eigCommand, workFolder + "/outbox/" );
 				generatedFile = inputFile + ".adjb";
+				String eigCommand = libraryDirectory + "/tEigSolve -x -f " + awkOutput + " -d " + workFolder + "/outbox/" + generatedFile;
+				runSystem( eigCommand, workFolder + "/outbox/" );
 				// tEigSolve produces on same folder of input file.. Lets move it to outbox!
-				moveFile( workFolder + "/inbox/" + generatedFile, workFolder + "/outbox/" + generatedFile );
+				// moveFile( workFolder + "/inbox/" + generatedFile, workFolder + "/outbox/" + generatedFile );
+				System.out.println("command: " + eigCommand );
 				outputCsv.add( line + "," + generatedFile );
 			}
 			if( slaplacianB.equals("on")  ) {
 				System.out.println("SGNLAPB file requested. Will create.");
 				String generatedFile = "";
-				String eigCommand = libraryDirectory + "/tEigSolve -z -f " + awkOutput;
-				runSystem( eigCommand, workFolder + "/outbox/" );
 				generatedFile = inputFile + ".sgnlapb";
+				String eigCommand = libraryDirectory + "/tEigSolve -z -f " + awkOutput + " -d " + workFolder + "/outbox/" + generatedFile;
+				runSystem( eigCommand, workFolder + "/outbox/" );
 				// tEigSolve produces on same folder of input file.. Lets move it to outbox!
-				moveFile( workFolder + "/inbox/" + generatedFile, workFolder + "/outbox/" + generatedFile );
+				//moveFile( workFolder + "/inbox/" + generatedFile, workFolder + "/outbox/" + generatedFile );
+				System.out.println("command: " + eigCommand );
 				outputCsv.add( line + "," + generatedFile );
 			}
 			
@@ -96,33 +99,36 @@ public class Main {
 			if( laplacian.equals("on")  ) {
 				System.out.println("LAP file requested. Will create.");
 				String generatedFile = "";
-				String eigCommand = libraryDirectory + "/tEigSolve -l -f " + awkOutput;
-				runSystem( eigCommand, workFolder + "/outbox/" );
 				generatedFile = inputFile + ".lap";
+				String eigCommand = libraryDirectory + "/tEigSolve -l -f " + awkOutput + " -d " + workFolder + "/outbox/" + generatedFile;
+				runSystem( eigCommand, workFolder + "/outbox/" );
 				// tEigSolve produces on same folder of input file.. Lets move it to outbox!
-				moveFile( workFolder + "/inbox/" + generatedFile, workFolder + "/outbox/" + generatedFile );
+				// moveFile( workFolder + "/inbox/" + generatedFile, workFolder + "/outbox/" + generatedFile );
+				System.out.println("command: " + eigCommand );
 				outputCsv.add( line + "," + generatedFile );
 			}
 			
 			if( adjacency.equals("on")  ) {
 				System.out.println("ADJ file requested. Will create.");
 				String generatedFile = "";
-				String eigCommand = libraryDirectory + "/tEigSolve -a -f " + awkOutput;
-				runSystem( eigCommand, workFolder + "/outbox/" );
 				generatedFile = inputFile + ".adj";
+				String eigCommand = libraryDirectory + "/tEigSolve -a -f " + awkOutput + " -d " + workFolder + "/outbox/" + generatedFile;
+				runSystem( eigCommand, workFolder + "/outbox/" );
 				// tEigSolve produces on same folder of input file.. Lets move it to outbox!
-				moveFile( workFolder + "/inbox/" + generatedFile, workFolder + "/outbox/" + generatedFile );
+				// moveFile( workFolder + "/inbox/" + generatedFile, workFolder + "/outbox/" + generatedFile );
+				System.out.println("command: " + eigCommand );
 				outputCsv.add( line + "," + generatedFile );
 			}
 			
 			if( slaplacian.equals("on")  ) {
 				System.out.println("SGNLAP file requested. Will create.");
 				String generatedFile = "";
-				String eigCommand = libraryDirectory + "/tEigSolve -q -f " + awkOutput;
-				runSystem( eigCommand, workFolder + "/outbox/" );
 				generatedFile = inputFile + ".sgnlap";
+				String eigCommand = libraryDirectory + "/tEigSolve -q -f " + awkOutput + " -d " + workFolder + "/outbox/" + generatedFile;
+				runSystem( eigCommand, workFolder + "/outbox/" );
 				// tEigSolve produces on same folder of input file.. Lets move it to outbox!
-				moveFile( workFolder + "/inbox/" + generatedFile, workFolder + "/outbox/" + generatedFile );
+				//moveFile( workFolder + "/inbox/" + generatedFile, workFolder + "/outbox/" + generatedFile );
+				System.out.println("command: " + eigCommand );
 				outputCsv.add( line + "," + generatedFile );
 			}
 
