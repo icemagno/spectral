@@ -6,15 +6,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
-
-// maxdegree,biptonly,optifunc,mindegree,trianglefree,g6splitedfile,eigsolveoption,gorder,allowdiscgraphs,caixa1,g6file
-// 8,on,lambda,1,on,L,2,on,min,saida_2.g6,graph1.g6
-// 0         1        2        3         4            5              6      7               8      9 	  10                
 
 public class Main {
 	private static String workFolder; // args[0]
@@ -33,6 +31,19 @@ public class Main {
 		return index;
 	}
 
+	public static void checkFile( String file ) {
+		File fil = new File(file);
+		try {
+			if( fil.exists() ) {
+				System.out.println("File " + fil.getName() + " is Ok.");
+			} else {
+				System.out.println("File " + fil.getName() + " NOT found.");
+			}
+		} catch ( Exception e ) {
+			System.out.println("Error checking file " + fil.getName());
+		}
+	}
+	
 	public static void processLine( String header, String line ) throws Exception {
 		
 		String[] lineData = line.split(",");
@@ -64,35 +75,38 @@ public class Main {
 				System.out.println("LAPB file requested. Will create.");
 				String generatedFile = "";
 				generatedFile = inputFile + ".lapb";
-				String eigCommand = libraryDirectory + "/tEigSolve -y -f " + awkOutput + " -d " + workFolder + "/outbox/" + generatedFile;
+				String eigCommand = libraryDirectory + "/tEigSolve -y -f " + awkOutput;
 				runSystem( eigCommand, workFolder + "/outbox/" );
 
 				// tEigSolve produces on same folder of input file.. Lets move it to outbox!
-				//moveFile( workFolder + "/inbox/" + generatedFile, workFolder + "/outbox/" + generatedFile );
+				moveFile( workFolder + "/inbox/" + generatedFile, workFolder + "/outbox/" + generatedFile );
 				System.out.println("command: " + eigCommand );
 				outputCsv.add( line + "," + generatedFile );
+				checkFile( workFolder + "/outbox/" + generatedFile );
 			}
 			if( adjacencyB.equals("on")  ) {
 				System.out.println("ADJB file requested. Will create.");
 				String generatedFile = "";
 				generatedFile = inputFile + ".adjb";
-				String eigCommand = libraryDirectory + "/tEigSolve -x -f " + awkOutput + " -d " + workFolder + "/outbox/" + generatedFile;
+				String eigCommand = libraryDirectory + "/tEigSolve -x -f " + awkOutput;
 				runSystem( eigCommand, workFolder + "/outbox/" );
 				// tEigSolve produces on same folder of input file.. Lets move it to outbox!
-				// moveFile( workFolder + "/inbox/" + generatedFile, workFolder + "/outbox/" + generatedFile );
+				moveFile( workFolder + "/inbox/" + generatedFile, workFolder + "/outbox/" + generatedFile );
 				System.out.println("command: " + eigCommand );
 				outputCsv.add( line + "," + generatedFile );
+				checkFile( workFolder + "/outbox/" + generatedFile );
 			}
 			if( slaplacianB.equals("on")  ) {
 				System.out.println("SGNLAPB file requested. Will create.");
 				String generatedFile = "";
 				generatedFile = inputFile + ".sgnlapb";
-				String eigCommand = libraryDirectory + "/tEigSolve -z -f " + awkOutput + " -d " + workFolder + "/outbox/" + generatedFile;
+				String eigCommand = libraryDirectory + "/tEigSolve -z -f " + awkOutput;
 				runSystem( eigCommand, workFolder + "/outbox/" );
 				// tEigSolve produces on same folder of input file.. Lets move it to outbox!
-				//moveFile( workFolder + "/inbox/" + generatedFile, workFolder + "/outbox/" + generatedFile );
+				moveFile( workFolder + "/inbox/" + generatedFile, workFolder + "/outbox/" + generatedFile );
 				System.out.println("command: " + eigCommand );
 				outputCsv.add( line + "," + generatedFile );
+				checkFile( workFolder + "/outbox/" + generatedFile );
 			}
 			
 			
@@ -100,36 +114,39 @@ public class Main {
 				System.out.println("LAP file requested. Will create.");
 				String generatedFile = "";
 				generatedFile = inputFile + ".lap";
-				String eigCommand = libraryDirectory + "/tEigSolve -l -f " + awkOutput + " -d " + workFolder + "/outbox/" + generatedFile;
+				String eigCommand = libraryDirectory + "/tEigSolve -l -f " + awkOutput;
 				runSystem( eigCommand, workFolder + "/outbox/" );
 				// tEigSolve produces on same folder of input file.. Lets move it to outbox!
-				// moveFile( workFolder + "/inbox/" + generatedFile, workFolder + "/outbox/" + generatedFile );
+				moveFile( workFolder + "/inbox/" + generatedFile, workFolder + "/outbox/" + generatedFile );
 				System.out.println("command: " + eigCommand );
 				outputCsv.add( line + "," + generatedFile );
+				checkFile( workFolder + "/outbox/" + generatedFile );
 			}
 			
 			if( adjacency.equals("on")  ) {
 				System.out.println("ADJ file requested. Will create.");
 				String generatedFile = "";
 				generatedFile = inputFile + ".adj";
-				String eigCommand = libraryDirectory + "/tEigSolve -a -f " + awkOutput + " -d " + workFolder + "/outbox/" + generatedFile;
+				String eigCommand = libraryDirectory + "/tEigSolve -a -f " + awkOutput;
 				runSystem( eigCommand, workFolder + "/outbox/" );
 				// tEigSolve produces on same folder of input file.. Lets move it to outbox!
-				// moveFile( workFolder + "/inbox/" + generatedFile, workFolder + "/outbox/" + generatedFile );
+				moveFile( workFolder + "/inbox/" + generatedFile, workFolder + "/outbox/" + generatedFile );
 				System.out.println("command: " + eigCommand );
 				outputCsv.add( line + "," + generatedFile );
+				checkFile( workFolder + "/outbox/" + generatedFile );
 			}
 			
 			if( slaplacian.equals("on")  ) {
 				System.out.println("SGNLAP file requested. Will create.");
 				String generatedFile = "";
 				generatedFile = inputFile + ".sgnlap";
-				String eigCommand = libraryDirectory + "/tEigSolve -q -f " + awkOutput + " -d " + workFolder + "/outbox/" + generatedFile;
+				String eigCommand = libraryDirectory + "/tEigSolve -q -f " + awkOutput;
 				runSystem( eigCommand, workFolder + "/outbox/" );
 				// tEigSolve produces on same folder of input file.. Lets move it to outbox!
-				//moveFile( workFolder + "/inbox/" + generatedFile, workFolder + "/outbox/" + generatedFile );
+				moveFile( workFolder + "/inbox/" + generatedFile, workFolder + "/outbox/" + generatedFile );
 				System.out.println("command: " + eigCommand );
 				outputCsv.add( line + "," + generatedFile );
+				checkFile( workFolder + "/outbox/" + generatedFile );
 			}
 
 			saveFile( eigsolveOutput );
@@ -147,6 +164,8 @@ public class Main {
 		if ( src.exists() ) {
 		    Files.copy(src.toPath(), trgt.toPath());
 		    src.delete();
+		} else {
+			System.out.println("WARNING: Source file " + src.getName() + " not found!");
 		}
 	}
 	
@@ -180,20 +199,37 @@ public class Main {
 	}
 
 
-	private static int runSystem( String command, String directoryContext ) {
+	private static synchronized int runSystem( String command, String directoryContext ) {
 		List<String> commands = new ArrayList<String>();
 		int result = 0;
-		File folder = null;
-		
-		folder = new File( directoryContext );
 		
 	    commands.add("/bin/sh");
 	    commands.add("-c");
 	    commands.add(command);
 	    
 	    try {
-			SystemCommandExecutor commandExecutor = new SystemCommandExecutor(commands);
-			result = commandExecutor.executeCommand( folder );
+			//SystemCommandExecutor commandExecutor = new SystemCommandExecutor(commands);
+			//result = commandExecutor.executeCommand( folder );
+	    
+        	Process process = new ProcessBuilder( commands ).start();
+        	
+			InputStream in = process.getInputStream(); 
+			BufferedReader br = new BufferedReader( new InputStreamReader(in) );
+			String line = null;
+			InputStream es = process.getErrorStream();
+			BufferedReader errorReader = new BufferedReader(  new InputStreamReader(es) );
+			while ( (line = errorReader.readLine() ) != null) {
+				System.out.println(line);
+			}	
+			errorReader.close();
+
+			while( ( line=br.readLine() )!=null ) {
+				System.out.println(line);
+			}  
+			br.close();
+
+			result = process.waitFor();
+	    
 	    } catch ( Exception e ) {
 	    	result = 1;
 	    }

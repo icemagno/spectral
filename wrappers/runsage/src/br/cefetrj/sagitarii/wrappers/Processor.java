@@ -64,9 +64,6 @@ public class Processor implements IWrapperProcessor {
 		if( largestDegree.equals("on")  ) {
 			int position = function.indexOf("d_");
 			String largD =  function.substring(position+2, position+4).replace("}", "").trim();
-			
-			System.out.println("AAAAA " + largD);
-			
 			parameters = parameters + " -e " + largD;
 		}
 		
@@ -89,7 +86,6 @@ public class Processor implements IWrapperProcessor {
 		System.out.println( "set permission" );
 		helper.runExternal( "chmod 0777 " + runGeni );
 		
-		System.out.println("run");
 		helper.runExternal( runFile );
 		
 		ld.addValue("sagefile", "saida.csv");		

@@ -282,35 +282,37 @@ public class Main {
 				job.setCaixa1(caixa1);
 				job.setGorder(gorder);
 
-				System.out.println(" > " + inputFile);
+				String ext = inputFile.substring(inputFile.lastIndexOf(".") + 1);
 				
-				if (inputFile.contains(".lap")) {
-					System.out.println("found lap file " + inputFile );
+				System.out.println("Ext: " + ext);
+				
+				if (ext.equals("lap")) {
+					System.out.println(" > is a lap file " + inputFile );
 					job.setLapFile(inputFile);
 				}
-				if (inputFile.contains(".adj")) {
-					System.out.println("found adj file " + inputFile );
+				if (ext.equals("adj")) {
+					System.out.println(" > is a adj file " + inputFile );
 					job.setAdjFile(inputFile);
 				}
-				if (inputFile.contains(".sgnlap")) {
-					System.out.println("found sgnlap file " + inputFile );
+				if (ext.equals("sgnlap")) {
+					System.out.println(" > is a sgnlap file " + inputFile );
 					job.setSgnLapFile(inputFile);
 				}
 
-				if (inputFile.contains(".lapb")) {
-					System.out.println("found lapb file " + inputFile );
+				if (ext.equals("lapb")) {
+					System.out.println(" > is a lapb file " + inputFile );
 					job.setLapBarFile(inputFile);
 				}
-				if (inputFile.contains(".adjb")) {
-					System.out.println("found adjb file " + inputFile );
+				if (ext.equals("adjb")) {
+					System.out.println(" > is a adjb file " + inputFile );
 					job.setAdjBarFile(inputFile);
 				}
-				if (inputFile.contains(".sgnlapb")) {
-					System.out.println("found sgnlapb file " + inputFile );
+				if (ext.equals("sgnlapb")) {
+					System.out.println(" > is a sgnlapb file " + inputFile );
 					job.setSgnLapBarFile(inputFile);
 				}
-				if (inputFile.contains(".csv")) {
-					System.out.println("found inv file " + inputFile );
+				if (ext.equals("csv")) {
+					System.out.println(" > is a inv file " + inputFile );
 					job.setInvariantsFile(workFolder, inputFile);
 				}
 

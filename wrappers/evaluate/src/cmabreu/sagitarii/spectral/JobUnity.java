@@ -157,6 +157,10 @@ public class JobUnity {
 	public void setInvariantsFile(String workFolder, String inputFile) throws Exception {
 		this.invariantsFile = inputFile;
 		List<String> inputData = CsvReader.readFile(workFolder + "/inbox/saida.csv");
+		
+		//ChromaticNumber,ChromaticNumberComplement,LargestCliqueSize,LargestCliqueSizeComplement,kLargestDegree,NumberofEdges
+		//3,2,3,2,2,-1		
+		
 		if (inputData.size() > 1) {
 			String header = inputData.get(0); // Get the CSV header
 
@@ -164,22 +168,22 @@ public class JobUnity {
 				String line = inputData.get(x);
 				String[] lineData = line.split(",");
 
-				int index = CsvReader.getIndex("chi", header);
+				int index = CsvReader.getIndex("ChromaticNumber", header);
 				if (index >= 0) {
 					this.chi = lineData[index];
 				}
 
-				index = CsvReader.getIndex("chiBar", header);
+				index = CsvReader.getIndex("ChromaticNumberComplement", header);
 				if (index >= 0) {
 					this.chiBar = lineData[index];
 				}
 
-				index = CsvReader.getIndex("omega", header);
+				index = CsvReader.getIndex("LargestCliqueSize", header);
 				if (index >= 0) {
 					this.omega = lineData[index];
 				}
 
-				index = CsvReader.getIndex("omegaBar", header);
+				index = CsvReader.getIndex("LargestCliqueSizeComplement", header);
 				if (index >= 0) {
 					this.omegaBar = lineData[index];
 				}
