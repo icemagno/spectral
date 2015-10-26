@@ -1,9 +1,9 @@
 ## geni = invariants generator
-## funÃ§Ã£o que calcula os valores dos invariantes de grafos
-## ParÃ¢metros: 
+## função que calcula os valores dos invariantes de grafos
+## Parâmetros: 
 ## arquivo:  arquivo texto com a matriz de adjacência gerada pelo geng
 ## args: string contendo os caracteres correspondentes 
-## das funÃ§Ãµes a serem geradas
+## das funções a serem geradas
 ##        -a   : número cromatico ( \chi )
 ##        -b   : número cromatico do grafo complementar ( \overline{\chi} )
 ##        -c   : tamanho da maior clique ( \omega )
@@ -15,6 +15,9 @@ import getopt
 import csv
 import mathchem
 
+import sys
+sys.path.append("/etc/teapot/wrappers") 
+
 from sage.graphs.graph_coloring import chromatic_number
 
 def geni(outputdir, arquivo, args):
@@ -24,8 +27,8 @@ def geni(outputdir, arquivo, args):
 	l = mols[0].adjacency_matrix()
 	l = Matrix(l)
 	G = Graph(l)
-	G.show()
-	##f.close()
+	## G.show()
+	## f.close()
 	args = args.split()
 	optlist, args = getopt.getopt(args, 'abcde:g')
 	ChromaticNumberNeeded = False
@@ -53,10 +56,10 @@ def geni(outputdir, arquivo, args):
 		else:
 			assert False, "unhandled option"
 	
-	if ChromaticNumberComplementNeeded or LargestCliqueSizeComplementNeeded or kLargestDegreeComplement:
+	if ChromaticNumberComplementNeeded or LargestCliqueSizeComplementNeeded:
 	   GC = G.complement()
 	## lc = G.complement().adjacency_matrix()
-	## lista de saída dos parÃ¢metros
+	## lista de saída dos parâmetros
 	## lista.array('i',[0,0,0,0,0,0])
 	lista = vector([0,0,0,0,0,0])
 	## print lista[0]
@@ -82,6 +85,7 @@ def geni(outputdir, arquivo, args):
 	else:
 		lista[3] = -1	
 	if kLargestDegree == True:
+		load("/etc/teapot/wrappers/Degree.py")
 		LD = Degree(G,int(ParamkLargestDegree))
 		lista[4] = LD
 	else:
@@ -102,3 +106,4 @@ def geni(outputdir, arquivo, args):
 	z.writerow(["ChromaticNumber","ChromaticNumberComplement","LargestCliqueSize","LargestCliqueSizeComplement","kLargestDegree","NumberofEdges"])
 	z.writerow(lista)
 	f.close()
+	
