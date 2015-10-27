@@ -8,13 +8,15 @@ public class JobUnity {
 	private String evalValue;
 	private String caixa1;
 	private String maxresults;
+	private String gorder;
 
-	public JobUnity( String function, String imageFile, String evalValue, String caixa1, String maxresults ) {
+	public JobUnity( String function, String imageFile, String evalValue, String caixa1, String maxresults, String gorder ) {
 		this.function = function;
 		this.imageFile = imageFile;
 		this.evalValue = evalValue;
 		this.caixa1 = caixa1;
 		this.maxresults = maxresults;
+		this.gorder = gorder;
 	}
 	
 	public String getMaxresults() {
@@ -37,4 +39,7 @@ public class JobUnity {
 		return caixa1;
 	}
 	
+	public String getGorder() {
+		return gorder;
+	}
 }

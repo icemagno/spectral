@@ -8,11 +8,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.pdf.PdfWriter;
 
 /**
@@ -31,7 +34,8 @@ public class PDFCreator {
 
 	public static String gerarPDF( List<JobUnity> jobs, String outputFolder ) throws DocumentException, IOException {
 		String pdfName = UUID.randomUUID().toString().toUpperCase().substring(0,8) + ".pdf";
-
+		Font footerFont = new Font(FontFamily.COURIER, 8, 0, BaseColor.BLACK );
+		
 		Document document = new Document( PageSize.A4 );
 		PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(outputFolder + File.separator + pdfName ) );
 		document.open();
@@ -51,8 +55,17 @@ public class PDFCreator {
 			String evalValue = job.getEvalValue();
 			int maxResults = Integer.valueOf( job.getMaxresults() );
 			
-			System.out.println( evalValue );
+			System.out.println( "Creating page " + index );
 			
+			document.add(new Paragraph("Graph Order: " + job.getGorder(), footerFont));
+			document.add(new Paragraph("Max Results: " + job.getMaxresults(), footerFont));
+			if ( job.getCaixa1().equals("max") ) {
+				document.add(new Paragraph("Operation: Maximize", footerFont));
+			} else {
+				document.add(new Paragraph("Operation: Minimize", footerFont));
+			}
+			document.add( new Paragraph("\n\n") );
+
 			if ( maxResults == index ) {
 				break;
 			}
@@ -61,9 +74,9 @@ public class PDFCreator {
 			// Graph image
 			Image image = Image.getInstance( imageFileName );
 
-			//float scaler = ((document.getPageSize().getWidth() - document.leftMargin()
-		     //          - document.rightMargin() ) / image.getWidth()) * 30;
-			//image.scalePercent(scaler);			
+			float scaler = ((document.getPageSize().getWidth() - document.leftMargin()
+		             - document.rightMargin() ) / image.getWidth()) * 60;
+			image.scalePercent(scaler);			
 			
 			image.setAlignment(Image.MIDDLE);
 			image.setBorder( Image.BOX );

@@ -34,9 +34,10 @@ public class Wrapper {
 		String function =  lineData[ getIndex("optifunc", header) ];
 		String evalValue = lineData[ getIndex("evaluatedvalue", header) ];
 		String caixa1 = lineData[ getIndex("caixa1", header) ];
+		String gorder = lineData[ getIndex("gorder", header) ];
 		String maxresults = lineData[ getIndex("maxresults", header) ];
 		
-		jobs.add( new JobUnity(function, imageFile, evalValue, caixa1, maxresults) );
+		jobs.add( new JobUnity(function, imageFile, evalValue, caixa1, maxresults, gorder) );
 
 	}
 
