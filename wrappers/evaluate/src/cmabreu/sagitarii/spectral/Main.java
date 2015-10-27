@@ -25,78 +25,80 @@ public class Main {
 	
 				int index = (evalInfo.valuesAdjs.length - 1) - i;
 	
+				/*
 				tmpStr = "d_" + Integer.toString(i + 1);
 				if (evalInfo.valuesDs.length > 0) {
 					System.out.println("replacing " + tmpStr + " by " + evalInfo.valuesDs[index].toString() );
 					optimizationFunction = optimizationFunction.replaceAll(tmpStr, "" + evalInfo.valuesDs[index]);
 				}
+				*/
 	
-				tmpStr = "\\\\overline{q_" + Integer.toString(i + 1) + "}";
+				tmpStr = "\\overline{q_" + Integer.toString(i + 1) + "}";
 				if (evalInfo.valuesSgnlapBars.length > 0) {
 					System.out.println("replacing " + tmpStr + " by " + evalInfo.valuesSgnlapBars[index].toString() );
-					optimizationFunction = optimizationFunction.replaceAll(tmpStr,	evalInfo.valuesSgnlapBars[index].toString());
+					optimizationFunction = optimizationFunction.replace(tmpStr,	evalInfo.valuesSgnlapBars[index].toString());
 				}
 	
-				tmpStr = "\\\\overline{\\\\mu_" + Integer.toString(i + 1) + "}";
+				tmpStr = "\\overline{\\mu_" + Integer.toString(i + 1) + "}";
 				if (evalInfo.valuesLapBars.length > 0) {
 					System.out.println("replacing " + tmpStr + " by " + evalInfo.valuesLapBars[index].toString() );
-					optimizationFunction = optimizationFunction.replaceAll(tmpStr, evalInfo.valuesLapBars[index].toString());
+					optimizationFunction = optimizationFunction.replace(tmpStr, evalInfo.valuesLapBars[index].toString());
 				}
 	
-				tmpStr = "\\\\overline{\\\\lambda_" + Integer.toString(i + 1) + "}";
+				tmpStr = "\\overline{\\lambda_" + Integer.toString(i + 1) + "}";
 				if (evalInfo.valuesAdjBars.length > 0) {
 					System.out.println("replacing " + tmpStr + " by " + evalInfo.valuesAdjBars[index].toString() );
-					optimizationFunction = optimizationFunction.replaceAll(tmpStr,	evalInfo.valuesAdjBars[index].toString());			
+					optimizationFunction = optimizationFunction.replace(tmpStr,	evalInfo.valuesAdjBars[index].toString());			
 				}
 				
 				tmpStr = "q_" + Integer.toString(i + 1);
 				if (evalInfo.valuesSgnlaps.length > 0) {
 					System.out.println("replacing " + tmpStr + " by " + evalInfo.valuesSgnlaps[index].toString() );
-					optimizationFunction = optimizationFunction.replaceAll(tmpStr, "" + evalInfo.valuesSgnlaps[index]);
+					optimizationFunction = optimizationFunction.replace(tmpStr, "" + evalInfo.valuesSgnlaps[index]);
 				}
 	
-				tmpStr = "\\\\mu_" + Integer.toString(i + 1);
+				tmpStr = "\\mu_" + Integer.toString(i + 1);
 				if (evalInfo.valuesLaps.length > 0) {
 					System.out.println("replacing " + tmpStr + " by " + evalInfo.valuesLaps[index].toString() );
-					optimizationFunction = optimizationFunction.replaceAll(tmpStr, "" + evalInfo.valuesLaps[index]);
+					optimizationFunction = optimizationFunction.replace(tmpStr, "" + evalInfo.valuesLaps[index]);
 				}
 	
-				tmpStr = "\\\\lambda_" + Integer.toString(i + 1);
+				tmpStr = "\\lambda_" + Integer.toString(i + 1);
 				if (evalInfo.valuesAdjs.length > 0) { 
 					System.out.println("replacing " + tmpStr + " by " + evalInfo.valuesAdjs[index].toString() );
-					optimizationFunction = optimizationFunction.replaceAll(tmpStr, "" + evalInfo.valuesAdjs[index]);
+					optimizationFunction = optimizationFunction.replace(tmpStr, "" + evalInfo.valuesAdjs[index]);
 				}
 			}
 		}
-		tmpStr = "\\\\overline{\\\\chi}";
+		tmpStr = "\\overline{\\chi}";
 		try {
 			System.out.println("replacing " + tmpStr + " by " + evalInfo.valueChiAdjBar );
-			optimizationFunction = optimizationFunction.replaceAll(tmpStr, evalInfo.valueChiAdjBar);
+			optimizationFunction = optimizationFunction.replace(tmpStr, evalInfo.valueChiAdjBar);
 		} catch ( Exception ignored ) { }
 
-		tmpStr = "\\\\chi";
+		tmpStr = "\\chi";
 		try {
 			System.out.println("replacing " + tmpStr + " by " + evalInfo.valueChiAdj );
-			optimizationFunction = optimizationFunction.replaceAll(tmpStr, evalInfo.valueChiAdj);
+			optimizationFunction = optimizationFunction.replace(tmpStr, evalInfo.valueChiAdj);
 		} catch ( Exception ignored ) { }
 
-		tmpStr = "\\\\overline{\\\\omega";
+		tmpStr = "\\overline{\\omega}";
 		try {
 			System.out.println("replacing " + tmpStr + " by " + evalInfo.valueOmegaAdjBar );
-			optimizationFunction = optimizationFunction.replaceAll(tmpStr,	evalInfo.valueOmegaAdjBar);
+			optimizationFunction = optimizationFunction.replace(tmpStr,	evalInfo.valueOmegaAdjBar);
 		} catch ( Exception ignored ) { }
 
-		tmpStr = "\\\\omega";
+		tmpStr = "\\omega";
 		try {
 			System.out.println("replacing " + tmpStr + " by " + evalInfo.valueOmegaAdj );
-			optimizationFunction = optimizationFunction.replaceAll(tmpStr, evalInfo.valueOmegaAdj);
+			optimizationFunction = optimizationFunction.replace(tmpStr, evalInfo.valueOmegaAdj);
 		} catch ( Exception ignored ) { }
 
 
 		tmpStr = "ORDER";
 		try {
 			System.out.println("replacing " + tmpStr + " by " + evalInfo.gorder );
-			optimizationFunction = optimizationFunction.replaceAll(tmpStr, "" + evalInfo.gorder);
+			optimizationFunction = optimizationFunction.replace(tmpStr, "" + evalInfo.gorder);
 		} catch ( Exception ignored ) { }
 		
 		tmpStr = "d_.";
@@ -109,7 +111,7 @@ public class Main {
 		tmpStr = "SIZE";
 		try {
 			System.out.println("replacing " + tmpStr + " by " + evalInfo.numEdges );
-			optimizationFunction = optimizationFunction.replaceAll(tmpStr, "" + evalInfo.numEdges);
+			optimizationFunction = optimizationFunction.replace(tmpStr, "" + evalInfo.numEdges);
 		} catch ( Exception ignored ) { }
 			
 		System.out.println("optimization function: " + optimizationFunction);

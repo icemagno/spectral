@@ -106,4 +106,7 @@ def geni(outputdir, arquivo, args):
 	z.writerow(["ChromaticNumber","ChromaticNumberComplement","LargestCliqueSize","LargestCliqueSizeComplement","kLargestDegree","NumberofEdges"])
 	z.writerow(lista)
 	f.close()
-	
+
+
+
+
