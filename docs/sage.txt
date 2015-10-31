@@ -14,7 +14,7 @@ chown -R sagitarii:sagitarii sage-6.8-x86_64-Linux/
 
 exit ( sair do SuDo )
 
-cd /home/sagitarii/cd sage-6.8-x86_64-Linux/
+cd /home/sagitarii/sage-6.8-x86_64-Linux/
 make
 
 Após instalar o SAGE, é possível executar o script geni.py. Um exemplo de execução desse script é o seguinte:
