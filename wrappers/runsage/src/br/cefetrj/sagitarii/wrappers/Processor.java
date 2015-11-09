@@ -62,8 +62,18 @@ public class Processor implements IWrapperProcessor {
 		}
 		
 		if( largestDegree.equals("on")  ) {
-			int position = function.indexOf("d_");
-			String largD =  function.substring(position+2, position+4).replace("}", "").trim();
+			int position = function.indexOf("d_") + 2 ;
+			String temp =  function.substring(position);
+			String largD = "";
+			for ( int x = 0; x < temp.length(); x++ ) {
+				String testS = temp.substring( x, x+1 );
+				try {
+					int test = Integer.valueOf( largD + testS );
+					largD = largD + testS;
+				} catch ( Exception e ) {
+					break;
+				}
+			}
 			parameters = parameters + " -e " + largD;
 		}
 		
@@ -75,7 +85,6 @@ public class Processor implements IWrapperProcessor {
 		System.out.println("Parameters: " + parameters);
 		System.out.println("File: " + g6File);
 		String inputFile = inboxFolder + g6File;
-		//String runFile = "/home/sagitarii/sage-6.8-x86_64-Linux/sage -c 'load(\""+geniFile+"\");geni(\""+output+"\",\""+inputFile+"\",\""+parameters.trim()+"\")'";
 		
 		String runGeni = helper.getWrapperFolder() + "rungeni.sh";
 		String runFile = runGeni + " "+geniFile+ " " +output + " " + inputFile + " \"" +parameters.trim() + "\"";
