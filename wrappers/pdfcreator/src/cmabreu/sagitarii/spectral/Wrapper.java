@@ -36,8 +36,9 @@ public class Wrapper {
 		String caixa1 = lineData[ getIndex("caixa1", header) ];
 		String gorder = lineData[ getIndex("gorder", header) ];
 		String maxresults = lineData[ getIndex("maxresults", header) ];
+		String g6fileid = lineData[ getIndex("g6fileid", header) ];
 		
-		jobs.add( new JobUnity(function, imageFile, evalValue, caixa1, maxresults, gorder) );
+		jobs.add( new JobUnity(function, imageFile, evalValue, caixa1, maxresults, gorder, g6fileid) );
 
 	}
 

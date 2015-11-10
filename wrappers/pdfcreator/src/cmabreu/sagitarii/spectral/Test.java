@@ -16,9 +16,9 @@ public class Test {
 		String caixa1 = "max";
 		String maxresults = "20";		
 		
-		jobs.add( new JobUnity(function, imageFile, evalValue, caixa1, maxresults, "2") );
-		jobs.add( new JobUnity(function, imageFile, evalValue, caixa1, maxresults, "3") );
-		jobs.add( new JobUnity(function, imageFile, evalValue, caixa1, maxresults, "6") );
+		jobs.add( new JobUnity(function, imageFile, evalValue, caixa1, maxresults, "2", "LLL") );
+		jobs.add( new JobUnity(function, imageFile, evalValue, caixa1, maxresults, "3", "LLL") );
+		jobs.add( new JobUnity(function, imageFile, evalValue, caixa1, maxresults, "6", "LLL") );
 		
 		PDFCreator.gerarPDF( jobs, "d:/" );
 	}

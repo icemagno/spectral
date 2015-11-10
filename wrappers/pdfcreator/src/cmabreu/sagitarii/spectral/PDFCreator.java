@@ -55,8 +55,7 @@ public class PDFCreator {
 			String evalValue = job.getEvalValue();
 			int maxResults = Integer.valueOf( job.getMaxresults() );
 			
-			System.out.println( "Creating page " + index );
-			
+			document.add(new Paragraph("G6 file ID: " + job.getG6fileid(), footerFont));
 			document.add(new Paragraph("Graph Order: " + job.getGorder(), footerFont));
 			document.add(new Paragraph("Max Results: " + job.getMaxresults(), footerFont));
 			if ( job.getCaixa1().equals("max") ) {
