@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Wrapper {
-
+	private static String gorder;
 	private static String workFolder; // args[0]
 	private static List<String> outputData = new ArrayList<String>();
 	private static List<JobUnity> jobs = new ArrayList<JobUnity>();
@@ -34,7 +34,7 @@ public class Wrapper {
 		String function =  lineData[ getIndex("optifunc", header) ];
 		String evalValue = lineData[ getIndex("evaluatedvalue", header) ];
 		String caixa1 = lineData[ getIndex("caixa1", header) ];
-		String gorder = lineData[ getIndex("gorder", header) ];
+		gorder = lineData[ getIndex("gorder", header) ];
 		String maxresults = lineData[ getIndex("maxresults", header) ];
 		String g6fileid = lineData[ getIndex("g6fileid", header) ];
 		
@@ -58,8 +58,8 @@ public class Wrapper {
 			
 			String outputFolder = workFolder + File.separator + "outbox" + File.separator;
 			String generatedPdf = PDFCreator.gerarPDF( jobs, outputFolder );
-			outputData.add( "pdffile" );
-			outputData.add( generatedPdf );
+			outputData.add( "pdffile,gorder" );
+			outputData.add( generatedPdf + ","+ gorder );
 			saveOutput();
 			
 		} else {

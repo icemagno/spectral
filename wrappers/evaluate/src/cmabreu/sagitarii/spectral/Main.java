@@ -13,25 +13,18 @@ public class Main {
 	private static String workFolder; // args[0]
 	private static List<String> outputData = new ArrayList<String>();
 
-	public static double evaluateOptimizationFunction(EvaluationInfo evalInfo) {
+	public static FunctionResult evaluateOptimizationFunction(EvaluationInfo evalInfo) {
 
 		String optimizationFunction = evalInfo.optimizationFunction;
 		System.out.println("Original optimization function: " + optimizationFunction);
 
 		String tmpStr;
 
-		if ( evalInfo.valuesAdjs.length != 0 ) {		
-			for (int i = 0; i < evalInfo.valuesAdjs.length; i++) {
-	
-				int index = (evalInfo.valuesAdjs.length - 1) - i;
-	
-				/*
-				tmpStr = "d_" + Integer.toString(i + 1);
-				if (evalInfo.valuesDs.length > 0) {
-					System.out.println("replacing " + tmpStr + " by " + evalInfo.valuesDs[index].toString() );
-					optimizationFunction = optimizationFunction.replaceAll(tmpStr, "" + evalInfo.valuesDs[index]);
-				}
-				*/
+		int order = Integer.valueOf( evalInfo.gorder );
+		
+		if ( order != 0 ) {		
+			for (int i = 0; i < order; i++) {
+				int index = (order - 1) - i;
 	
 				tmpStr = "\\overline{q_" + Integer.toString(i + 1) + "}";
 				if (evalInfo.valuesSgnlapBars.length > 0) {
@@ -116,16 +109,19 @@ public class Main {
 			
 		System.out.println("optimization function: " + optimizationFunction);
 
-		double result = 0.0;
+		FunctionResult result = new FunctionResult();
+		result.evaluatedValue = 0.0;
+		result.function = optimizationFunction;
+		
 		try {
 			ByteArrayInputStream inputStream = new ByteArrayInputStream( optimizationFunction.getBytes() );
 			FormulaEvaluator eval = new FormulaEvaluator(inputStream);
-			result = eval.evaluate();
+			result.evaluatedValue = eval.evaluate();
 		} catch (Throwable e) {
 			System.out.println("FUNCTION ERROR: " + e.getMessage() );
 		}
 
-		System.out.println("optimization function result: "	+ result);
+		System.out.println("optimization function result: "	+ result.evaluatedValue);
 
 		return result;
 
@@ -195,7 +191,7 @@ public class Main {
 		String[] valuesD = new String[convertedGreatestDegrees.size()];
 		valuesD = convertedGreatestDegrees.toArray(valuesD);
 
-		Double evaluatedValue = evaluateOptimizationFunction(
+		FunctionResult evaluatedValue = evaluateOptimizationFunction(
 				new EvaluationInfo(
 						job.getOptimizationFunction(), 
 						valuesAdj, 
@@ -214,9 +210,10 @@ public class Main {
 						job.getGorder() ) );
 
 		
-		outputData.add("optifunc,g6fileid,evaluatedvalue,maxresults,caixa1,gorder");
+		outputData.add("optifunc,g6fileid,evaluatedvalue,maxresults,caixa1,gorder,function");
 		outputData.add(job.getOptimizationFunction() + "," + job.getG6fileid() + 
-				"," + evaluatedValue + "," + job.getMaxResults() + "," + job.getCaixa1() + "," + job.getGorder() );
+				"," + evaluatedValue.evaluatedValue + "," + job.getMaxResults() + "," + job.getCaixa1() + "," + job.getGorder() + 
+				"," + evaluatedValue.function);
 		saveOutput();
 
 	}
