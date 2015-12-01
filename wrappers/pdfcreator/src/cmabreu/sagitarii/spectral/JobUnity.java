@@ -4,6 +4,7 @@ package cmabreu.sagitarii.spectral;
 
 public class JobUnity {
 	private String function;
+	private String functionReal;
 	private String imageFile;
 	private String evalValue;
 	private String caixa1;
@@ -11,7 +12,8 @@ public class JobUnity {
 	private String gorder;
 	private String g6fileid;
 
-	public JobUnity( String function, String imageFile, String evalValue, String caixa1, String maxresults, String gorder, String g6fileid ) {
+	public JobUnity( String function, String imageFile, String evalValue, String caixa1, String maxresults, String gorder, 
+			String g6fileid, String functionReal ) {
 		this.function = function;
 		this.imageFile = imageFile;
 		this.evalValue = evalValue;
@@ -19,6 +21,11 @@ public class JobUnity {
 		this.maxresults = maxresults;
 		this.gorder = gorder;
 		this.g6fileid = g6fileid;
+		this.functionReal = functionReal;
+	}
+	
+	public String getFunctionReal() {
+		return functionReal;
 	}
 	
 	public String getMaxresults() {

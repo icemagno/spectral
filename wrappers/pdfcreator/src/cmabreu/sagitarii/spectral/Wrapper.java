@@ -32,13 +32,14 @@ public class Wrapper {
 
 		String imageFile = inputFolder + File.separator + lineData[ getIndex("gvfile", header) ];
 		String function =  lineData[ getIndex("optifunc", header) ];
+		String functionReal =  lineData[ getIndex("function", header) ];
 		String evalValue = lineData[ getIndex("evaluatedvalue", header) ];
 		String caixa1 = lineData[ getIndex("caixa1", header) ];
 		gorder = lineData[ getIndex("gorder", header) ];
 		String maxresults = lineData[ getIndex("maxresults", header) ];
 		String g6fileid = lineData[ getIndex("g6fileid", header) ];
 		
-		jobs.add( new JobUnity(function, imageFile, evalValue, caixa1, maxresults, gorder, g6fileid) );
+		jobs.add( new JobUnity(function, imageFile, evalValue, caixa1, maxresults, gorder, g6fileid,functionReal) );
 
 	}
 
