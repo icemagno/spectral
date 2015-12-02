@@ -4,17 +4,14 @@ package cmabreu.spectral.action;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.List;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
-import cmabreu.spectral.entity.SagitariiFile;
 import cmabreu.spectral.services.Downloader;
 import cmabreu.spectral.services.PathFinder;
-import cmabreu.spectral.services.SagitariiInterface;
 
 @Action (value = "getFiles", results = {@Result(
 	    name = "ok", 
@@ -30,34 +27,27 @@ import cmabreu.spectral.services.SagitariiInterface;
 
 @ParentPackage("default")
 public class GetFilesAction extends BasicActionClass {
-	private String user;
-	private String password;
 	private String sagitariiUrl;
-	private String experiment;
 	private String fileName;
 	private InputStream stream;
+	private String idFile;
 	
 	public String execute () {
 		try {
-			SagitariiInterface si = new SagitariiInterface(sagitariiUrl, user, password); 
-	
-			String cachePath = PathFinder.getInstance().getPath() + File.separator + "cache"; 
+			fileName = fileName + ".gz";
+			
+			String cachePath = PathFinder.getInstance().getPath() + "/cache"; 
 			File path = new File( cachePath );
 			path.mkdirs();
 
-			List<SagitariiFile> files = si.getFiles( experiment );
-			if ( files.size() > 0 ) {
-				SagitariiFile file = files.get(0);
-				fileName = file.getFileName();
-				Downloader dl = new Downloader();
-				String fileUrl = sagitariiUrl + "/getFile?idFile=" + file.getFileId();
-				
-				String pdfName = cachePath + File.separator + file.getFileName();
-				dl.download( fileUrl, pdfName, true);
+			Downloader dl = new Downloader();
+			String fileUrl = sagitariiUrl + "/getFile?idFile=" + idFile;
+			
+			String pdfName = cachePath + File.separator + fileName;
+			dl.download( fileUrl, pdfName, false);
 
-				File pdf = new File( pdfName );
-		        stream = new FileInputStream( pdf );
-			}
+			File pdf = new File( pdfName );
+	        stream = new FileInputStream( pdf );
 			
 		} catch ( Exception e ) {
 			e.printStackTrace();
@@ -66,20 +56,12 @@ public class GetFilesAction extends BasicActionClass {
 		return "ok";
 	}
 
-	public void setUser(String user) {
-		this.user = user;
-	}
-	
 	public void setSagitariiUrl(String sagitariiUrl) {
 		this.sagitariiUrl = sagitariiUrl;
 	}
 	
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public void setExperiment(String experiment) {
-		this.experiment = experiment;
+	public void setIdFile(String idFile) {
+		this.idFile = idFile;
 	}
 	
 	public InputStream getStream() {
@@ -89,4 +71,9 @@ public class GetFilesAction extends BasicActionClass {
 	public String getFileName() {
 		return fileName;
 	}
+	
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	
 }

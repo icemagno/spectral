@@ -86,7 +86,7 @@ public class SagitariiInterface {
 		sb.append( generateJsonPair("SagitariiApiFunction", "apiGetFilesExperiment") + "," ); 
 		sb.append( generateJsonPair("securityToken", securityToken) + "," ); 
 		sb.append( generateJsonPair("experimentSerial", experiment) + "," ); 
-		sb.append( generateJsonPair("activityTag", "PDFCREATOR") + "," ); 
+		sb.append( generateJsonPair("activityTag", "FINISH") + "," ); 
 		sb.append( generateJsonPair("rangeStart", "0") + "," ); 
 		sb.append( generateJsonPair("rangeEnd", "1000")  ); 
 		sb.append("}");

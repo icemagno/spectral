@@ -1,10 +1,25 @@
 package cmabreu.spectral.entity;
 
+import java.util.List;
+
 public class Experiment {
 	private String tagExec;
 	private String status;
 	private String startDate;
 	private String elapsedTime;
+	private List<SagitariiFile> files;
+	
+	public Experiment() {
+		//files = new ArrayList<SagitariiFile>();
+	}
+	
+	public void setFiles(List<SagitariiFile> files) {
+		this.files = files;
+	}
+	
+	public List<SagitariiFile> getFiles() {
+		return files;
+	}
 	
 	public String getElapsedTime() {
 		return elapsedTime;

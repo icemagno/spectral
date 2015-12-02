@@ -14,7 +14,7 @@
 							<img id="functionImage" style="margin: 0 auto;display:none" src="">
 						</div>
 				
-						<div class="userBoard" style="margin:0 auto;margin-top:10px;width: 500px;">
+						<div class="userBoard" style="margin:0 auto;margin-top:10px;width: 60%;">
 							<div class="userBoardT1" style="text-align:center;width:95%">Request Result Data</div>
 							<div class="userBoardT2" style="text-align:center;width:95%">
 								<table class="tableForm" id="example">
@@ -36,7 +36,9 @@
 											<td>${experiment.elapsedTime}</td>
 											<td>
 												<c:if test="${experiment.status == 'FINISHED'}">
-													<img class="dicas" title="Download result" onclick="getFiles('${experiment.tagExec}')" src="img/save.png" style="margin:0px;cursor:pointer;height:24px;width:24px;">
+													<c:forEach var="file" items="${experiment.files}">
+														<a href="getFiles?idFile=${file.fileId}&fileName=${file.fileName}&sagitariiUrl=${sagitariiUrl}">${file.fileName}</a><br>
+													</c:forEach>
 												</c:if>&nbsp;
 											</td>
 										</tr>
@@ -45,6 +47,8 @@
 								</table>
 							</div>
 						</div>
+						
+						
 						<form action="getFiles" method="post" name="formFunction" id="formFunction">
 							<input type="hidden" id="experiment" name="experiment" value="">
 							<input type="hidden" id="sagitariiUrl" name="sagitariiUrl" value="${sagitariiUrl}">

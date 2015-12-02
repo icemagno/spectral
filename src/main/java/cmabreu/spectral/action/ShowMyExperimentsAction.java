@@ -24,6 +24,11 @@ public class ShowMyExperimentsAction extends BasicActionClass {
 	public String execute () {
 		SagitariiInterface si = new SagitariiInterface(sagitariiUrl, user, password);
 		experiments = si.getMyExperiments();
+		
+		for ( Experiment exp : experiments ) {
+			exp.setFiles( si.getFiles( exp.getTagExec() ) );
+		}
+		
 		return "ok";
 	}
 
