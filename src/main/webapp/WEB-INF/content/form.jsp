@@ -22,7 +22,7 @@
 										<table>
 											<tr>
 												<td >Optimization Function</td>
-												<td><input type="text" value="\frac{q_3}{d_4} + \lambda_1 + \overline{q_3} + \mu_2 + \overline{\mu_2} + \overline{\lambda_1} + \chi + \overline{\chi} + \omega + \overline{\omega} " name="optiFunc" id="optiFunc"></td>
+												<td><input type="text" value="" name="optiFunc" id="optiFunc"></td>
 											</tr>
 											<tr>
 												<td>&nbsp;</td>
@@ -51,7 +51,7 @@
 											</tr>
 											<tr>
 												<td>Number of results to show</td>
-												<td><input style="width:15px" type="text" name="maxResults" id="maxResults" size="2" /></td>
+												<td><input style="width:15px" type="text" value="2" name="maxResults" id="maxResults" size="2" /></td>
 											</tr>
 		
 		
@@ -166,10 +166,17 @@
 		var ordermax = $("#ordermax").val();
 		var minDegree = $("#minDegree").val();
 		var maxDegree = $("#maxDegree").val();
+		var maxResults = $("#maxResults").val();
+		
 		var selA = $("#adjacency").prop('checked');
 		var selL = $("#laplacian").prop('checked');
 		var selQ = $("#slaplacian").prop('checked');
 		
+
+		if ( maxResults == "" ) {
+			showMessageBox("You must provide a maximun results do show");
+			return;
+		}
 
 		if ( uncoded == "" ) {
 			showMessageBox("You must provide an Optimization Function");

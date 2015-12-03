@@ -81,6 +81,8 @@ public class SagitariiInterface {
 
 
 	public List<SagitariiFile> getFiles( String experiment ) {
+		List<SagitariiFile> files = new ArrayList<SagitariiFile>();
+		
 		StringBuilder sb = new StringBuilder();
 		sb.append("{");
 		sb.append( generateJsonPair("SagitariiApiFunction", "apiGetFilesExperiment") + "," ); 
@@ -90,12 +92,15 @@ public class SagitariiInterface {
 		sb.append( generateJsonPair("rangeStart", "0") + "," ); 
 		sb.append( generateJsonPair("rangeEnd", "1000")  ); 
 		sb.append("}");
-		
-		String result = execute( sb.toString() );
-		
-		Gson gson = new Gson();
-		SagitariiFileData data = gson.fromJson( result, SagitariiFileData.class );
-		List<SagitariiFile> files = data.getData();
+
+		try {
+			String result = execute( sb.toString() );
+			Gson gson = new Gson();
+			SagitariiFileData data = gson.fromJson( result, SagitariiFileData.class );
+			files = data.getData();
+		} catch ( Exception e ) {
+			//
+		}
 		
 		return files;
 	}
@@ -106,6 +111,15 @@ public class SagitariiInterface {
 		sb.append("{");
 		sb.append( generateJsonPair("SagitariiApiFunction", "apiStartExperiment") + "," ); 
 		sb.append( generateJsonPair("experimentSerial", experimentSerial) + "," );
+		sb.append( generateJsonPair("securityToken", securityToken) ); 
+		sb.append("}");
+		return execute( sb.toString() );
+	}
+
+	public String getRunning( ) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("{");
+		sb.append( generateJsonPair("SagitariiApiFunction", "apiGetRunning") + ","); 
 		sb.append( generateJsonPair("securityToken", securityToken) ); 
 		sb.append("}");
 		return execute( sb.toString() );
