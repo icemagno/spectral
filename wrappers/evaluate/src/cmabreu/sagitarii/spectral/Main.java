@@ -94,10 +94,17 @@ public class Main {
 			optimizationFunction = optimizationFunction.replace(tmpStr, "" + evalInfo.gorder);
 		} catch ( Exception ignored ) { }
 		
-		tmpStr = "d_.";
+		
 		try {
-			System.out.println("replacing " + tmpStr + " by " + evalInfo.kLargestDegree );
-			optimizationFunction = optimizationFunction.replaceAll(tmpStr, "" + evalInfo.kLargestDegree);
+			System.out.println("Largest Degree Vector: " + evalInfo.kLargestDegree );
+			String[] degrees = evalInfo.kLargestDegree.split("|");
+			int x = 1;
+			for ( String degree : degrees ) {
+				tmpStr = "d_" + x;
+				System.out.println("replacing " + tmpStr + " by " + degree );
+				optimizationFunction = optimizationFunction.replaceAll(tmpStr, degree);
+				x++;
+			}
 		} catch ( Exception ignored ) { }
 
 

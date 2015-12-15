@@ -158,8 +158,6 @@ public class JobUnity {
 		this.invariantsFile = inputFile;
 		List<String> inputData = CsvReader.readFile(workFolder + "/inbox/saida.csv");
 		
-		//ChromaticNumber,ChromaticNumberComplement,LargestCliqueSize,LargestCliqueSizeComplement,kLargestDegree,NumberofEdges
-		//3,2,3,2,2,-1		
 		
 		if (inputData.size() > 1) {
 			String header = inputData.get(0); // Get the CSV header
@@ -188,7 +186,7 @@ public class JobUnity {
 					this.omegaBar = lineData[index];
 				}
 
-				index = CsvReader.getIndex("kLargestDegree", header);
+				index = CsvReader.getIndex("SequenceDegree", header);
 				if (index >= 0) {
 					this.kLargestDegree = lineData[index];
 				}
