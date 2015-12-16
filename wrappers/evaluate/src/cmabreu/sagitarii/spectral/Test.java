@@ -4,11 +4,27 @@ package cmabreu.sagitarii.spectral;
 public class Test {
 
 	public static void main(String[] args) throws Exception {
-		String optimizationFunction = "\\frac{q_3}{d_4} + \\lambda_1 + \\overline{q_3} + \\mu_2 + \\overline{\\mu_2} + \\overline{\\lambda_1} + \\chi + \\overline{\\chi} + \\omega + \\overline{\\omega}";
-		String tmpStr = "d_.";
-		optimizationFunction = optimizationFunction.replaceAll(tmpStr, "" + 5);
+
+		String kLargestDegree = " 3|3|2|2|1|1";
+		
+		
+		String tmpStr = "";
+		String optimizationFunction = "q_1 - 2 * d_1 + d_4";
+		
+		try {
+			System.out.println("Largest Degree Vector: " + kLargestDegree );
+			String[] degrees = kLargestDegree.trim().split("[|]");
+			int x = 1;
+			for ( String degree : degrees ) {
+				tmpStr = "d_" + x;
+				System.out.println("replacing " + tmpStr + " by " + degree );
+				optimizationFunction = optimizationFunction.replaceAll(tmpStr, degree);
+				x++;
+			}
+		} catch ( Exception ignored ) { }		
 		
 		System.out.println( optimizationFunction );
+		
 	}
 
 }

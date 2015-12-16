@@ -97,7 +97,7 @@ public class Main {
 		
 		try {
 			System.out.println("Largest Degree Vector: " + evalInfo.kLargestDegree );
-			String[] degrees = evalInfo.kLargestDegree.split("|");
+			String[] degrees = evalInfo.kLargestDegree.trim().split("[|]");
 			int x = 1;
 			for ( String degree : degrees ) {
 				tmpStr = "d_" + x;
