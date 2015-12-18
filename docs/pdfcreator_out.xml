@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?><table name="pdfcreator_out"><field name="index_id" type="INTEGER" /><field name="id_experiment" type="INTEGER" /><field name="id_activity" type="INTEGER" /><field name="id_instance" type="INTEGER" /><field name="pdffile" type="FILE" /></table>
+<?xml version="1.0" encoding="UTF-8"?><table name="pdfcreator_out"><field name="pdffile" type="FILE" /><field name="gorder" type="STRING" /></table>
