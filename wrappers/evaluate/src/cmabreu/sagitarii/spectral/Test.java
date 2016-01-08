@@ -9,7 +9,7 @@ public class Test {
 		
 		
 		String tmpStr = "";
-		String optimizationFunction = "q_1 - 2 * d_1 + d_4";
+		String optimizationFunction = "q_1 - 2 * d_1 + d_2 - d_4";
 		
 		try {
 			System.out.println("Largest Degree Vector: " + kLargestDegree );
