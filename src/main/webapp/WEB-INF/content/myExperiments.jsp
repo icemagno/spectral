@@ -24,6 +24,8 @@
 										<th>Start Date/Time</th>
 										<th>Status</th>
 										<th>Elapsed Time</th>
+										<th>Receiving</th>
+										<th>Importing</th>
 										<th>&nbsp;</th>
 									</tr>
 									</thead>
@@ -34,6 +36,8 @@
 											<td>${experiment.startDate}</td>
 											<td>${experiment.status}</td>
 											<td>${experiment.elapsedTime}</td>
+											<td>${experiment.savers}</td>
+											<td>${experiment.importer}</td>
 											<td>
 												<c:if test="${experiment.status == 'FINISHED'}">
 													<c:forEach var="file" items="${experiment.files}">

@@ -122,7 +122,14 @@ public class SagitariiInterface {
 		sb.append( generateJsonPair("SagitariiApiFunction", "apiGetRunning") + ","); 
 		sb.append( generateJsonPair("securityToken", securityToken) ); 
 		sb.append("}");
-		return execute( sb.toString() );
+		
+		String result = execute( sb.toString() );
+		
+		Gson gson = new Gson();
+		ExperimentData data = gson.fromJson( result, ExperimentData.class );
+		List<Experiment> experiments = data.getData();		
+		
+		return result;
 	}
 	
 	public String getData(String adjacency, String laplacian, String slaplacian, String adjacencyB, 

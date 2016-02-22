@@ -7,10 +7,28 @@ public class Experiment {
 	private String status;
 	private String startDate;
 	private String elapsedTime;
+	private String savers;
+	private String importer;
 	private List<SagitariiFile> files;
 	
 	public Experiment() {
 		//files = new ArrayList<SagitariiFile>();
+	}
+	
+	public void setSavers(String savers) {
+		this.savers = savers;
+	}
+	
+	public void setImporter(String importer) {
+		this.importer = importer;
+	}
+	
+	public String getSavers() {
+		return savers;
+	}
+	
+	public String getImporter() {
+		return importer;
 	}
 	
 	public void setFiles(List<SagitariiFile> files) {
