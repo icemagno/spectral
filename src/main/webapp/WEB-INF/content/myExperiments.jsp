@@ -2,21 +2,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="../../header.jsp" %>
 
-				<div id="leftBoxAlter" style="width:100%; border-right:0px" > 
 
-
-					<div style="position:relative">
-					
-						<img style="height: 50px;cursor:pointer;position:absolute; top:15px;left:50px" onclick="back();" src="img/back.png">
-					
-					
-						<div style="text-align: center; margin-top: 5px;;height:100px" >
-							<img id="functionImage" style="margin: 0 auto;display:none" src="">
-						</div>
-				
-						<div class="userBoard" style="margin:0 auto;margin-top:10px;width: 60%;">
-							<div class="userBoardT1" style="text-align:center;width:95%">Request Result Data</div>
-							<div class="userBoardT2" style="text-align:center;width:95%">
+						<div class="oitenta" style="padding: 0px 0px 20px 0px;">
+							<div class="titulo" style="margin-bottom: 20px;">Request Result Data</div>
+                            
 								<table class="tableForm" id="example">
 									<thead>
 									<tr>
@@ -24,11 +13,10 @@
 										<th>Start Date/Time</th>
 										<th>Status</th>
 										<th>Elapsed Time</th>
-										<th>Receiving</th>
-										<th>Importing</th>
 										<th>&nbsp;</th>
 									</tr>
 									</thead>
+                                    
 									<tbody>
 									<c:forEach var="experiment" items="${experiments}">
 										<tr>
@@ -36,20 +24,20 @@
 											<td>${experiment.startDate}</td>
 											<td>${experiment.status}</td>
 											<td>${experiment.elapsedTime}</td>
-											<td>${experiment.savers}</td>
-											<td>${experiment.importer}</td>
 											<td>
 												<c:if test="${experiment.status == 'FINISHED'}">
 													<c:forEach var="file" items="${experiment.files}">
-														<a href="getFiles?idFile=${file.fileId}&fileName=${file.fileName}&sagitariiUrl=${sagitariiUrl}">${file.fileName}</a><br>
+														<a href="getFiles?idFile=${file.fileId}&fileName=${file.fileName}&sagitariiUrl=${sagitariiUrl}" style="margin-top: 2px;">${file.fileName}</a><br>
 													</c:forEach>
 												</c:if>&nbsp;
 											</td>
 										</tr>
 									</c:forEach>
 									</tbody>
+                                    
+                                    <div class="clear"></div>
 								</table>
-							</div>
+                            <div class="clear"></div>
 						</div>
 						
 						
@@ -59,11 +47,7 @@
 							<input type="hidden" id="password" name="password" value="${password}">
 							<input type="hidden" id="user" name="user" value="${user}">
 						</form>
-					
-					</div>
-										
-				</div>
-								
+											
 				
 <script>
 

@@ -2,27 +2,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="../../header.jsp" %>
 
-				<div id="leftBoxAlter" style="width:100%; border-right:0px" > 
+            <img src="img/grafos1.png" class="alignright" style="margin-right: -60px; margin-top: -20px;">
+            <div class="content">
+                
+            <p>Computers have been, definitely, used for many graph theorists as a tool for describe classes of graphs that satisfies some constraints and/or optimizes a given function.</p>
 
-					<div>
-					
-						<div style="position:relative;border-bottom:1px dotted #4D7A93; font-size: 17px;background:url('img/panelbar.png') no-repeat;margin:0 auto;margin-top:10px;width:820px; height:250px;">
+            <p>RioGraphX is a portal for supporting experiments involving spectral parameters of a graph and some other invariants. This platform is based on <a target="_BLANK" href="http://eic-cefet-rj.github.io/sagitarii/">Sagitarii Data Science Workflow System</a> that integrates Nauty, Lapack++, Sage and GraphViz. </p>
 
-							<div style="position:relative;padding-top:45px;float:left;width:293px;height:250px;padding-left:5px;">Request an account to the system administrator.
-								<img style="height: 50px;cursor:pointer;position:absolute; top:175px;right:25px" onclick="" src="img/go.png">
-							</div>
-							<div style="position:relative;padding-top:45px;float:left;width:265px;height:250px;padding-left:5px;">Submit your job.
-								<img style="height: 50px;cursor:pointer;position:absolute; top:175px;right:25px" onclick="form()" src="img/go.png">
-							</div>
-							<div style="position:relative;padding-top:45px;float:left;width:245px;height:250px;padding-left:5px;">Take the resuls.
-								<img style="height: 50px;cursor:pointer;position:absolute; top:175px;right:25px" onclick="requestData();" src="img/go.png">
-							</div>
-							
-						</div>
-					
-					</div>
-					
-				</div>
+            <p>The aim is to run experiments in order to find extremal graphs for a specified objective function given as an input. The idea is to generate all graphs satisfying some constraints and from that get the top graphs corresponding the optimization of a given objective function. Those graphs are displayed in a PDF file. Also, the .g6 files of  the top graphs are available at the end of the experiment.</p>
+
+            </div>
 
 <script>
 

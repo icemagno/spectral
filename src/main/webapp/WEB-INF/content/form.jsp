@@ -2,159 +2,137 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="../../header.jsp" %>
 
-				<div id="leftBoxAlter" style="width:100%; border-right:0px" > 
-
-
-					<div style="position:relative">
-					
-						<img style="height: 50px;cursor:pointer;position:absolute; top:15px;left:50px" onclick="back();" src="img/back.png">
-					
-					
-						<div style="text-align: center; margin-top: 5px;;height:100px" >
+						<div class="function">
 							<img id="functionImage" style="margin: 0 auto;display:block" src="">
 						</div>
 
-						<form action="doSubmitFunction" method="post" name="formFunction" id="formFunction">
-						<div style="width:750px;margin:0 auto">				
-							<div class="userBoard" style="margin-top:10px;width: 400px;float:left;height:330px;margin-right:5px;">
-								<div class="userBoardT1" style="text-align:center;width:95%">Workflow Submission</div>
-								<div class="userBoardT2" style="text-align:center;width:95%">
-										<table>
-											<tr>
-												<td >Optimization Function</td>
-												<td><input type="text" value="" name="optiFunc" id="optiFunc"></td>
-											</tr>
-											<tr>
-												<td>&nbsp;</td>
-												<td>
-													<input checked="checked" style="width:15px" type="radio" name="caixa1" value="min" />Min
-													<input style="width:15px" type="radio" name="caixa1" value="max" />Max
-												</td>
-											</tr>
-											<tr>
-												<td>Minimum order</td>
-												<td><input style="width:15px" type="text" name="ordermin" id="ordermin" size="2" /></td>
-											</tr>
-											<tr>
-												<td>Maximun order</td>
-												<td><input style="width:15px" type="text" name="ordermax" id="ordermax" size="2" /></td>
-											</tr>
-		
-		
-											<tr>
-												<td>Minimum degree</td>
-												<td><input style="width:15px" type="text" name="minDegree" id="minDegree" size="2" /></td>
-											</tr>
-											<tr>
-												<td>Maximun degree</td>
-												<td><input style="width:15px" type="text" name="maxDegree" id="maxDegree" size="2" /></td>
-											</tr>
-											<tr>
-												<td>Number of results to show</td>
-												<td><input style="width:15px" type="text" value="2" name="maxResults" id="maxResults" size="2" /></td>
-											</tr>
-		
-		
-											<tr>
-												<td style="width:50%">Only generate triangle free graphs?</td>
-												<td><input style="width:15px" type="checkbox"  name="triangleFree" /> </td>
-											</tr>
-											<tr>
-												<td style="width:50%">Only generate connected graphs?</td>
-												<td><input style="width:15px" type="checkbox"  name="allowDiscGraphs" /></td>
-											</tr>
-											<tr>
-												<td style="width:50%">Only generate bipartite graphs?</td>
-												<td ><input style="width:15px" type="checkbox"  name="biptOnly" /></td>
-											</tr>
-											
-											<tr>
-												<td>User</td>
-												<td><input type="text" name="user" /></td>
-											</tr>
-											
-											<tr>
-												<td>Password</td>
-												<td><input type="password" name="password" /></td>
-											</tr>
-											
-											<tr>
-												<td>Sagitarii URL Host</td>
-												<td><input type="text" value="http://localhost:8080/sagitarii/" name="sagitariiUrl" /></td>
-											</tr>
-		
-											<tr>
-												<td style="width:50%">&nbsp;</td><td><div style="margin-right: 7px;margin-top: 0px;" class="basicButton" onclick="doSubmit()">Submit Job</div></td>
-											</tr>
-										</table>
-								</div>
-							</div>
-						
-							<div class="userBoard" style="margin-top:10px;width: 300px;float:left;height:330px;">
-								<div class="userBoardT1" style="text-align:center;width:95%">Function Parameters</div>
-								<div class="userBoardT2" id="checks" style="text-align:center;width:95%">
-									<table>
-										<tr  >
-											<td style="width:80%">Adjacency (A)</td>
-											<td><input style="width:15px" type="checkbox"   name="adjacency"  id="adjacency" /></td>
-										</tr>
-										<tr  >
-											<td >Laplacian (L)</td>
-											<td><input style="width:15px" type="checkbox"   name="laplacian" id="laplacian" /></td>
-										</tr>
-										<tr  >
-											<td>Signless Laplacian (Q)</td>
-											<td><input style="width:15px" type="checkbox"   name="slaplacian" id="slaplacian" /></td>
-										</tr>
-	
-										<tr  >
-											<td >AdjacencyB (Ab)</td>
-											<td><input style="width:15px" type="checkbox"   name="adjacencyB"  id="adjacencyB" /></td>
-										</tr>
-										<tr  >
-											<td >LaplacianB (Lb)</td>
-											<td><input style="width:15px" type="checkbox"   name="laplacianB" id="laplacianB" /></td>
-										</tr>
-										<tr  >
-											<td>Signless LaplacianB (Qb)</td>
-											<td><input style="width:15px" type="checkbox"   name="slaplacianB" id="slaplacianB" /></td>
-										</tr>
-	
-										<tr  >
-											<td >Chromatic (Chi)</td>
-											<td><input style="width:15px" type="checkbox"   name="chromatic"  id="chromatic" /></td>
-										</tr>
-										<tr  >
-											<td >Chromatic Compl. (OverChi)</td>
-											<td><input style="width:15px" type="checkbox"   name="chromaticB" id="chromaticB" /></td>
-										</tr>
-										<tr  >
-											<td>Largest Click (Omega)</td>
-											<td><input style="width:15px" type="checkbox"   name="click" id="click" /></td>
-										</tr>
-										<tr  >
-											<td>Largest Click Compl.(OverOmega)</td>
-											<td><input style="width:15px" type="checkbox"   name="clickB" id="clickB" /></td>
-										</tr>
-										<tr  >
-											<td>Largest Degree.(Dk)</td>
-											<td><input style="width:15px" type="checkbox"   name="largestDegree" id="largestDegree" /></td>
-										</tr>
-										<tr  >
-											<td>Num of Edges.(M)</td>
-											<td><input style="width:15px" type="checkbox"   name="numEdges" id="numEdges" /></td>
-										</tr>
-									</table>
-								</div>
-							</div>					
-						</div>					
-						</form>
+<form action="doSubmitFunction" method="post" name="formFunction" id="formFunction">
+<div class="metade" style="height: 546px;">				
+        <div class="titulo">Workflow Submission</div>
+    
+                <table>
+                    <tr>
+                        <td >Optimization Function</td>
+                        <td><input type="text" value="" name="optiFunc" id="optiFunc"></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>
+                            <input checked="checked" style="width:15px" type="radio" name="caixa1" value="min" />Minimize
+                            <input style="width:15px" type="radio" name="caixa1" value="max" />Maximize
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Minimum order <input style="width:25px; float: right;" type="text" name="ordermin" id="ordermin" size="2" /></td>
+                        <td>Maximun order <input style="width:25px; float: right;" type="text" name="ordermax" id="ordermax" size="2" /></td>
+                    </tr>
+
+                    <tr>
+                        <td>Minimum degree <input style="width:25px; float: right;" type="text" name="minDegree" id="minDegree" size="2" /></td>
+                        <td>Maximun degree <input style="width:25px; float: right;" type="text" name="maxDegree" id="maxDegree" size="2" /></td>
+                    </tr>
+
+                    <tr>
+                        <td>Number of results to show</td>
+                        <td><input style="float: right; width:25px;" type="text" value="2" name="maxResults" id="maxResults" size="2" /></td>
+                    </tr>
+
+
+                    <tr>
+                        <td style="width:50%">Only generate triangle free graphs?</td>
+                        <td><input style="float: right; width:15px" type="checkbox"  name="triangleFree" /> </td>
+                    </tr>
+                    <tr>
+                        <td style="width:50%">Only generate connected graphs?</td>
+                        <td><input style="float: right; width:15px" type="checkbox"  name="allowDiscGraphs" /></td>
+                    </tr>
+                    <tr>
+                        <td style="width:50%">Only generate bipartite graphs?</td>
+                        <td ><input style="float: right; width:15px" type="checkbox"  name="biptOnly" /></td>
+                    </tr>
+
+                    
+					<tr>
+						<td>User</td>
+						<td><input type="text" name="user" /></td>
+					</tr>
 					
-					</div>
-										
-					
-				</div>
-								
+					<tr>
+						<td>Password</td>
+						<td><input type="password" name="password" /></td>
+					</tr>                    
+
+                    
+                    <tr>
+                        <td>Sagitarii URL Host</td>
+                        <td><input type="text" value="http://localhost:8080/sagitarii/" name="sagitariiUrl" /></td>
+                    </tr>
+                </table>
+<div class="clear"></div>
+</div>
+
+<div class="metade" style="float: right; height: 547px;">
+        <div class="titulo">Function Parameters</div>
+        	<div id="checks">
+            <table>
+                <tr  >
+                    <td style="width:80%">Adjacency (A)</td>
+                    <td><input style="width:15px" type="checkbox"   name="adjacency"  id="adjacency" /></td>
+                </tr>
+                <tr  >
+                    <td >Laplacian (L)</td>
+                    <td><input style="width:15px" type="checkbox"   name="laplacian" id="laplacian" /></td>
+                </tr>
+                <tr  >
+                    <td>Signless Laplacian (Q)</td>
+                    <td><input style="width:15px" type="checkbox"   name="slaplacian" id="slaplacian" /></td>
+                </tr>
+
+                <tr  >
+                    <td >AdjacencyB (Ab)</td>
+                    <td><input style="width:15px" type="checkbox"   name="adjacencyB"  id="adjacencyB" /></td>
+                </tr>
+                <tr  >
+                    <td >LaplacianB (Lb)</td>
+                    <td><input style="width:15px" type="checkbox"   name="laplacianB" id="laplacianB" /></td>
+                </tr>
+                <tr  >
+                    <td>Signless LaplacianB (Qb)</td>
+                    <td><input style="width:15px" type="checkbox"   name="slaplacianB" id="slaplacianB" /></td>
+                </tr>
+
+                <tr  >
+                    <td >Chromatic (Chi)</td>
+                    <td><input style="width:15px" type="checkbox"   name="chromatic"  id="chromatic" /></td>
+                </tr>
+                <tr  >
+                    <td >Chromatic Compl. (OverChi)</td>
+                    <td><input style="width:15px" type="checkbox"   name="chromaticB" id="chromaticB" /></td>
+                </tr>
+                <tr  >
+                    <td>Largest Click (Omega)</td>
+                    <td><input style="width:15px" type="checkbox"   name="click" id="click" /></td>
+                </tr>
+                <tr  >
+                    <td>Largest Click Compl.(OverOmega)</td>
+                    <td><input style="width:15px" type="checkbox"   name="clickB" id="clickB" /></td>
+                </tr>
+                <tr  >
+                    <td>Largest Degree.(Dk)</td>
+                    <td><input style="width:15px" type="checkbox"   name="largestDegree" id="largestDegree" /></td>
+                </tr>
+                <tr  >
+                    <td>Num of Edges.(M)</td>
+                    <td><input style="width:15px" type="checkbox"   name="numEdges" id="numEdges" /></td>
+                </tr>
+        </table>
+        </div>
+<div class="clear"></div>
+</div>	
+<div class="clear"></div>
+    <div class="submitJob" onclick="doSubmit()">Submit Job</div>
+</form>
+
 				
 <script>
 
