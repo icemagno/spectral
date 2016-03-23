@@ -24,12 +24,12 @@
                     </tr>
                     <tr>
                         <td>Minimum order <input style="width:25px; float: right;" type="text" name="ordermin" id="ordermin" size="2" /></td>
-                        <td>Maximun order <input style="width:25px; float: right;" type="text" name="ordermax" id="ordermax" size="2" /></td>
+                        <td>Maximum order <input style="width:25px; float: right;" type="text" name="ordermax" id="ordermax" size="2" /></td>
                     </tr>
 
                     <tr>
                         <td>Minimum degree <input style="width:25px; float: right;" type="text" name="minDegree" id="minDegree" size="2" /></td>
-                        <td>Maximun degree <input style="width:25px; float: right;" type="text" name="maxDegree" id="maxDegree" size="2" /></td>
+                        <td>Maximum degree <input style="width:25px; float: right;" type="text" name="maxDegree" id="maxDegree" size="2" /></td>
                     </tr>
 
                     <tr>
