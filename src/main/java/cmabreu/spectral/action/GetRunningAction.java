@@ -36,10 +36,6 @@ public class GetRunningAction extends BasicActionClass {
 		this.password = password;
 	}
 
-	public String getUser() {
-		return user;
-	}
-
 	public String getPassword() {
 		return password;
 	}

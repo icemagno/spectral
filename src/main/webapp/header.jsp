@@ -43,10 +43,15 @@
 				
         <div id="page">
         <img src="img/logo.png">
+        
+        
             
         <div class="log_reg">
-            <a href="#">Login</a> or <a href="#">Create an account</a>    
+            <a href="login">Login</a> or <a href="createAccount">Create an account</a>    
         </div>
+        
+        
+        
             
         <div class="clear"></div>
         

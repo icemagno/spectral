@@ -20,7 +20,7 @@
 		</interceptors>
 	  
 		<global-results>
-			<result name="notLogged">/index.jsp</result> 
+			<result name="notLogged">/index</result> 
 		</global-results>
 	  
 	  
