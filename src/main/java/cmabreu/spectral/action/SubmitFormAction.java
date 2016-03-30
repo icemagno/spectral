@@ -5,6 +5,7 @@ import java.io.ByteArrayInputStream;
 import java.util.List;
 
 import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
@@ -12,7 +13,8 @@ import br.cefetrj.parser.FormulaEvaluator;
 import cmabreu.spectral.services.SagitariiInterface;
 
 @Action (value = "doSubmitFunction", results = { @Result (location = "done.jsp", name = "ok"),
-		@Result(location="userForm", type="redirect", name="error") } ) 
+		@Result(location="userForm", type="redirect", name="error") },
+		interceptorRefs= { @InterceptorRef("seguranca")} ) 
 
 @ParentPackage("default")
 public class SubmitFormAction extends BasicActionClass {
@@ -40,10 +42,6 @@ public class SubmitFormAction extends BasicActionClass {
 	private String largestDegree = "off";
 	private String numEdges = "off";
 	
-	private String user;
-	private String password;
-	private String sagitariiUrl;
-	
 	private List<String> log;
 	
 	public String execute () {
@@ -69,7 +67,7 @@ public class SubmitFormAction extends BasicActionClass {
 
 		if( caixa1 != null ) {
 			try {
-				SagitariiInterface si = new SagitariiInterface(sagitariiUrl, user, password);
+				SagitariiInterface si = new SagitariiInterface(getSagitariiUrl(), user.getToken() );
 				si.submit(adjacency, laplacian, slaplacian, adjacencyB, laplacianB, slaplacianB, optiFunc, caixa1, ordermin, ordermax, minDegree, maxDegree, 
 						triangleFree, allowDiscGraphs, biptOnly, maxResults, chromatic, chromaticB,
 						click, clickB, largestDegree, numEdges );
@@ -138,18 +136,6 @@ public class SubmitFormAction extends BasicActionClass {
 		this.biptOnly = biptOnly;
 	}
 
-	public void setUser(String user) {
-		this.user = user;
-	}
-	
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	public void setSagitariiUrl(String sagitariiUrl) {
-		this.sagitariiUrl = sagitariiUrl;
-	}
-	
 	public void setMaxResults(String maxResults) {
 		this.maxResults = maxResults;
 	}

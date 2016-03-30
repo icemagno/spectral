@@ -27,7 +27,7 @@
 											<td>
 												<c:if test="${experiment.status == 'FINISHED'}">
 													<c:forEach var="file" items="${experiment.files}">
-														<a href="getFiles?idFile=${file.fileId}&fileName=${file.fileName}&sagitariiUrl=${sagitariiUrl}" style="margin-top: 2px;">${file.fileName}</a><br>
+														<a href="getFiles?idFile=${file.fileId}&fileName=${file.fileName}" style="margin-top: 2px;">${file.fileName}</a><br>
 													</c:forEach>
 												</c:if>&nbsp;
 											</td>
@@ -41,13 +41,7 @@
 						</div>
 						
 						
-						<form action="getFiles" method="post" name="formFunction" id="formFunction">
-							<input type="hidden" id="experiment" name="experiment" value="">
-							<input type="hidden" id="sagitariiUrl" name="sagitariiUrl" value="${sagitariiUrl}">
-							<input type="hidden" id="password" name="password" value="${password}">
-							<input type="hidden" id="user" name="user" value="${user}">
-						</form>
-											
+				
 				
 <script>
 

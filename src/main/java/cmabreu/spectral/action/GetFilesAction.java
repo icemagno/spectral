@@ -27,7 +27,6 @@ import cmabreu.spectral.services.PathFinder;
 
 @ParentPackage("default")
 public class GetFilesAction extends BasicActionClass {
-	private String sagitariiUrl;
 	private String fileName;
 	private InputStream stream;
 	private String idFile;
@@ -41,7 +40,7 @@ public class GetFilesAction extends BasicActionClass {
 			path.mkdirs();
 
 			Downloader dl = new Downloader();
-			String fileUrl = sagitariiUrl + "/getFile?idFile=" + idFile;
+			String fileUrl = getSagitariiUrl() + "getFile?idFile=" + idFile;
 			
 			String pdfName = cachePath + File.separator + fileName;
 			dl.download( fileUrl, pdfName, false);
@@ -56,10 +55,6 @@ public class GetFilesAction extends BasicActionClass {
 		return "ok";
 	}
 
-	public void setSagitariiUrl(String sagitariiUrl) {
-		this.sagitariiUrl = sagitariiUrl;
-	}
-	
 	public void setIdFile(String idFile) {
 		this.idFile = idFile;
 	}

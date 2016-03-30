@@ -11,13 +11,10 @@ public class ClientAccessInterceptor implements Interceptor {
 	public String intercept(ActionInvocation invocation) throws Exception {
 		User loggedUser = (User)invocation.getInvocationContext().getSession().get("loggedUser");
 		if (loggedUser == null) {
+			System.out.println("não logado !!");
 			return "notLogged";
 		}
-		try {
-			return invocation.invoke();
-		} catch ( Exception ignored ) {
-			return "notLogged";
-		}
+		return invocation.invoke();
 	}
  
 	@Override

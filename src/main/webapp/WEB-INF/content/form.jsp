@@ -51,22 +51,6 @@
                         <td ><input style="float: right; width:15px" type="checkbox"  name="biptOnly" /></td>
                     </tr>
 
-                    
-					<tr>
-						<td>User</td>
-						<td><input type="text" name="user" /></td>
-					</tr>
-					
-					<tr>
-						<td>Password</td>
-						<td><input type="password" name="password" /></td>
-					</tr>                    
-
-                    
-                    <tr>
-                        <td>Sagitarii URL Host</td>
-                        <td><input type="text" value="http://localhost:8080/sagitarii/" name="sagitariiUrl" /></td>
-                    </tr>
                 </table>
 <div class="clear"></div>
 </div>

@@ -17,16 +17,6 @@
 		<script src="js/script.js"></script>
 		<script src="js/jquery.dataTables.js"></script>
 		
-        <script>
-        function form() {
-            window.location.href="userForm";
-        }
-
-        function requestData() {
-            window.location.href="requestData";
-        }
-
-        </script>
 	</head>
 	
 	<body>
@@ -45,11 +35,17 @@
         <img src="img/logo.png">
         
         
-            
-        <div class="log_reg">
-            <a href="login">Login</a> or <a href="createAccount">Create an account</a>    
-        </div>
+        <c:if test="${empty user}">    
+	        <div class="log_reg">
+	            <a href="login">Login</a> or <a href="createAccount">Create an account</a>    
+	        </div>
+        </c:if>
         
+        <c:if test="${not empty user}">    
+	        <div class="log_reg">
+	            ${user.fullName} | <a href="logout">Logout</a>    
+	        </div>
+        </c:if>
         
         
             
@@ -59,8 +55,14 @@
             <ul>
                 <li><a href="index">Home</a></li>
                 <li><a href="description">Description</a></li>
-                <li class="sae"><a href="#" onclick="form()">Submit an experiment</a></li>
-                <li><a href="#" onclick="requestData();">My experiments</a></li>
+		        <c:if test="${not empty user}">    
+	                <li class="sae"><a href="userForm">Submit an experiment</a></li>
+	                <li><a href="showMyExperiments">My experiments</a></li>
+	            </c:if>
+		        <c:if test="${empty user}">    
+	                <li><a href="#">&nbsp;</a></li>
+	                <li><a href="#">&nbsp;</a></li>
+	            </c:if>
             </ul>    
         </div>
         

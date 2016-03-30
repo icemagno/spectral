@@ -3,27 +3,26 @@
 <%@ include file="../../header.jsp" %>
 									
 						<div class="userBoard" style="margin:0 auto;margin-top:10px;width: 400px;">
-							<div class="userBoardT1" style="text-align:center;width:95%">Request Result Data</div>
+							<div class="userBoardT1" style="text-align:center;width:95%">Login</div>
 							<div class="userBoardT2 login-box" style="text-align:center;width:95%">
-								<form action="showMyExperiments" method="post" name="formFunction" id="formFunction">
+                                
+<!--                                alterar ação do formulário -->
+                                
+								<form action="doLogin" method="post" name="formFunction" id="formFunction">
 									<table>
 										<tr>
-											<td>User/Email</td>
-											<td><input type="text" name="user" /></td>
+											<td>Login Name</td>
+											<td><input type="text" name="userName" /></td>
 										</tr>
-										
+                                        
 										<tr>
 											<td>Password</td>
 											<td><input type="password" name="password" /></td>
 										</tr>
 										
-										<tr>
-											<td>Sagitarii URL Host</td>
-											<td><input type="text" value="http://localhost:8080/sagitarii/" name="sagitariiUrl" /></td>
-										</tr>
 	
 										<tr>
-											<td style="width:50%">&nbsp;</td><td><div style="margin-right: 7px;margin-top: 0px;" class="basicButton" onclick="doSubmit()">Send</div></td>
+											<td style="width:50%">&nbsp;</td><td><div style="margin-right: 7px;margin-top: 0px;" class="basicButton" onclick="doSubmit()">Login</div></td>
 										</tr>
 									</table>
 								</form>

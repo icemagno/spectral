@@ -18,6 +18,7 @@ import cmabreu.spectral.entity.Experiment;
 import cmabreu.spectral.entity.ExperimentData;
 import cmabreu.spectral.entity.SagitariiFile;
 import cmabreu.spectral.entity.SagitariiFileData;
+import cmabreu.spectral.entity.User;
 
 import com.google.gson.Gson;
  
@@ -35,21 +36,46 @@ public class SagitariiInterface {
 
 
 	@SuppressWarnings("deprecation")
-	public SagitariiInterface( String sagitariiHostURL, String user, String password ) {
+	public SagitariiInterface( String sagitariiHostURL, String securityToken ) {
 		this.sagitariiHostURL = sagitariiHostURL;
 		client = new DefaultHttpClient();
-		securityToken = getSecurityToken( user, password );
+		this.securityToken = securityToken;
 		operationLog = new ArrayList<String>();
 	}
 	
-	private String getSecurityToken( String user, String password ) {
+	public String requestNewUser(String fullName,String userName,String password,String email,String institution) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{");
+		sb.append( generateJsonPair("SagitariiApiFunction", "apiRequestNewUser") + "," ); 
+		sb.append( generateJsonPair("fullName", fullName) + "," ); 
+		sb.append( generateJsonPair("username", userName) + "," ); 
+		sb.append( generateJsonPair("password", password) + "," ); 
+		sb.append( generateJsonPair("details", institution) + "," ); 
+		sb.append( generateJsonPair("mailAddress", email) ); 		
+		sb.append("}");
+		String result = execute( sb.toString() );
+		return result;
+	}
+	
+	public User getSecurityToken( String loginName, String password ) {
+		StringBuilder sb = new StringBuilder();
+		User user = null;
+		sb.append("{");
 		sb.append( generateJsonPair("SagitariiApiFunction", "apiGetToken") + "," ); 
-		sb.append( generateJsonPair("user", user) + "," ); 
+		sb.append( generateJsonPair("user", loginName) + "," ); 
 		sb.append( generateJsonPair("password", password) ); 
 		sb.append("}");
-		return execute( sb.toString() );
+		
+		String result = execute( sb.toString() );
+		
+		System.out.println( result );
+		
+		if ( !result.equals("") ) {
+			Gson gson = new Gson();
+			user = gson.fromJson( result, User.class );
+		}
+		
+		return user;
 	}
 
 	
@@ -116,7 +142,7 @@ public class SagitariiInterface {
 		return execute( sb.toString() );
 	}
 
-	public String getRunning( ) {
+	public List<Experiment> getRunning( ) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{");
 		sb.append( generateJsonPair("SagitariiApiFunction", "apiGetRunning") + ","); 
@@ -129,7 +155,7 @@ public class SagitariiInterface {
 		ExperimentData data = gson.fromJson( result, ExperimentData.class );
 		List<Experiment> experiments = data.getData();		
 		
-		return result;
+		return experiments;
 	}
 	
 	public String getData(String adjacency, String laplacian, String slaplacian, String adjacencyB, 
@@ -261,7 +287,7 @@ public class SagitariiInterface {
 				isr.close();
 			}
 		} catch (Exception ex) {
-		    ex.printStackTrace();
+		    //ex.printStackTrace();
 		} 
 		return resposta;
 	}

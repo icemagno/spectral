@@ -16,12 +16,10 @@ import cmabreu.spectral.services.SagitariiInterface;
 
 @ParentPackage("default")
 public class ShowMyExperimentsAction extends BasicActionClass {
-	private String password;
-	private String sagitariiUrl;
 	private List<Experiment> experiments;
 	
 	public String execute () {
-		SagitariiInterface si = new SagitariiInterface(sagitariiUrl, user.getLoginName(), user.getToken() );
+		SagitariiInterface si = new SagitariiInterface( getSagitariiUrl() , user.getToken() );
 		experiments = si.getMyExperiments();
 		
 		for ( Experiment exp : experiments ) {
@@ -31,25 +29,8 @@ public class ShowMyExperimentsAction extends BasicActionClass {
 		return "ok";
 	}
 
-	
-	public void setSagitariiUrl(String sagitariiUrl) {
-		this.sagitariiUrl = sagitariiUrl;
-	}
-	
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public List<Experiment> getExperiments() {
 		return experiments;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public String getSagitariiUrl() {
-		return sagitariiUrl;
 	}
 
 	public void setExperiments(List<Experiment> experiments) {

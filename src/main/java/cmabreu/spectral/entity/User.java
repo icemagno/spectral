@@ -5,7 +5,16 @@ public class User {
 	private String fullName;
 	private String userMail;
 	private String loginName;
+	private String details;
 	private String token;
+	
+	public String getDetails() {
+		return details;
+	}
+	
+	public void setDetails(String details) {
+		this.details = details;
+	}
 	
 	public String getToken() {
 		return token;

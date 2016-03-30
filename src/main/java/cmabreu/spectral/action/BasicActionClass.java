@@ -11,6 +11,10 @@ public class BasicActionClass {
 		return user;
 	}
 	
+	public String getSagitariiUrl() {
+		return (String)ActionContext.getContext().getSession().get("sagitariiUrl");
+	}
+	
 	public BasicActionClass() {
 		user = (User)ActionContext.getContext().getSession().get("loggedUser");
 	}
