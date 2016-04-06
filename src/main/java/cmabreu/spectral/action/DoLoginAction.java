@@ -5,35 +5,41 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
+import com.opensymphony.xwork2.ActionContext;
+
 import cmabreu.spectral.entity.User;
 import cmabreu.spectral.services.SagitariiInterface;
 
-import com.opensymphony.xwork2.ActionContext;
-
-@Action (value = "doLogin", results = { @Result (type="redirect", location = "index", name = "ok") } ) 
+@Action (value = "doLogin", results = { @Result (type="redirect", location = "${dest}", name = "ok") } ) 
 
 @ParentPackage("default")
 public class DoLoginAction  {
 	private String userName;
 	private String password;
+	private String dest;
+	
+	public String getDest() {
+		return dest;
+	}
 	
 	public String execute () {
-		String sagitariiUrl = "http://eic.cefet-rj.br:8134/sagitarii/";
-		
+		String sagitariiUrl = "http://localhost:8080/sagitarii/";
+		dest = "index";
 		if ( ( userName != null ) && ( password != null ) ) {
-			//SagitariiInterface si = new SagitariiInterface(sagitariiUrl, "" );
-			//User user = si.getSecurityToken(userName, password);
-			
 			User user = new User();
-			user.setDetails("asdasds");
-			user.setFullName("Carlos Magno Abreu");
-			user.setLoginName("loginname");
-			user.setUserMail("adsdasds");
+			user.setLoginName( userName );
+			user.setPassword( password );
+			SagitariiInterface si = new SagitariiInterface(sagitariiUrl, user );
+			user = si.getUser();
 			
 			if( user != null ) {
 				ActionContext.getContext().getSession().put("loggedUser", user);
 				ActionContext.getContext().getSession().put("sagitariiUrl", sagitariiUrl);
-			} 
+				dest = "showMyExperiments";
+			} else {
+				// message to user
+			}
+			
 		}
 		
 		return "ok";

@@ -19,7 +19,7 @@ public class DoCreateAccountAction extends BasicActionClass {
 	private String institution;
 	
 	public String execute () {
-		String sagitariiUrl = "http://eic.cefet-rj.br:8134/sagitarii/";
+		String sagitariiUrl = "http://localhost:8080/sagitarii/";
 		
 		if( !password.equals( rePassword) ) {
 			setMessageText("Password does not match. Try Again.");
@@ -28,7 +28,7 @@ public class DoCreateAccountAction extends BasicActionClass {
 		
 		if ( ( userName != null ) && ( password != null ) && ( institution != null )  ) {
 			// Other tests...
-			SagitariiInterface si = new SagitariiInterface(sagitariiUrl, "" );
+			SagitariiInterface si = new SagitariiInterface(sagitariiUrl, null );
 			String result = si.requestNewUser(fullName,userName,password,email,institution);
 			if ( result.equals("RETURN_REQUEST_ERROR")) {
 				setMessageText("Error while processing your request.");

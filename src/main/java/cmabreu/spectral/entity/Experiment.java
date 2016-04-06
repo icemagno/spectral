@@ -1,5 +1,6 @@
 package cmabreu.spectral.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Experiment {
@@ -12,7 +13,7 @@ public class Experiment {
 	private List<SagitariiFile> files;
 	
 	public Experiment() {
-		//files = new ArrayList<SagitariiFile>();
+		files = new ArrayList<SagitariiFile>();
 	}
 	
 	public void setSavers(String savers) {

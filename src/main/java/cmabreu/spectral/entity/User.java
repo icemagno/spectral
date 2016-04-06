@@ -7,6 +7,15 @@ public class User {
 	private String loginName;
 	private String details;
 	private String token;
+	private String password;
+	
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
 	
 	public String getDetails() {
 		return details;

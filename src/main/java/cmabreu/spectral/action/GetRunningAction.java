@@ -19,7 +19,7 @@ public class GetRunningAction extends BasicActionClass {
 	private List<Experiment> running;
 	
 	public String execute () {
-		SagitariiInterface si = new SagitariiInterface( getSagitariiUrl(), user.getToken() );
+		SagitariiInterface si = new SagitariiInterface( getSagitariiUrl(), user );
 		running = si.getRunning();
 		return "ok";
 	}

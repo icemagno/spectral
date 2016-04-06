@@ -14,13 +14,13 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
+import com.google.gson.Gson;
+
 import cmabreu.spectral.entity.Experiment;
 import cmabreu.spectral.entity.ExperimentData;
 import cmabreu.spectral.entity.SagitariiFile;
 import cmabreu.spectral.entity.SagitariiFileData;
 import cmabreu.spectral.entity.User;
-
-import com.google.gson.Gson;
  
 /**
  * Interface to Sagitarii API
@@ -31,16 +31,29 @@ import com.google.gson.Gson;
 public class SagitariiInterface {
 	private String sagitariiHostURL;
 	private HttpClient client;
-	private String securityToken;
 	private List<String> operationLog;
+	private User user;
 
 
 	@SuppressWarnings("deprecation")
-	public SagitariiInterface( String sagitariiHostURL, String securityToken ) {
+	public SagitariiInterface( String sagitariiHostURL, User tempUser ) {
 		this.sagitariiHostURL = sagitariiHostURL;
 		client = new DefaultHttpClient();
-		this.securityToken = securityToken;
+		if ( tempUser != null ) {
+			user = getSecurityToken( tempUser.getLoginName(), tempUser.getPassword() );
+			if ( user != null ) { 
+				user.setPassword( tempUser.getPassword() );
+			} else {
+				System.out.println("Invalid Login ");
+			}
+		} else {
+			System.out.println("NULL USER");
+		}
 		operationLog = new ArrayList<String>();
+	}
+	
+	public User getUser() {
+		return user;
 	}
 	
 	public String requestNewUser(String fullName,String userName,String password,String email,String institution) {
@@ -68,8 +81,6 @@ public class SagitariiInterface {
 		
 		String result = execute( sb.toString() );
 		
-		System.out.println( result );
-		
 		if ( !result.equals("") ) {
 			Gson gson = new Gson();
 			user = gson.fromJson( result, User.class );
@@ -93,11 +104,11 @@ public class SagitariiInterface {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{");
 		sb.append( generateJsonPair("SagitariiApiFunction", "apiGetExperiments") + "," ); 
-		sb.append( generateJsonPair("securityToken", securityToken) ); 
+		sb.append( generateJsonPair("securityToken", user.getToken()) ); 
 		sb.append("}");
 		
 		String result = execute( sb.toString() );
-
+		
 		Gson gson = new Gson();
 		ExperimentData data = gson.fromJson( result, ExperimentData.class );
 		List<Experiment> experiments = data.getData();
@@ -112,7 +123,7 @@ public class SagitariiInterface {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{");
 		sb.append( generateJsonPair("SagitariiApiFunction", "apiGetFilesExperiment") + "," ); 
-		sb.append( generateJsonPair("securityToken", securityToken) + "," ); 
+		sb.append( generateJsonPair("securityToken", user.getToken()) + "," ); 
 		sb.append( generateJsonPair("experimentSerial", experiment) + "," ); 
 		sb.append( generateJsonPair("activityTag", "FINISH") + "," ); 
 		sb.append( generateJsonPair("rangeStart", "0") + "," ); 
@@ -146,7 +157,7 @@ public class SagitariiInterface {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{");
 		sb.append( generateJsonPair("SagitariiApiFunction", "apiGetRunning") + ","); 
-		sb.append( generateJsonPair("securityToken", securityToken) ); 
+		sb.append( generateJsonPair("securityToken", user.getToken()) ); 
 		sb.append("}");
 		
 		String result = execute( sb.toString() );
@@ -199,7 +210,7 @@ public class SagitariiInterface {
 			String click, String clickB, String largestDegree, String numEdges ) {
 
 		
-		String experimentSerial = createNewExperiment( securityToken );
+		String experimentSerial = createNewExperiment( user.getToken() );
 		log("New experiment " + experimentSerial );
 		
 		int orderMin = Integer.valueOf( ordermin );
@@ -214,7 +225,7 @@ public class SagitariiInterface {
 		sb.append( generateJsonPair("SagitariiApiFunction", "apiReceiveData") + "," ); // Must have 
 		sb.append( generateJsonPair("tableName", "spectral_parameters") + "," ); // Must have
 		sb.append( generateJsonPair("experimentSerial", experimentSerial ) + "," ); // Must have
-		sb.append( generateJsonPair("securityToken", securityToken) + "," ); // Must have
+		sb.append( generateJsonPair("securityToken", user.getToken() ) + "," ); // Must have
 		
 		StringBuilder data = new StringBuilder();
 		data.append("[");
@@ -237,7 +248,7 @@ public class SagitariiInterface {
 		
 		log( "Response to Insert Data : " + insert );
 		
-		String start = startExperiment( securityToken, experimentSerial );
+		String start = startExperiment( user.getToken(), experimentSerial );
 		log( "Response to Start Experiment call : " + start );
 		
 		log("Data sent: " + sb.toString() );

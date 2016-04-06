@@ -19,7 +19,7 @@ public class ShowMyExperimentsAction extends BasicActionClass {
 	private List<Experiment> experiments;
 	
 	public String execute () {
-		SagitariiInterface si = new SagitariiInterface( getSagitariiUrl() , user.getToken() );
+		SagitariiInterface si = new SagitariiInterface( getSagitariiUrl() , user );
 		experiments = si.getMyExperiments();
 		
 		for ( Experiment exp : experiments ) {
