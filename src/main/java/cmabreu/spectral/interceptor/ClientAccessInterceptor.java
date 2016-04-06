@@ -11,7 +11,7 @@ public class ClientAccessInterceptor implements Interceptor {
 	public String intercept(ActionInvocation invocation) throws Exception {
 		User loggedUser = (User)invocation.getInvocationContext().getSession().get("loggedUser");
 		if (loggedUser == null) {
-			System.out.println("n„o logado !!");
+			System.out.println("n√£o logado !!");
 			return "notLogged";
 		}
 		return invocation.invoke();
@@ -19,7 +19,7 @@ public class ClientAccessInterceptor implements Interceptor {
  
 	@Override
 	public void destroy() {
-		System.out.println("destroy");
+		System.out.println("destroy"); 
 	}
 
 	

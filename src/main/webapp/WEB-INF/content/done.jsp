@@ -6,18 +6,16 @@
 
 					<div style="position:relative">
 					
-						<img style="height: 50px;cursor:pointer;position:absolute; top:15px;left:50px" onclick="back();" src="img/back.png">
-
-
 						<div class="userBoard" style="margin:0 auto;margin-top:50px;width: 400px;">
-							<div class="userBoardT1" style="text-align:center;width:95%">Requisition Submited</div>
+							<div class="userBoardT1" style="text-align:center;width:95%">Requisition Submitted</div>
 							<div class="userBoardT2" style="text-align:center;width:95%">
 								<table>
-									<c:forEach var="entry" items="${log}">
-										<tr>
-											<td>${entry}</td>
-										</tr>
-									</c:forEach>
+									<tr>
+										<th>Wait until your work is finished.</th>
+									</tr>
+									<tr>
+										<td style="text-align:center"><a href="showMyExperiments">View</a></td>
+									</tr>
 								</table>
 							</div>
 						</div>

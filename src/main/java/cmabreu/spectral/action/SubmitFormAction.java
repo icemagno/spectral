@@ -46,11 +46,6 @@ public class SubmitFormAction extends BasicActionClass {
 	
 	public String execute () {
 		
-		System.out.println( adjacency+ " " + laplacian+ " " + slaplacian+ " " + adjacencyB+ " " + laplacianB+ " " + slaplacianB+ " " + optiFunc+ " " + caixa1+ " " + ordermin+ " " + ordermax+ " " + minDegree+ " " + maxDegree+ " " + 
-				triangleFree+ " " + allowDiscGraphs+ " " + biptOnly+ " " + maxResults+ " " + chromatic+ " " + chromaticB+ " " +
-				click+ " " + clickB+ " " + largestDegree+ " " + numEdges );
-		
-		
 		if ( (optiFunc != null) && (!optiFunc.equals("")) ) {
 			try {
 				ByteArrayInputStream inputStream = new ByteArrayInputStream( optiFunc.getBytes() );

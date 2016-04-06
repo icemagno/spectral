@@ -27,7 +27,7 @@ public class GetPreviewAction extends BasicActionClass {
 		LatexFunctionGenerator sc = new LatexFunctionGenerator();
 		fileInputStream = sc.getImage( function ) ;
 		if( fileInputStream == null ) {
-			fileInputStream = sc.getImage( "Function Error" ) ;
+			fileInputStream = sc.getImage( " " ) ;
 		}
 		return "ok";
 	}

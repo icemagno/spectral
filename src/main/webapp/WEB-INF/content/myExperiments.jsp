@@ -13,7 +13,7 @@
 										<th>Start Date/Time</th>
 										<th>Status</th>
 										<th>Elapsed Time</th>
-										<th>&nbsp;</th>
+										<th>Files</th>
 									</tr>
 									</thead>
                                     
@@ -22,7 +22,12 @@
 										<tr>
 											<td>${experiment.tagExec}</td>
 											<td>${experiment.startDate}</td>
-											<td>${experiment.status}</td>
+											<c:if test="${experiment.status == 'RUNNING'}">
+												<td><a href="getRunning">${experiment.status}</a></td>
+											</c:if>
+											<c:if test="${experiment.status != 'RUNNING'}">
+												<td>${experiment.status}</td>
+											</c:if>
 											<td>${experiment.elapsedTime}</td>
 											<td>
 												<c:if test="${experiment.status == 'FINISHED'}">

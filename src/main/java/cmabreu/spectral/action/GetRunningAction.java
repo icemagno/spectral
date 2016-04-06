@@ -8,7 +8,7 @@ import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 
-import cmabreu.spectral.entity.Experiment;
+import cmabreu.spectral.entity.RunningData;
 import cmabreu.spectral.services.SagitariiInterface;
 
 @Action (value = "getRunning", results = { @Result (location = "getRunning.jsp", name = "ok") 
@@ -16,7 +16,7 @@ import cmabreu.spectral.services.SagitariiInterface;
 
 @ParentPackage("default")
 public class GetRunningAction extends BasicActionClass {
-	private List<Experiment> running;
+	private List<RunningData> running;
 	
 	public String execute () {
 		SagitariiInterface si = new SagitariiInterface( getSagitariiUrl(), user );
@@ -24,7 +24,7 @@ public class GetRunningAction extends BasicActionClass {
 		return "ok";
 	}
 
-	public List<Experiment> getRunning() {
+	public List<RunningData> getRunning() {
 		return running;
 	}
 }

@@ -43,7 +43,8 @@
         
         <c:if test="${not empty user}">    
 	        <div class="log_reg">
-	            ${user.fullName} | <a href="logout">Logout</a>    
+	            ${user.fullName} | <a href="logout">Logout</a>
+	            <br />${user.details}    
 	        </div>
         </c:if>
         

@@ -14,13 +14,15 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
-import com.google.gson.Gson;
-
 import cmabreu.spectral.entity.Experiment;
 import cmabreu.spectral.entity.ExperimentData;
+import cmabreu.spectral.entity.Running;
+import cmabreu.spectral.entity.RunningData;
 import cmabreu.spectral.entity.SagitariiFile;
 import cmabreu.spectral.entity.SagitariiFileData;
 import cmabreu.spectral.entity.User;
+
+import com.google.gson.Gson;
  
 /**
  * Interface to Sagitarii API
@@ -153,7 +155,7 @@ public class SagitariiInterface {
 		return execute( sb.toString() );
 	}
 
-	public List<Experiment> getRunning( ) {
+	public List<RunningData> getRunning( ) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{");
 		sb.append( generateJsonPair("SagitariiApiFunction", "apiGetRunning") + ","); 
@@ -161,12 +163,12 @@ public class SagitariiInterface {
 		sb.append("}");
 		
 		String result = execute( sb.toString() );
-		
+
 		Gson gson = new Gson();
-		ExperimentData data = gson.fromJson( result, ExperimentData.class );
-		List<Experiment> experiments = data.getData();		
+		Running data = gson.fromJson( result, Running.class );
+		List<RunningData> runningData = data.getData();		
 		
-		return experiments;
+		return runningData;
 	}
 	
 	public String getData(String adjacency, String laplacian, String slaplacian, String adjacencyB, 
