@@ -17,10 +17,15 @@ import cmabreu.spectral.services.SagitariiInterface;
 @ParentPackage("default")
 public class GetRunningAction extends BasicActionClass {
 	private List<RunningData> running;
+	private String experiment;
+	
+	public void setExperiment(String experiment) {
+		this.experiment = experiment;
+	}
 	
 	public String execute () {
 		SagitariiInterface si = new SagitariiInterface( getSagitariiUrl(), user );
-		running = si.getRunning();
+		running = si.getRunning( experiment );
 		return "ok";
 	}
 

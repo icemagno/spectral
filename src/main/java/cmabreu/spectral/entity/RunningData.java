@@ -4,10 +4,9 @@ import java.util.List;
 
 public class RunningData {
 	private String tagExec;
-	private String importer;
-	private String importerStatus;
 	private String owner;
 	private List<Fragment> fragments;
+	private List<Importer> importers;
 	
 	public String getOwner() {
 		return owner;
@@ -22,17 +21,12 @@ public class RunningData {
 	public void setTagExec(String tagExec) {
 		this.tagExec = tagExec;
 	}
-	public String getImporter() {
-		return importer;
+
+	public void setImporters(List<Importer> importers) {
+		this.importers = importers;
 	}
-	public void setImporter(String importer) {
-		this.importer = importer;
-	}
-	public String getImporterStatus() {
-		return importerStatus;
-	}
-	public void setImporterStatus(String importerStatus) {
-		this.importerStatus = importerStatus;
+	public List<Importer> getImporters() {
+		return importers;
 	}
 	public List<Fragment> getFragments() {
 		return fragments;

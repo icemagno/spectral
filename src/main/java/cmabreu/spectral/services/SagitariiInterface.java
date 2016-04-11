@@ -155,20 +155,26 @@ public class SagitariiInterface {
 		return execute( sb.toString() );
 	}
 
-	public List<RunningData> getRunning( ) {
-		StringBuilder sb = new StringBuilder();
-		sb.append("{");
-		sb.append( generateJsonPair("SagitariiApiFunction", "apiGetRunning") + ","); 
-		sb.append( generateJsonPair("securityToken", user.getToken()) ); 
-		sb.append("}");
+	public List<RunningData> getRunning( String experimentSerial ) {
+		try {
+			StringBuilder sb = new StringBuilder();
+			sb.append("{");
+			sb.append( generateJsonPair("SagitariiApiFunction", "apiGetRunning") + ",");
+			sb.append( generateJsonPair("experimentSerial", experimentSerial ) + ","); 
+			sb.append( generateJsonPair("securityToken", user.getToken()) ); 
+			sb.append("}");
+			
+			String result = execute( sb.toString() );
+	
+			Gson gson = new Gson();
+			Running data = gson.fromJson( result, Running.class );
+			List<RunningData> runningData = data.getData();
+			return runningData;
+		} catch ( Exception e ) {
+			e.printStackTrace();
+		}
+		return new ArrayList<RunningData>(); 
 		
-		String result = execute( sb.toString() );
-
-		Gson gson = new Gson();
-		Running data = gson.fromJson( result, Running.class );
-		List<RunningData> runningData = data.getData();		
-		
-		return runningData;
 	}
 	
 	public String getData(String adjacency, String laplacian, String slaplacian, String adjacencyB, 

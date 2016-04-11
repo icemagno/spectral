@@ -23,7 +23,7 @@
 											<td>${experiment.tagExec}</td>
 											<td>${experiment.startDate}</td>
 											<c:if test="${experiment.status == 'RUNNING'}">
-												<td><a href="getRunning">${experiment.status}</a></td>
+												<td><a href="getRunning?experiment=${experiment.tagExec}">${experiment.status}</a></td>
 											</c:if>
 											<c:if test="${experiment.status != 'RUNNING'}">
 												<td>${experiment.status}</td>
