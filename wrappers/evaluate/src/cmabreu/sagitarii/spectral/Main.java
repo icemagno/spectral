@@ -217,10 +217,10 @@ public class Main {
 						job.getGorder() ) );
 
 		
-		outputData.add("optifunc,g6fileid,evaluatedvalue,maxresults,caixa1,gorder,function");
-		outputData.add(job.getOptimizationFunction() + "," + job.getG6fileid() + 
+		outputData.add("optifunc,paramid,evaluatedvalue,maxresults,caixa1,gorder,function,grafo");
+		outputData.add(job.getOptimizationFunction() + "," + job.getParamId() + 
 				"," + evaluatedValue.evaluatedValue + "," + job.getMaxResults() + "," + job.getCaixa1() + "," + job.getGorder() + 
-				"," + evaluatedValue.function);
+				"," + evaluatedValue.function + "," + job.getGrafo() );
 		saveOutput();
 
 	}
@@ -245,6 +245,8 @@ public class Main {
 	}
 
 	public static void main(String[] args) throws Exception {
+		System.out.println("Evaluate v.2.5");
+		
 		workFolder = args[0];
 
 		List<String> inputData = CsvReader.readFile(workFolder + "/" + "sagi_input.txt");
@@ -272,7 +274,7 @@ public class Main {
 				/*
 				 * Get source file reference
 				 */
-				String g6fileid = lineData[CsvReader.getIndex("g6fileid", header)];
+				String paramId = lineData[CsvReader.getIndex("paramid", header)];
 
 				/*
 				 * Get maximum results to show
@@ -280,10 +282,12 @@ public class Main {
 				String maxResults = lineData[CsvReader.getIndex("maxresults", header)];
 				String caixa1 = lineData[CsvReader.getIndex("caixa1", header)];
 				String gorder = lineData[CsvReader.getIndex("gorder", header)];
+				String grafo = lineData[CsvReader.getIndex("grafo", header)];
 
 				job.setOptimizationFunction(optimizationFunction);
 				job.setHeader(header);
-				job.setG6fileid(g6fileid);
+				job.setParamId(paramId);
+				job.setGrafo(grafo);
 				job.setMaxResults(maxResults);
 				job.setCaixa1(caixa1);
 				job.setGorder(gorder);

@@ -2,8 +2,10 @@ package br.cefetrj.sagitarii.wrappers;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import cmabreu.sagitarii.sdk.IWrapperProcessor;
 import cmabreu.sagitarii.sdk.LineData;
@@ -33,7 +35,10 @@ public class Processor implements IWrapperProcessor {
 		String function = ld.getData("optifunc"); 
 		String geniFile = helper.getWrapperFolder() + "geni.py";
 		String inboxFolder = helper.getInboxFolder();
-		String g6File = ld.getData("g6splitedfile");
+		
+		//String g6File = ld.getData("g6splitedfile");
+		String g6File = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 10) + ".g6" ;
+		
 		String parameters = "";
 		
 		String output = helper.getOutboxFolder();
@@ -44,6 +49,8 @@ public class Processor implements IWrapperProcessor {
 		String clickB = ld.getData("clickb");
 		String largestDegree = ld.getData("largestdegree");
 		String numEdges = ld.getData("numedges");
+		
+		String theGraph = ld.getData("grafo");
 		
 		if( chromatic.equals("on")  ) {
 			parameters = parameters + " -a" ;
@@ -81,10 +88,16 @@ public class Processor implements IWrapperProcessor {
 			parameters = parameters + " -g";
 		}
 		
+		System.out.println("Graph: [" + theGraph + "]" );
+		
 		System.out.println("Function: " + function );
 		System.out.println("Parameters: " + parameters);
 		System.out.println("File: " + g6File);
 		String inputFile = inboxFolder + g6File;
+		
+		PrintWriter out = new PrintWriter( inputFile );
+		out.println( theGraph );
+		out.close();		
 		
 		String runGeni = helper.getWrapperFolder() + "rungeni.sh";
 		String runFile = runGeni + " "+geniFile+ " " +output + " " + inputFile + " \"" +parameters.trim() + "\"";

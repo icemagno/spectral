@@ -37,9 +37,11 @@ public class Wrapper {
 		String caixa1 = lineData[ getIndex("caixa1", header) ];
 		gorder = lineData[ getIndex("gorder", header) ];
 		String maxresults = lineData[ getIndex("maxresults", header) ];
-		String g6fileid = lineData[ getIndex("g6fileid", header) ];
 		
-		jobs.add( new JobUnity(function, imageFile, evalValue, caixa1, maxresults, gorder, g6fileid,functionReal) );
+		
+		String theGraph = lineData[ getIndex("grafo", header) ];
+		
+		jobs.add( new JobUnity(function, imageFile, evalValue, caixa1, maxresults, gorder, theGraph, functionReal) );
 
 	}
 
@@ -47,6 +49,8 @@ public class Wrapper {
 	public static void main(String[] args) throws Exception{
 		workFolder = args[0];	
 
+		System.out.println("PDF Creator v1.2");
+		
 		List<String> inputData = readFile( workFolder + "/sagi_input.txt" );
 		if( inputData.size() > 1 ) {
 

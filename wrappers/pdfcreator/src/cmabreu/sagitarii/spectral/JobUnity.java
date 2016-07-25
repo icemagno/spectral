@@ -10,17 +10,17 @@ public class JobUnity {
 	private String caixa1;
 	private String maxresults;
 	private String gorder;
-	private String g6fileid;
+	private String theGraph;
 
 	public JobUnity( String function, String imageFile, String evalValue, String caixa1, String maxresults, String gorder, 
-			String g6fileid, String functionReal ) {
+			String theGraph, String functionReal ) {
 		this.function = function;
 		this.imageFile = imageFile;
 		this.evalValue = evalValue;
 		this.caixa1 = caixa1;
 		this.maxresults = maxresults;
 		this.gorder = gorder;
-		this.g6fileid = g6fileid;
+		this.theGraph = theGraph;
 		this.functionReal = functionReal;
 	}
 	
@@ -52,8 +52,8 @@ public class JobUnity {
 		return gorder;
 	}
 	
-	public String getG6fileid() {
-		return g6fileid;
+	public String getTheGraph() {
+		return theGraph;
 	}
 	
 }

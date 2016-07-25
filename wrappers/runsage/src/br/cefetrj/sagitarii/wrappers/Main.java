@@ -9,7 +9,7 @@ public class Main {
 		try {
 			Processor myProcessor = new Processor();
 			
-			Wrapper wrapper = new Wrapper("GENI", args[0], args[1], myProcessor );
+			Wrapper wrapper = new Wrapper("GENI-v2", args[0], args[1], myProcessor );
 			wrapper.process();
 			wrapper.save();
 			

@@ -1,7 +1,9 @@
 package br.cefetrj.sagitarii.wrappers;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import cmabreu.sagitarii.sdk.IWrapperProcessor;
 import cmabreu.sagitarii.sdk.LineData;
@@ -31,7 +33,10 @@ public class Processor implements IWrapperProcessor {
 		
 		String geniFile = helper.getWrapperFolder() + "Eigenvalue.py";
 		String inboxFolder = helper.getInboxFolder();
-		String g6File = ld.getData("g6splitedfile");
+		
+		//String g6File = ld.getData("g6splitedfile");
+		String g6File = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 10) + ".g6";
+		
 		String parameters = "";
 		
 		String output = helper.getOutboxFolder();
@@ -44,8 +49,12 @@ public class Processor implements IWrapperProcessor {
 		String laplacianB = ld.getData("laplacianb"); 
 		String slaplacianB = ld.getData("slaplacianb"); 
 		
+		String theGraph = ld.getData("grafo");
+		
 		System.out.println("User Options: (A): " + adjacency + " (Q): "+ slaplacian + " (L): " + laplacian + 
 				" (Ab): " + adjacencyB + " (Qb): "+ slaplacianB + " (Lb): " + laplacianB );
+		
+		System.out.println("Graph: [" + theGraph + "]" );
 		
 		if( laplacianB.equals("on")  ) {
 			parameters = parameters + " -y";
@@ -72,10 +81,13 @@ public class Processor implements IWrapperProcessor {
 			outputData.add( ld.getCsvLine() + "," + g6File + ".sgnlap" );
 		}
 		
-		
 		System.out.println("Parameters: " + parameters);
 		System.out.println("File: " + g6File);
 		String inputFile = inboxFolder + g6File;
+
+		PrintWriter out = new PrintWriter( inputFile );
+		out.println( theGraph );
+		out.close();
 		
 		String runGeni = helper.getWrapperFolder() + "runEigenvalue.sh";
 		String runFile = runGeni + " "+geniFile+ " " +output + " " + inputFile + " \"" +parameters.trim() + "\"";

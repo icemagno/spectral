@@ -13,10 +13,11 @@ public class JobUnity {
 
 	private String header;
 	private String optimizationFunction;
-	private String g6fileid;
+	private String paramId;
 	private String maxResults;
 	private String caixa1;
 	private String gorder;
+	private String grafo;
 
 	private String invariantsFile;
 	private String chi;
@@ -26,6 +27,14 @@ public class JobUnity {
 	private String kLargestDegree;
 	private String numEdges;
 
+	public String getGrafo() {
+		return grafo;
+	}
+	
+	public void setGrafo(String grafo) {
+		this.grafo = grafo;
+	}
+	
 	public void setMaxResults(String maxResults) {
 		this.maxResults = maxResults;
 	}
@@ -50,12 +59,12 @@ public class JobUnity {
 		return maxResults;
 	}
 
-	public void setG6fileid(String g6fileid) {
-		this.g6fileid = g6fileid;
+	public void setParamId(String paramId) {
+		this.paramId = paramId;
 	}
 
-	public String getG6fileid() {
-		return g6fileid;
+	public String getParamId() {
+		return paramId;
 	}
 
 	public boolean isLap() {

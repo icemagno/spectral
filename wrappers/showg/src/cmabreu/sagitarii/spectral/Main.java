@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 //maxdegree,biptonly,optifunc,mindegree,trianglefree,eigsolveoption,gorder,allowdiscgraphs,caixa1,g6file
 //8,on,lambda,1,on,L,2,on,min,saida_2.g6
@@ -32,11 +33,21 @@ public class Main {
 	}
 
 	public static void processLine(String header, String line ) throws Exception {
-		String[] lineData = line.split(",");
-		String inputFile = lineData[ getIndex("g6splitedfile", header) ]; 
+		String inputFile = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 10);
+		
 		String gengOutput = workFolder + "/inbox/" + inputFile;
 		String showgOutput = workFolder + "/outbox/" + inputFile + ".txt";
 
+		String[] lineData = line.split(",");
+		String theGraph = lineData[getIndex("grafo",header)];
+		
+		PrintWriter out = new PrintWriter( gengOutput );
+		out.println( theGraph );
+		out.close();		
+		
+		System.out.println("Saving graph [" + theGraph + "] to file " + gengOutput );
+		System.out.println("Generating matrix to " + showgOutput);
+		
 		String libraryDirectory = readLibraryDirectory();
 		if( !libraryDirectory.equals("")  ) {
 		
@@ -87,6 +98,8 @@ public class Main {
     }
 	
 	public static void main(String[] args) throws Exception{
+		System.out.println("ShowG v2.1");
+		
 		workFolder 		= args[0];	
 		wrappersFolder 	= args[1];
 
