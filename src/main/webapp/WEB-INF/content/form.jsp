@@ -280,9 +280,17 @@
 		checkOptions( uncoded );
 		var theFunction = encodeURIComponent( uncoded );
 		
+		
+		
 		if ( theFunction.length > 0 ) {
-			$("#functionImage").attr( "src", "getPreview?function=" + theFunction );
-			$("#functionImage").css("display","block");
+			$("#functionImage")
+		    .on('load', function() { 
+		    	$("#functionImage").css("display","block"); 
+		    })   
+	        .on('error', function() { 
+	        	$("#functionImage").css("display","none");
+	        })
+			.attr( "src", "getPreview?function=" + theFunction );
 		} else {
 			$("#functionImage").css("display","none");
 		}

@@ -61,8 +61,8 @@
 	                <li><a href="showMyExperiments">My experiments</a></li>
 	            </c:if>
 		        <c:if test="${empty user}">    
-	                <li><a href="#">&nbsp;</a></li>
-	                <li><a href="#">&nbsp;</a></li>
+	                <li class="sae"><a href="login">Submit an experiment</a></li>
+	                <li><a href="login">My experiments</a></li>
 	            </c:if>
             </ul>    
         </div>
