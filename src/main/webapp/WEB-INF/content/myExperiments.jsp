@@ -31,9 +31,15 @@
 											<td>${experiment.elapsedTime}</td>
 											<td>
 												<c:if test="${experiment.status == 'FINISHED'}">
-													<c:forEach var="file" items="${experiment.files}">
-														<a href="getFiles?idFile=${file.fileId}&fileName=${file.fileName}" style="margin-top: 2px;">${file.fileName}</a><br>
-													</c:forEach>
+													<table style="border:0px;padding:0px;margin:0px;">
+														<c:forEach var="file" items="${experiment.files}">
+															<tr>
+																<td>
+																	<a href="getFiles?idFile=${file.fileName}&shortName=${file.shortName}" style="margin-top: 2px;">${file.shortName}</a>
+																</td>
+															</tr>
+														</c:forEach>
+													</table>
 												</c:if>&nbsp;
 											</td>
 										</tr>

@@ -14,6 +14,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
+import com.google.gson.Gson;
+
 import cmabreu.spectral.entity.Experiment;
 import cmabreu.spectral.entity.ExperimentData;
 import cmabreu.spectral.entity.Running;
@@ -21,8 +23,6 @@ import cmabreu.spectral.entity.RunningData;
 import cmabreu.spectral.entity.SagitariiFile;
 import cmabreu.spectral.entity.SagitariiFileData;
 import cmabreu.spectral.entity.User;
-
-import com.google.gson.Gson;
  
 /**
  * Interface to Sagitarii API
@@ -134,6 +134,7 @@ public class SagitariiInterface {
 
 		try {
 			String result = execute( sb.toString() );
+			
 			Gson gson = new Gson();
 			SagitariiFileData data = gson.fromJson( result, SagitariiFileData.class );
 			files = data.getData();

@@ -28,12 +28,12 @@ import cmabreu.spectral.services.PathFinder;
 @ParentPackage("default")
 public class GetFilesAction extends BasicActionClass {
 	private String fileName;
+	private String shortName;
 	private InputStream stream;
 	private String idFile;
 	
 	public String execute () {
 		try {
-			fileName = fileName + ".gz";
 			
 			String cachePath = PathFinder.getInstance().getPath() + "/cache"; 
 			File path = new File( cachePath );
@@ -42,11 +42,13 @@ public class GetFilesAction extends BasicActionClass {
 			Downloader dl = new Downloader();
 			String fileUrl = getSagitariiUrl() + "getFile?idFile=" + idFile;
 			
-			String pdfName = cachePath + File.separator + fileName;
+			String pdfName = cachePath + File.separator + shortName;
 			dl.download( fileUrl, pdfName, false);
 
 			File pdf = new File( pdfName );
 	        stream = new FileInputStream( pdf );
+	        
+	        fileName = idFile.substring( idFile.lastIndexOf("/") + 1, idFile.length() ) + ".gz";
 			
 		} catch ( Exception e ) {
 			e.printStackTrace();
@@ -69,6 +71,10 @@ public class GetFilesAction extends BasicActionClass {
 	
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
+	}
+	
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
 	}
 	
 }

@@ -36,8 +36,9 @@ public class Processor implements IWrapperProcessor {
 		String geniFile = helper.getWrapperFolder() + "geni.py";
 		String inboxFolder = helper.getInboxFolder();
 		
-		//String g6File = ld.getData("g6splitedfile");
-		String g6File = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 10) + ".g6" ;
+		
+		String opcode = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 10);
+		String g6File = opcode + ".g6" ;
 		
 		String parameters = "";
 		
@@ -110,7 +111,8 @@ public class Processor implements IWrapperProcessor {
 		
 		helper.runExternal( runFile );
 		
-		ld.addValue("sagefile", "saida.csv");		
+		ld.addValue("sagefile", "saida.csv");	
+		
 		csvLines.add( ld );
 	}
 
