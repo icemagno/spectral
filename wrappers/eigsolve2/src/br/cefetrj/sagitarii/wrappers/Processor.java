@@ -1,6 +1,7 @@
 package br.cefetrj.sagitarii.wrappers;
 
 import java.io.PrintWriter;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -26,10 +27,24 @@ public class Processor implements IWrapperProcessor {
 	}
 
 	
+	public String toHexString(byte[] bytes) {
+	    StringBuilder hexString = new StringBuilder();
+
+	    for (int i = 0; i < bytes.length; i++) {
+	        String hex = Integer.toHexString(0xFF & bytes[i]);
+	        if (hex.length() == 1) {
+	            hexString.append('0');
+	        }
+	        hexString.append(hex);
+	    }
+
+	    return hexString.toString();
+	}	
+	
 	@Override
 	public void processLine( LineData ld, WrapperHelper helper ) throws Exception {
 		
-		outputData.add( ld.getCsvHeader() + ",eigsolve" );
+		outputData.add( ld.getCsvHeader() + ",eigsolve,opcode" );
 		
 		String geniFile = helper.getWrapperFolder() + "Eigenvalue.py";
 		String inboxFolder = helper.getInboxFolder();
@@ -50,6 +65,11 @@ public class Processor implements IWrapperProcessor {
 		String slaplacianB = ld.getData("slaplacianb"); 
 		
 		String theGraph = ld.getData("grafo");
+
+		byte[] bytesOfMessage = theGraph.getBytes("UTF-8");
+		MessageDigest md = MessageDigest.getInstance("MD5");
+		byte[] thedigest = md.digest(bytesOfMessage);
+		String opcode = toHexString( thedigest );
 		
 		System.out.println("User Options: (A): " + adjacency + " (Q): "+ slaplacian + " (L): " + laplacian + 
 				" (Ab): " + adjacencyB + " (Qb): "+ slaplacianB + " (Lb): " + laplacianB );
@@ -58,31 +78,32 @@ public class Processor implements IWrapperProcessor {
 		
 		if( laplacianB.equals("on")  ) {
 			parameters = parameters + " -y";
-			outputData.add( ld.getCsvLine() + "," + g6File + ".lapb" );
+			outputData.add( ld.getCsvLine() + "," + g6File + ".lapb," + opcode );
 		}
 		if( adjacencyB.equals("on")  ) {
 			parameters = parameters + " -x";
-			outputData.add( ld.getCsvLine() + "," + g6File + ".adjb" );
+			outputData.add( ld.getCsvLine() + "," + g6File + ".adjb," + opcode );
 		}
 		if( slaplacianB.equals("on")  ) {
 			parameters = parameters + " -z";
-			outputData.add( ld.getCsvLine() + "," + g6File + ".sgnlapb" );
+			outputData.add( ld.getCsvLine() + "," + g6File + ".sgnlapb," + opcode );
 		}
 		if( laplacian.equals("on")  ) {
 			parameters = parameters + " -l";
-			outputData.add( ld.getCsvLine() + "," + g6File + ".lap" );
+			outputData.add( ld.getCsvLine() + "," + g6File + ".lap," + opcode );
 		}
 		if( adjacency.equals("on")  ) {
 			parameters = parameters + " -a";
-			outputData.add( ld.getCsvLine() + "," + g6File + ".adj" );
+			outputData.add( ld.getCsvLine() + "," + g6File + ".adj," + opcode );
 		}
 		if( slaplacian.equals("on")  ) {
 			parameters = parameters + " -q";
-			outputData.add( ld.getCsvLine() + "," + g6File + ".sgnlap" );
+			outputData.add( ld.getCsvLine() + "," + g6File + ".sgnlap," + opcode );
 		}
 		
 		System.out.println("Parameters: " + parameters);
 		System.out.println("File: " + g6File);
+		System.out.println("Opcode: " + opcode);
 		String inputFile = inboxFolder + g6File;
 
 		PrintWriter out = new PrintWriter( inputFile );

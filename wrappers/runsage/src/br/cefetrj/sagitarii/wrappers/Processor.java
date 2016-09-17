@@ -3,6 +3,7 @@ package br.cefetrj.sagitarii.wrappers;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -28,6 +29,20 @@ public class Processor implements IWrapperProcessor {
 	}
 
 	
+	public String toHexString(byte[] bytes) {
+	    StringBuilder hexString = new StringBuilder();
+
+	    for (int i = 0; i < bytes.length; i++) {
+	        String hex = Integer.toHexString(0xFF & bytes[i]);
+	        if (hex.length() == 1) {
+	            hexString.append('0');
+	        }
+	        hexString.append(hex);
+	    }
+
+	    return hexString.toString();
+	}	
+	
 	@Override
 	public void processLine( LineData ld, WrapperHelper helper ) throws Exception {
 		
@@ -37,8 +52,7 @@ public class Processor implements IWrapperProcessor {
 		String inboxFolder = helper.getInboxFolder();
 		
 		
-		String opcode = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 10);
-		String g6File = opcode + ".g6" ;
+		String g6File = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 10) + ".g6" ;
 		
 		String parameters = "";
 		
@@ -52,6 +66,11 @@ public class Processor implements IWrapperProcessor {
 		String numEdges = ld.getData("numedges");
 		
 		String theGraph = ld.getData("grafo");
+
+		byte[] bytesOfMessage = theGraph.getBytes("UTF-8");
+		MessageDigest md = MessageDigest.getInstance("MD5");
+		byte[] thedigest = md.digest(bytesOfMessage);
+		String opcode = toHexString( thedigest );		
 		
 		if( chromatic.equals("on")  ) {
 			parameters = parameters + " -a" ;
@@ -94,6 +113,7 @@ public class Processor implements IWrapperProcessor {
 		System.out.println("Function: " + function );
 		System.out.println("Parameters: " + parameters);
 		System.out.println("File: " + g6File);
+		System.out.println("Opcode: " + opcode);
 		String inputFile = inboxFolder + g6File;
 		
 		PrintWriter out = new PrintWriter( inputFile );
@@ -112,6 +132,7 @@ public class Processor implements IWrapperProcessor {
 		helper.runExternal( runFile );
 		
 		ld.addValue("sagefile", "saida.csv");	
+		ld.addValue("opcode", opcode);	
 		
 		csvLines.add( ld );
 	}
